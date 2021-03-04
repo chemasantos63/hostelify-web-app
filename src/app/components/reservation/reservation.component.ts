@@ -16,7 +16,7 @@ export class ReservationComponent implements OnInit {
     this.reservationForm = this.formBuilder.group({
       fromDate: '',
       toDate: '',
-      customerId: '',
+      clientId: '',
       roomId: [],
     });
   }
