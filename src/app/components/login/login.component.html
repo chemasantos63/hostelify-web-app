@@ -1,0 +1,21 @@
+<form class="loginForm" [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Usuario</mat-label>
+      <input
+        matInput
+        placeholder="Ingresa tu usuario."
+        formControlName="username"
+      />
+      <mat-icon matPrefix>account_circle</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input
+        matInput
+        placeholder="Ingresa tu contraseña"
+        formControlName="password"
+      />
+      <mat-icon matPrefix>lock</mat-icon>
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Ingresar</button>
+  </form>

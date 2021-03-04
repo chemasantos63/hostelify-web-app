@@ -1,0 +1,36 @@
+<form
+  class="reservationForm"
+  [formGroup]="reservationForm"
+  (ngSubmit)="(handleSubmit)"
+>
+  <mat-form-field appearance="outline">
+    <mat-label>Elije una fecha de inicio.</mat-label>
+    <input matInput [matDatepicker]="picker" , formControlName="fromDate" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Elije una fecha de fin.</mat-label>
+    <input matInput [matDatepicker]="picker" , formControlName="toDate" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Cliente</mat-label>
+    <input
+      matInput
+      placeholder="Selecciona un cliente."
+      formControlName="clientId"
+    />
+  </mat-form-field>
+  <mat-icon matPrefix>supervised_user_circle</mat-icon>
+  <mat-form-field appearance="outline">
+    <mat-label>Habitacion</mat-label>
+    <input
+      matInput
+      placeholder="Selecciona una habitacion."
+      formControlName="roomId"
+    />
+    <mat-icon matPrefix>local_hotel</mat-icon>
+  </mat-form-field>
+</form>
