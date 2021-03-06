@@ -21,9 +21,10 @@ import { ReservationComponent } from './components/reservation/reservation.compo
 import { CustomerComponent } from './components/customer/customer.component';
 import { RoomerComponent } from './components/roomer/roomer.component';
 import { RoomComponent } from './components/room/room.component';
+import { CreateUpdateComponent } from './components/customer/create-update/create-update.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SidenavbarComponent, ReservationComponent,  CustomerComponent, RoomerComponent, RoomComponent],
+  declarations: [AppComponent, LoginComponent, SidenavbarComponent, ReservationComponent,  CustomerComponent, RoomerComponent, RoomComponent, CreateUpdateComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
