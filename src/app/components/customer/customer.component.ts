@@ -14,7 +14,7 @@ export class CustomerComponent implements OnInit {
     private customerService: CustomerService
   ) {
     this.customerForm = this.formBuilder.group({
-      names: '',
+      name: '',
       lastNames: '',
       documentNumber: '',
       phone: -1,
