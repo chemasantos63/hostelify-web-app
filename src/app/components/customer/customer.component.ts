@@ -8,29 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customer.component.sass'],
 })
 export class CustomerComponent implements OnInit {
-  customerForm: FormGroup;
   constructor(
-    private formBuilder: FormBuilder,
-    private customerService: CustomerService
+    
   ) {
-    this.customerForm = this.formBuilder.group({
-      name: '',
-      lastNames: '',
-      documentNumber: '',
-      phone: -1,
-      email: '',
-      type: -1,
-    });
+    
   }
-  async handleSubmit() {
-    await this.customerService.createCustomer(
-      this.customerForm.value.name,
-      this.customerForm.value.lastNames,
-      this.customerForm.value.documentNumber,
-      this.customerForm.value.phone,
-      this.customerForm.value.email,
-      this.customerForm.value.type
-    );
-  }
+ 
   ngOnInit(): void {}
 }
