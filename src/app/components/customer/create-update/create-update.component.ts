@@ -1,6 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Inject,
+  OnInit,
+  QueryList,
+  ViewChildren,
+} from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatFormField } from '@angular/material/form-field';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from '../customer.component';
 
@@ -9,7 +17,10 @@ import { Customer } from '../customer.component';
   templateUrl: './create-update.component.html',
   styleUrls: ['./create-update.component.sass'],
 })
-export class CreateUpdateComponent implements OnInit {
+export class CreateUpdateComponent implements OnInit, AfterViewInit {
+  // @ts-ignore
+  @ViewChildren(MatFormField) formFields: QueryList<MatFormField>;
+
   createUpdateForm: FormGroup;
   constructor(
     private formBuilder: FormBuilder,
@@ -40,4 +51,11 @@ export class CreateUpdateComponent implements OnInit {
     // );
   }
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    setTimeout(
+      () => this.formFields.forEach((ff) => ff.updateOutlineGap()),
+      100
+    );
+  }
 }
