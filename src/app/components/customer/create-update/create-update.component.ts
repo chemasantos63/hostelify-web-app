@@ -22,6 +22,7 @@ export class CreateUpdateComponent implements OnInit, AfterViewInit {
   @ViewChildren(MatFormField) formFields: QueryList<MatFormField>;
 
   createUpdateForm: FormGroup;
+  creatingCustomer = true;
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
@@ -29,26 +30,24 @@ export class CreateUpdateComponent implements OnInit, AfterViewInit {
   ) {
     this.createUpdateForm = this.formBuilder.group({
       name: data ? data.customer.name : '',
-      lastNames: data ? data.customer.lastname : '',
+      lastname: data ? data.customer.lastname : '',
       documentNumber: data ? data.customer.documentNumber : '',
       phone: data ? data.customer.phone : '',
       email: data ? data.customer.email : '',
-      type: data ? `${data.customer.type.id}` : '',
+      customerTypeId: data ? `${data.customer.type.id}` : '',
     });
 
     if (data) {
-      console.log(`Estan en modo editar cliente: `, data.customer);
+      this.creatingCustomer = false;
     }
   }
   async handleSubmit() {
-    // await this.customerService.createCustomer(
-    //   this.createUpdateForm.value.name,
-    //   this.createUpdateForm.value.lastNames,
-    //   this.createUpdateForm.value.documentNumber,
-    //   this.createUpdateForm.value.phone,
-    //   this.createUpdateForm.value.email,
-    //   this.createUpdateForm.value.type
-    // );
+
+    if (this.creatingCustomer) {
+      await this.customerService.createCustomer(this.createUpdateForm.value);
+    }else{
+      // TODO:falta metodo con patch para actualizar cliente.
+    }
   }
   ngOnInit(): void {}
 
