@@ -22,9 +22,19 @@ import { CustomerComponent } from './components/customer/customer.component';
 import { RoomerComponent } from './components/roomer/roomer.component';
 import { RoomComponent } from './components/room/room.component';
 import { CreateUpdateComponent } from './components/customer/create-update/create-update.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, SidenavbarComponent, ReservationComponent,  CustomerComponent, RoomerComponent, RoomComponent, CreateUpdateComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    SidenavbarComponent,
+    ReservationComponent,
+    CustomerComponent,
+    RoomerComponent,
+    RoomComponent,
+    CreateUpdateComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -40,7 +50,11 @@ import { CreateUpdateComponent } from './components/customer/create-update/creat
     MatListModule,
     HttpClientModule,
   ],
-  providers: [AuthService],
+  providers: [
+    AuthService,
+    { provide: MatDialogRef, useValue: {} },
+    { provide: MAT_DIALOG_DATA, useValue: [] },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

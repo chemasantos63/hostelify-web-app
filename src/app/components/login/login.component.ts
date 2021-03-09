@@ -5,25 +5,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.sass']
+  styleUrls: ['./login.component.sass'],
 })
 export class LoginComponent implements OnInit {
-
   loginForm: FormGroup;
-  constructor(private formBuilder: FormBuilder, private authService:AuthService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService
+  ) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-    
     });
   }
-  async handleSubmit (){
+  async handleSubmit() {
     console.log(this.loginForm.value);
-    await this.authService.singin(this.loginForm.value.username,this.loginForm.value.password)
-  }  
-  ngOnInit(): void {
+    const loginResponse = await this.authService.singin(
+      this.loginForm.value.username,
+      this.loginForm.value.password
+    );
+
+    console.log(loginResponse);
+
+    localStorage.setItem(`currentToken`, loginResponse.token);
   }
-
-  
-
+  ngOnInit(): void {}
 }
