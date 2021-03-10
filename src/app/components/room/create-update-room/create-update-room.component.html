@@ -1,0 +1,27 @@
+<form
+  class="createUpdateRoomForm"
+  [formGroup]="createUpdateRoomForm"
+  (ngSubmit)="handleSubmit()"
+>
+<mat-form-field appearance="outline">
+    <mat-label>Numero de habitación.</mat-label>
+    <input
+      matInput
+      formControlName="number"
+    />    
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Tipo de habitación.</mat-label>
+    <input
+      matInput
+      formControlName="type"
+    />    
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Hubicacion.</mat-label>
+    <input
+      matInput
+      formControlName="location"
+    />    
+  </mat-form-field>
+</form>

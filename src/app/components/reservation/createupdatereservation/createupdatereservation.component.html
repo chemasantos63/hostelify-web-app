@@ -1,0 +1,26 @@
+<form class="createUpdateReservationForm" [formGroup]="createUpdateReservationForm" (ngSubmit)="handleSubmit()">
+    <mat-form-field appearance="outline" class="example-form-field">
+      <mat-label>Seleccione un rango de fechas</mat-label>
+      <mat-date-range-input [rangePicker]="rangePicker">
+        <input formControlName="fromDate" matStartDate placeholder="Fecha Inicio">
+        <input formControlName="toDate" matEndDate placeholder="Fecha Fin">
+      </mat-date-range-input>
+      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
+      <mat-date-range-picker #rangePicker>
+        <mat-date-range-picker-actions>
+          <button mat-button matDateRangePickerCancel>Cancelar</button>
+          <button mat-raised-button color="primary" matDateRangePickerApply>Aplicar</button>
+        </mat-date-range-picker-actions>
+      </mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Cliente</mat-label>
+      <input matInput placeholder="Selecciona un cliente." formControlName="clientId" />
+      <mat-icon matPrefix>supervised_user_circle</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Habitacion</mat-label>
+      <input matInput placeholder="Selecciona una habitacion." formControlName="roomId" />
+      <mat-icon matPrefix>local_hotel</mat-icon>
+    </mat-form-field>
+  </form>

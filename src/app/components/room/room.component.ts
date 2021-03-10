@@ -1,30 +1,56 @@
 import { RoomService } from './../../services/room.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { CreateUpdateRoomComponent } from './create-update-room/create-update-room.component';
 import { Component, OnInit } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { promise } from 'selenium-webdriver';
 
+export interface Room {
+  id: number;
+  rNumber: number;
+  type: number;
+  location: string;
+}
+
+export interface type {}
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.sass'],
 })
 export class RoomComponent implements OnInit {
-  roomForm: FormGroup;
   constructor(
-    private formBuilder: FormBuilder,
-    private roomService: RoomService
-  ) {
-    this.roomForm = this.formBuilder.group({
-      number: -1,
-      type: -1,
-      location: ''
-    })
+    public dialog: MatDialog,
+    private readonly roomService: RoomService
+  ) {}
+
+  
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateUpdateRoomComponent);
   }
-  async handleSubmit(){
-    await this.roomService.createRoom(
-      this.roomForm.value.number,
-      this.roomForm.value.type,
-      this.roomForm.value.location
-    )
+
+  displayedColumns: string[] = ['rNumber', 'type', 'location', 'actions'];
+  dataSource: MatTableDataSource<Room> = new MatTableDataSource;
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  ngOnInit(): void {}
-}
+
+  async ngOnInit():Promise <void> {
+    const roomsDataSource = await this.roomService.fetchAllRooms();
+  }
+
+  async handleEditClick(room: Room): Promise<void>{
+    const dialogRef = this.dialog.open(CreateUpdateRoomComponent,{
+      data:{
+        room,
+      },
+    });
+    }
+  }
