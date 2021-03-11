@@ -19,6 +19,21 @@ export interface CustomerDto {
 export class CustomerService {
   constructor(private readonly http: HttpClient) {}
 
+  async fetchCustomerById(id: number): Promise<Customer> {
+    const token = localStorage.getItem(`currentToken`);
+
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http
+      .get<Customer>(
+        `${environment.BASE_URI}/${ApiPath.GetAllCustomers}/${id}`,
+        {
+          headers,
+        }
+      )
+      .toPromise();
+  }
+
   async fetchAllCustomers(): Promise<Customer[]> {
     const token = localStorage.getItem(`currentToken`);
 
@@ -40,6 +55,36 @@ export class CustomerService {
       .post<Customer>(
         `${environment.BASE_URI}/${ApiPath.GetAllCustomers}`,
         customerDto,
+        { headers }
+      )
+      .toPromise();
+  }
+
+  async updateCustomerById(
+    id: number,
+    customerDto: CustomerDto
+  ): Promise<boolean> {
+    const token = localStorage.getItem(`currentToken`);
+
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http
+      .patch<boolean>(
+        `${environment.BASE_URI}/${ApiPath.GetAllCustomers}/${id}`,
+        customerDto,
+        { headers }
+      )
+      .toPromise();
+  }
+
+  async deleteCustomerById(id: number): Promise<boolean> {
+    const token = localStorage.getItem(`currentToken`);
+
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http
+      .delete<boolean>(
+        `${environment.BASE_URI}/${ApiPath.GetAllCustomers}/${id}`,
         { headers }
       )
       .toPromise();

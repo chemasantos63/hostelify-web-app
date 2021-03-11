@@ -69,4 +69,11 @@ export class CustomerComponent implements OnInit {
       },
     });
   }
+
+  async handleDeleteClick(customer: Customer): Promise<void> {
+    const result = await this.customerService.deleteCustomerById(customer.id);
+    if(result){
+      alert(`Se borro el cliente exitosamente`);
+    }
+  }
 }

@@ -42,11 +42,13 @@ export class CreateUpdateComponent implements OnInit, AfterViewInit {
     }
   }
   async handleSubmit() {
-
     if (this.creatingCustomer) {
       await this.customerService.createCustomer(this.createUpdateForm.value);
-    }else{
-      // TODO:falta metodo con patch para actualizar cliente.
+    } else {
+      await this.customerService.updateCustomerById(
+        this.data.customer.id,
+        this.createUpdateForm.value
+      );
     }
   }
   ngOnInit(): void {}
