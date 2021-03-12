@@ -18,6 +18,17 @@ export interface ReservationDto {
 export class ReservationService {
   constructor(private readonly http: HttpClient) {}
 
+  async fetchReservationById(id:number): Promise<Reservation>{
+    const token = localStorage.getItem('currentToken');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+    return this.http.get<Reservation>(
+      `${environment.BASE_URI}/${ApiPath.GetAllReservations}`,
+    {
+      headers,
+    }
+  ).toPromise();
+  }
+  
   async fetchAllReservations(): Promise<Reservation[]> {
     const token = localStorage.getItem('currentToken');
     const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
@@ -39,6 +50,35 @@ export class ReservationService {
     return this.http
       .post<Reservation>(
         `${environment.BASE_URI}/${ApiPath.GetAllReservations}`,
-        reservationDto,{ headers }).toPromise();
+        reservationDto,
+        { headers }
+      )
+      .toPromise();
+  }
+
+  async updateReservationById(
+    id: number,
+    reservationDto: ReservationDto
+  ): Promise<boolean> {
+    const token = localStorage.getItem('currentToken');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http
+      .patch<boolean>(
+        `${environment.BASE_URI}/${ApiPath.GetAllReservations}/${id}`,
+        reservationDto,
+        { headers }
+      )
+      .toPromise();
+  }
+
+  async deleteReservationById(id:number): Promise<boolean>{
+    const token = localStorage.getItem('currentToken');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http.delete<boolean>(
+      `${environment.BASE_URI}/${ApiPath.GetAllReservations}/${id}`,
+      {headers}
+    ).toPromise();
   }
 }

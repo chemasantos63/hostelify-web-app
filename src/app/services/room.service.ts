@@ -4,35 +4,72 @@ import { environment } from 'src/environments/environment';
 import { Room } from '../components/room/room.component';
 import { ApiPath } from '../shared/endpoints';
 
-
-export interface RoomDto{
+export interface RoomDto {
   rNumber: Number;
   type: Number;
   location: string;
 }
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RoomService {
+  constructor(private readonly http: HttpClient) {}
 
-  constructor(private readonly http: HttpClient) { }
+  async fetchRoomById(id: number): Promise<Room> {
+    const token = localStorage.getItem(`currentToken`);
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
 
-async fetchAllRooms(): Promise<Room[]>{
-  const token = localStorage.getItem('currentToken');
-  const headers = new HttpHeaders().set(`Authorization`,`Bearer ${token}`);
+    return this.http
+      .get<Room>(`${environment.BASE_URI}/${ApiPath.GetAllRooms}/${id}`, {
+        headers,
+      })
+      .toPromise();
+  }
 
-  return this.http.get<Room[]>(`${environment.BASE_URI}/${ApiPath.GetAllCustomers}`,{
-    headers,
-  }).toPromise();
-}
+  async fetchAllRooms(): Promise<Room[]> {
+    const token = localStorage.getItem('currentToken');
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
 
-  async createRoom(roomDto: RoomDto): Promise<any>{
+    return this.http
+      .get<Room[]>(`${environment.BASE_URI}/${ApiPath.GetAllCustomers}`, {
+        headers,
+      })
+      .toPromise();
+  }
+
+  async createRoom(roomDto: RoomDto): Promise<any> {
     const token = localStorage.getItem('currentToken');
 
     const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
 
-    return this.http.post<Room>( 
-    `${environment.BASE_URI}/${ApiPath.GetAllRooms}`,
-    roomDto,{headers}).toPromise();
+    return this.http
+      .post<Room>(`${environment.BASE_URI}/${ApiPath.GetAllRooms}`, roomDto, {
+        headers,
+      })
+      .toPromise();
+  }
+
+  async updateRoomById(id: number, roomDto: RoomDto): Promise<boolean>{
+    const token = localStorage.getItem('currentToken');
+
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http.patch<boolean>(
+      `${environment.BASE_URI}/${ApiPath.GetAllRooms}/${id}`, {
+        headers,
+      }
+    ).toPromise();
+  }
+
+  async deleteRoomById(id: number): Promise<boolean> {
+    const token = localStorage.getItem('currentToken');
+
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http.delete<boolean>(
+      `${environment.BASE_URI}/${ApiPath.GetAllRooms}/${id}`, {
+        headers,
+      }
+    ).toPromise();
   }
 }

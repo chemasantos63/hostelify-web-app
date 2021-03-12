@@ -32,6 +32,10 @@ export class CreateUpdateRoomComponent implements OnInit {
     if (this.creatingRoom) {
       await this.roomService.createRoom(this.createUpdateRoomForm.value);
     } else {
+      await this.roomService.updateRoomById(
+        this.data.room.id,
+        this.createUpdateRoomForm.value
+      );
     }
   }
   ngOnInit(): void {}

@@ -1,3 +1,4 @@
+import { promise } from 'selenium-webdriver';
 import { Customer } from './../customer/customer.component';
 import { CreateupdatereservationComponent } from './createupdatereservation/createupdatereservation.component';
 import { ReservationService } from './../../services/reservation.service';
@@ -47,5 +48,12 @@ export class ReservationComponent implements OnInit {
         reservation,
       },
     });
+  }
+
+  async handleDeleteClick(reservation:Reservation): Promise<void>{
+    const result = await this.reservationService.deleteReservationById(reservation.id)
+    if(result){
+      alert('Se borro la reservacion exitosamente')
+    }
   }
 }

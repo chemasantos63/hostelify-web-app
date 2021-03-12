@@ -16,29 +16,31 @@ export class CreateupdatereservationComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private reservationService: ReservationService,
-    @Inject(MAT_DIALOG_DATA) public data: { reservation: Reservation },
+    @Inject(MAT_DIALOG_DATA) public data: { reservation: Reservation }
   ) {
-   this.createUpdateReservationForm = this.formBuilder.group({
-    fromDate: data ? data.reservation.fromDate : '',
-    toDate: data ? data.reservation.toDate : '',
-    clientId: data ? data.reservation.clienteId : '',
-    roomId: data ? data.reservation.roomId : '',    
-   });
-  
-   if (data){
-    this.creatingReservation = false;
-  }
+    this.createUpdateReservationForm = this.formBuilder.group({
+      fromDate: data ? data.reservation.fromDate : '',
+      toDate: data ? data.reservation.toDate : '',
+      clientId: data ? data.reservation.clienteId : '',
+      roomId: data ? data.reservation.roomId : '',
+    });
 
-  }
-
- 
-  async handleSubmit() {
-    if (this.createUpdateReservationForm){
-      await this.reservationService.reserve(this.createUpdateReservationForm.value);
-    }else {
-
+    if (data) {
+      this.creatingReservation = false;
     }
-    
+  }
+
+  async handleSubmit() {
+    if (this.creatingReservation) {
+      await this.reservationService.reserve(
+        this.createUpdateReservationForm.value
+      );
+    } else {
+      await this.reservationService.updateReservationById(
+        this.data.reservation.id,
+        this.createUpdateReservationForm.value
+      );
+    }
   }
 
   ngOnInit(): void {}
