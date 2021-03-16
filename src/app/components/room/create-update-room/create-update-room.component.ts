@@ -1,4 +1,4 @@
-import { Room } from './../room.component';
+import { Room, RoomType } from './../room.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { RoomService } from './../../../services/room.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
@@ -12,6 +12,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 export class CreateUpdateRoomComponent implements OnInit {
   createUpdateRoomForm: FormGroup;
   creatingRoom = true;
+  roomTypes: RoomType[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -19,8 +20,8 @@ export class CreateUpdateRoomComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { room: Room }
   ) {
     this.createUpdateRoomForm = this.formBuilder.group({
-      number: data ? data.room.rNumber : '',
-      type: data ? data.room.type : '',
+      roomNumber: data ? data.room.roomNumber : '',
+      roomTypeId: data ? data.room.type.id : '',
       location: data ? data.room.location : '',
     });
 
@@ -38,5 +39,11 @@ export class CreateUpdateRoomComponent implements OnInit {
       );
     }
   }
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    await this.loadRoomTypes();
+  }
+
+  async loadRoomTypes(): Promise<void> {
+    this.roomTypes = await this.roomService.fetchRoomTypes();
+  }
 }
