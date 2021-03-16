@@ -40,5 +40,30 @@ export class RoomerService {
       `${environment.BASE_URI}/${ApiPath.GetAllRoomers}`,
     roomerDto,{headers}).toPromise();
   }
+
+  async updateRoomerById(
+    id: number,
+    roomerDto: RoomerDto
+  ) : Promise<boolean>{
+    const token = localStorage.getItem('currentToken');
+
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http.patch<boolean>(
+      `${environment.BASE_URI}/${ApiPath.GetAllRoomers}`,
+    roomerDto,{headers}
+    ).toPromise();
+  }
+
+  async deleteRoomerById(id:number): Promise<boolean>{
+    const token = localStorage.getItem('currentToken');
+
+    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
+
+    return this.http.delete<boolean>(
+      `${environment.BASE_URI}/${ApiPath.GetAllRoomers}/${id}`,
+      {headers}
+    ).toPromise();
+  }
   }
 

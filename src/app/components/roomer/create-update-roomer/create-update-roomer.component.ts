@@ -30,14 +30,18 @@ export class CreateUpdateRoomerComponent implements OnInit {
     if (data){
       this.creatingRoomer = false;
     }  
+    
   } 
   
 
   async handleSubmit() {
-    if (this.creatingRoomer) {
-      await this.roomerService.createRoomer(this.createUpdateRoomerForm.value)
-    } else{
-
+    if (this.creatingRoomer){
+      await this.roomerService.createRoomer(this.createUpdateRoomerForm.value);
+    } else {
+      await this.roomerService.updateRoomerById(
+        this.data.roomer.id,
+        this.createUpdateRoomerForm.value
+      );
     }
   }
   ngOnInit(): void {}
