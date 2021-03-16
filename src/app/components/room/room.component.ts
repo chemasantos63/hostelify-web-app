@@ -11,12 +11,15 @@ import { promise } from 'selenium-webdriver';
 
 export interface Room {
   id: number;
-  rNumber: number;
-  type: number;
+  roomNumber: number;
+  type: RoomType;
   location: string;
 }
 
-export interface type {}
+export interface RoomType {
+  id: number;
+  type: string;
+}
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
@@ -28,36 +31,35 @@ export class RoomComponent implements OnInit {
     private readonly roomService: RoomService
   ) {}
 
-  
-
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateUpdateRoomComponent);
   }
 
-  displayedColumns: string[] = ['rNumber', 'type', 'location', 'actions'];
-  dataSource: MatTableDataSource<Room> = new MatTableDataSource;
+  displayedColumns: string[] = ['roomNumber', 'type', 'location', 'actions'];
+  dataSource: MatTableDataSource<Room> = new MatTableDataSource();
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  async ngOnInit():Promise <void> {
+  async ngOnInit(): Promise<void> {
     const roomsDataSource = await this.roomService.fetchAllRooms();
+    this.dataSource = new MatTableDataSource(roomsDataSource);
   }
 
-  async handleEditClick(room: Room): Promise<void>{
-    const dialogRef = this.dialog.open(CreateUpdateRoomComponent,{
-      data:{
+  async handleEditClick(room: Room): Promise<void> {
+    const dialogRef = this.dialog.open(CreateUpdateRoomComponent, {
+      data: {
         room,
       },
     });
-    }
+  }
 
-  async handleDeleteClick(room:Room): Promise<void>{
-    const result = await this.roomService.deleteRoomById(room.id)
-    if (result){
+  async handleDeleteClick(room: Room): Promise<void> {
+    const result = await this.roomService.deleteRoomById(room.id);
+    if (result) {
       alert('Se borro la habitación exitosamente');
     }
   }
-  }
+}
