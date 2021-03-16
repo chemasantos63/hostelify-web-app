@@ -46,7 +46,7 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Habitacion</mat-label>
-      <mat-select formControlName="roomId">
+      <mat-select formControlName="roomId" multiple>
         <mat-option *nrFor="let room of rooms" [value]="room.id">
           No: {{ room.number
            }} - {{room.type.type}}
