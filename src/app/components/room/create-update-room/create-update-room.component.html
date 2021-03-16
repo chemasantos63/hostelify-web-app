@@ -1,7 +1,11 @@
 <h2 mat-dialog-title>{{ creatingRoom ? "Crear" : "Actualizar" }} habitacion</h2>
 <mat-dialog-content>
-  <form class="createUpdateRoomForm" [formGroup]="createUpdateRoomForm" (ngSubmit)="handleSubmit()"
-    #createRoomForm="ngForm">
+  <form
+    class="createUpdateRoomForm"
+    [formGroup]="createUpdateRoomForm"
+    (ngSubmit)="handleSubmit()"
+    #createRoomForm="ngForm"
+  >
     <mat-form-field appearance="outline">
       <mat-label>Numero de habitación</mat-label>
       <input matInput formControlName="roomNumber" />
@@ -10,7 +14,7 @@
       <mat-label>Tipo de habitacion</mat-label>
       <mat-select formControlName="roomTypeId">
         <mat-option *ngFor="let type of roomTypes" [value]="type.id">
-          {{type.type}}
+          {{ type.type }}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -22,5 +26,7 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancelar</button>
-  <button mat-button (click)="createRoomForm.ngSubmit.emit()">{{creatingRoom ? 'Crear' : 'Actualizar'}}</button>
+  <button mat-button (click)="createRoomForm.ngSubmit.emit()">
+    {{ creatingRoom ? "Crear" : "Actualizar" }}
+  </button>
 </mat-dialog-actions>
