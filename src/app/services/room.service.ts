@@ -56,9 +56,13 @@ export class RoomService {
     const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
 
     return this.http
-      .patch<boolean>(`${environment.BASE_URI}/${ApiPath.rooms}/${id}`, {
-        headers,
-      })
+      .patch<boolean>(
+        `${environment.BASE_URI}/${ApiPath.rooms}/${id}`,
+        roomDto,
+        {
+          headers,
+        }
+      )
       .toPromise();
   }
 

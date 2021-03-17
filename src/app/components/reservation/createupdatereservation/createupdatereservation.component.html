@@ -1,30 +1,18 @@
-<h2>
-  mat-dialog-title>{{
-    creatingReservation ? "Crear" : "Actualizar"
+<h2 mat-dialog-title>{{
+  creatingReservation ? "Crear" : "Actualizar"
   }}
   reservación
 </h2>
 <mat-dialog-content class="mat-typography">
-  <form
-    class="createUpdateReservationForm"
-    [formGroup]="createUpdateReservationForm"
-    (ngSubmit)="handleSubmit()"
-    #createForm="ngForm"
-  >
+  <form class="createUpdateReservationForm" [formGroup]="createUpdateReservationForm" (ngSubmit)="handleSubmit()"
+    #createForm="ngForm">
     <mat-form-field appearance="outline" class="example-form-field">
       <mat-label>Seleccione un rango de fechas</mat-label>
       <mat-date-range-input [rangePicker]="rangePicker">
-        <input
-          formControlName="fromDate"
-          matStartDate
-          placeholder="Fecha Inicio"
-        />
-        <input formControlName="toDate" matEndDate placeholder="Fecha Fin" />
+        <input formControlName="fromDate" matStartDate placeholder="Fecha Inicio" [min]="today"/>
+        <input formControlName="toDate" matEndDate placeholder="Fecha Fin" [min]="today"/>
       </mat-date-range-input>
-      <mat-datepicker-toggle
-        matPrefix
-        [for]="rangePicker"
-      ></mat-datepicker-toggle>
+      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
       <mat-date-range-picker #rangePicker>
         <mat-date-range-picker-actions>
           <button mat-button matDateRangePickerCancel>Cancelar</button>
@@ -36,22 +24,22 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Cliente</mat-label>
-      <mat-select formControlName="clientId">
-        <mat-option *nrFor="let customer of customers" [value]="customer.id">
+      <mat-select formControlName="customerId">
+        <mat-option *ngFor="let customer of customers" [value]="customer.id">
           {{ customer.name
-           }} - {{customer.lastname}}
+          }} - {{customer.lastname}}
         </mat-option>
-      </mat-select>>
+      </mat-select>
       <mat-icon matPrefix>supervised_user_circle</mat-icon>
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Habitacion</mat-label>
-      <mat-select formControlName="roomId" multiple>
-        <mat-option *nrFor="let room of rooms" [value]="room.id">
-          No: {{ room.number
-           }} - {{room.type.type}}
+      <mat-select formControlName="roomIds" multiple>
+        <mat-option *ngFor="let room of rooms" [value]="room.id">
+          No: {{ room.roomNumber
+          }} - {{room.type.type}}
         </mat-option>
-      </mat-select>>
+      </mat-select>
       <mat-icon matPrefix>local_hotel</mat-icon>
     </mat-form-field>
   </form>

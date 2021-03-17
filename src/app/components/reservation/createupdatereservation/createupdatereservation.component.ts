@@ -5,10 +5,9 @@ import { Reservation } from './../reservation.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { ReservationService } from './../../../services/reservation.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component, Inject, OnInit, QueryList } from '@angular/core';
 import { Room } from '../../room/room.component';
-
 
 @Component({
   selector: 'app-createupdatereservation',
@@ -20,6 +19,7 @@ export class CreateupdatereservationComponent implements OnInit {
   creatingReservation = true;
   rooms: Room[] = [];
   customers: Customer[] = [];
+  today = new Date();
   constructor(
     private formBuilder: FormBuilder,
     private reservationService: ReservationService,
@@ -27,11 +27,12 @@ export class CreateupdatereservationComponent implements OnInit {
     private customerService: CustomerService,
     @Inject(MAT_DIALOG_DATA) public data: { reservation: Reservation }
   ) {
+    
     this.createUpdateReservationForm = this.formBuilder.group({
       fromDate: data ? data.reservation.fromDate : '',
       toDate: data ? data.reservation.toDate : '',
-      clientId: data ? data.reservation.clienteId : '',
-      roomId: data ? data.reservation.roomId : '',
+      customerId: data ? data.reservation.customer.id : '',
+      roomIds: new FormControl(data ? data.reservation.rooms.map((r) => r.id) : ''),
     });
 
     if (data) {
@@ -52,11 +53,11 @@ export class CreateupdatereservationComponent implements OnInit {
     }
   }
 
-  async loadRooms(): Promise<void>{
+  async loadRooms(): Promise<void> {
     this.rooms = await this.roomService.fetchAllRooms();
   }
 
-  async loadCustomers(): Promise<void>{
+  async loadCustomers(): Promise<void> {
     this.customers = await this.customerService.fetchAllCustomers();
   }
 

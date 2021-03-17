@@ -1,55 +1,61 @@
 <form class="reservationForm">
-    <mat-form-field>
-        <mat-label>Buscar..</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
-      </mat-form-field>
-      
-      <table mat-table [dataSource]="dataSource" class="reservationTable">
-      
-        <!-- Position Column -->
-        <ng-container matColumnDef="fromDate">
-          <th mat-header-cell *matHeaderCellDef> Fecha Inicial </th>
-          <td mat-cell *matCellDef="let row"> {{row.fromDate}} </td>
-        </ng-container>
-      
-        <!-- Name Column -->
-        <ng-container matColumnDef="toDate">
-          <th mat-header-cell *matHeaderCellDef> Fecha Final </th>
-          <td mat-cell *matCellDef="let row"> {{row.toDate}} </td>
-        </ng-container>
-      
-        <!-- Weight Column -->
-        <ng-container matColumnDef="clientId">
-          <th mat-header-cell *matHeaderCellDef> idCliente(tempo) </th>
-          <td mat-cell *matCellDef="let row"> {{row.clienteId}} </td>
-        </ng-container>
-      
-        <!-- Symbol Column -->
-        <ng-container matColumnDef="roomId">
-          <th mat-header-cell *matHeaderCellDef> Habitaciones </th>
-          <td mat-cell *matCellDef="let row"> {{row.roomId}} </td>
-        </ng-container>
-    
-        <ng-container matColumnDef="actions">
-          <th mat-header-cell *matHeaderCellDef>Acciones</th>
-          <td mat-cell *matCellDef="let row">
-            <button mat-icon-button (click)="handleEditClick(row)">
-              <mat-icon>create</mat-icon>
-            </button>
-            <button mat-icon-button (click)="handleDeleteClick(row)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </td>
-        </ng-container>
+  <mat-form-field>
+    <mat-label>Buscar..</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-        </tr>
-      </table>
-      
-      <button mat-raised-button (click)="openDialog()">Nuevo</button>
+  <table mat-table [dataSource]="dataSource" class="reservationTable">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="fromDate">
+      <th mat-header-cell *matHeaderCellDef> Fecha Inicial </th>
+      <td mat-cell *matCellDef="let row"> {{row.fromDate}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="toDate">
+      <th mat-header-cell *matHeaderCellDef> Fecha Final </th>
+      <td mat-cell *matCellDef="let row"> {{row.toDate}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef> Cliente </th>
+      <td mat-cell *matCellDef="let row"> {{row.customer.name}} {{row.customer.lastname}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="rooms">
+      <th mat-header-cell *matHeaderCellDef> Habitaciones </th>
+      <td mat-cell *matCellDef="let row"> {{getRoomsNumber(row)}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let row">
+        <button mat-icon-button (click)="handleEditClick(row)">
+          <mat-icon>create</mat-icon>
+        </button>
+        <button mat-icon-button (click)="handleDeleteClick(row)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <button mat-raised-button (click)="openDialog()">Nuevo</button>
 </form>
