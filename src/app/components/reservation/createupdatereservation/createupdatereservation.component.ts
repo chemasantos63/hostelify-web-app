@@ -2,7 +2,7 @@ import { RoomService } from './../../../services/room.service';
 import { CustomerService } from './../../../services/customer.service';
 import { Customer } from './../../customer/customer.component';
 import { Reservation } from './../reservation.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { ReservationService } from './../../../services/reservation.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
@@ -25,7 +25,8 @@ export class CreateupdatereservationComponent implements OnInit {
     private reservationService: ReservationService,
     private roomService: RoomService,
     private customerService: CustomerService,
-    @Inject(MAT_DIALOG_DATA) public data: { reservation: Reservation }
+    @Inject(MAT_DIALOG_DATA) public data: { reservation: Reservation },
+    private dialogRef : MatDialogRef<CreateupdatereservationComponent>
   ) {
     
     this.createUpdateReservationForm = this.formBuilder.group({
@@ -51,6 +52,7 @@ export class CreateupdatereservationComponent implements OnInit {
         this.createUpdateReservationForm.value
       );
     }
+    this.closeDialog();
   }
 
   async loadRooms(): Promise<void> {
@@ -64,5 +66,9 @@ export class CreateupdatereservationComponent implements OnInit {
   ngOnInit(): void {
     this.loadRooms();
     this.loadCustomers();
+  }
+
+  closeDialog(){
+    this.dialogRef.close('prueba');
   }
 }

@@ -3,7 +3,7 @@ import { Customer } from './../customer/customer.component';
 import { CreateupdatereservationComponent } from './createupdatereservation/createupdatereservation.component';
 import { ReservationService } from './../../services/reservation.service';
 import { Room } from './../room/room.component';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 export interface Reservation {
@@ -22,7 +22,8 @@ export interface Reservation {
 export class ReservationComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    private readonly reservationService: ReservationService
+    private readonly reservationService: ReservationService,
+    private changeDetection:ChangeDetectorRef
   ) {}
 
   openDialog(): void {
@@ -55,6 +56,8 @@ export class ReservationComponent implements OnInit {
       data: {
         reservation,
       },
+    }).afterClosed().subscribe(result => {
+      this.refresh();
     });
   }
 
@@ -69,5 +72,9 @@ export class ReservationComponent implements OnInit {
 
   getRoomsNumber(reservation: Reservation): string {
     return reservation.rooms.reduce((acc, act) => `${acc}${act.roomNumber},`, ``);
+  }
+
+  refresh() {
+    this.changeDetection.detectChanges();
   }
 }

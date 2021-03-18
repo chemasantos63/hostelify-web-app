@@ -45,7 +45,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button mat-dialog-close (click)="closeDialog()">Cancelar</button>
   <button mat-button (click)="createForm.ngSubmit.emit()">
     {{ creatingReservation ? "Crear" : "Actualizar" }}
   </button>
