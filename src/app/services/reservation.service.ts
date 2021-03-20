@@ -19,41 +19,24 @@ export class ReservationService {
   constructor(private readonly http: HttpClient) {}
 
   async fetchReservationById(id: number): Promise<Reservation> {
-    const token = localStorage.getItem('currentToken');
-    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
     return this.http
-      .get<Reservation>(
-        `${environment.BASE_URI}/${ApiPath.GetAllReservations}`,
-        {
-          headers,
-        }
-      )
+      .get<Reservation>(`${environment.BASE_URI}/${ApiPath.GetAllReservations}`)
       .toPromise();
   }
 
   async fetchAllReservations(): Promise<Reservation[]> {
-    const token = localStorage.getItem('currentToken');
-    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
-
     return this.http
       .get<Reservation[]>(
-        `${environment.BASE_URI}/${ApiPath.GetAllReservations}`,
-        {
-          headers,
-        }
+        `${environment.BASE_URI}/${ApiPath.GetAllReservations}`
       )
       .toPromise();
   }
 
   async reserve(reservationDto: ReservationDto): Promise<any> {
-    const token = localStorage.getItem('currentToken');
-    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
-
     return this.http
       .post<ReservationDto>(
         `${environment.BASE_URI}/${ApiPath.GetAllReservations}`,
-        reservationDto,
-        { headers }
+        reservationDto
       )
       .toPromise();
   }
@@ -62,26 +45,18 @@ export class ReservationService {
     id: number,
     reservationDto: ReservationDto
   ): Promise<boolean> {
-    const token = localStorage.getItem('currentToken');
-    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
-
     return this.http
       .patch<boolean>(
         `${environment.BASE_URI}/${ApiPath.GetAllReservations}/${id}`,
-        reservationDto,
-        { headers }
+        reservationDto
       )
       .toPromise();
   }
 
   async deleteReservationById(id: number): Promise<boolean> {
-    const token = localStorage.getItem('currentToken');
-    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
-
     return this.http
       .delete<boolean>(
-        `${environment.BASE_URI}/${ApiPath.GetAllReservations}/${id}`,
-        { headers }
+        `${environment.BASE_URI}/${ApiPath.GetAllReservations}/${id}`
       )
       .toPromise();
   }

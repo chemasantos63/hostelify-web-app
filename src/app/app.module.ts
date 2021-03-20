@@ -1,4 +1,4 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -24,6 +24,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CreateUpdateRoomComponent } from './components/room/create-update-room/create-update-room.component';
 import { CreateUpdateRoomerComponent } from './components/roomer/create-update-roomer/create-update-roomer.component';
 import { CreateupdatereservationComponent } from './components/reservation/createupdatereservation/createupdatereservation.component';
+import { ErrorInterceptor } from './core/interceptors/error.interceptor';
+import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { CreateupdatereservationComponent } from './components/reservation/creat
     AuthService,
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: [] },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

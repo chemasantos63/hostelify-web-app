@@ -1,12 +1,6 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav
-    #drawer
-    class="sidenav"
-    fixedInViewport
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [opened]="(isHandset$ | async) === false"
-  >
+  <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="((isHandset$ | async) === false) && isUserLogin">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="/reservation">Reservación</a>
@@ -14,15 +8,13 @@
       <a mat-list-item routerLink="/room">Habitación</a>
       <a mat-list-item routerLink="/customer">Cliente</a>
     </mat-nav-list>
+    <div class="logout-btn-container">
+      <button mat-raised-button color="primary" (click)="handleLogoutClick()">Cerrar Sesion</button>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar color="primary">
-      <button
-        type="button"
-        aria-label="Toggle sidenav"
-        mat-icon-button
-        (click)="drawer.toggle()"
-      >
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" *ngIf="isUserLogin">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>hostelify-web-app</span>

@@ -26,14 +26,15 @@ export class CreateupdatereservationComponent implements OnInit {
     private roomService: RoomService,
     private customerService: CustomerService,
     @Inject(MAT_DIALOG_DATA) public data: { reservation: Reservation },
-    private dialogRef : MatDialogRef<CreateupdatereservationComponent>
+    private dialogRef: MatDialogRef<CreateupdatereservationComponent>
   ) {
-    
     this.createUpdateReservationForm = this.formBuilder.group({
       fromDate: data ? data.reservation.fromDate : '',
       toDate: data ? data.reservation.toDate : '',
       customerId: data ? data.reservation.customer.id : '',
-      roomIds: new FormControl(data ? data.reservation.rooms.map((r) => r.id) : ''),
+      roomIds: new FormControl(
+        data ? data.reservation.rooms.map((r) => r.id) : ''
+      ),
     });
 
     if (data) {
@@ -42,17 +43,23 @@ export class CreateupdatereservationComponent implements OnInit {
   }
 
   async handleSubmit() {
-    if (this.creatingReservation) {
-      await this.reservationService.reserve(
-        this.createUpdateReservationForm.value
-      );
-    } else {
-      await this.reservationService.updateReservationById(
-        this.data.reservation.id,
-        this.createUpdateReservationForm.value
-      );
+    try {
+      if (this.creatingReservation) {
+        await this.reservationService.reserve(
+          this.createUpdateReservationForm.value
+        );
+      } else {
+        await this.reservationService.updateReservationById(
+          this.data.reservation.id,
+          this.createUpdateReservationForm.value
+        );
+      }
+
+      this.closeDialog(true);
+
+    } catch (e) {
+      this.closeDialog(false);
     }
-    this.closeDialog();
   }
 
   async loadRooms(): Promise<void> {
@@ -68,7 +75,7 @@ export class CreateupdatereservationComponent implements OnInit {
     this.loadCustomers();
   }
 
-  closeDialog(){
-    this.dialogRef.close('prueba');
+  closeDialog(success?: boolean): void {
+    this.dialogRef.close(success);
   }
 }

@@ -19,17 +19,17 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
+
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['reservation']);
+    }
   }
   async handleSubmit() {
-    console.log(this.loginForm.value);
     const loginResponse = await this.authService.singin(
       this.loginForm.value.username,
       this.loginForm.value.password
     );
 
-    console.log(loginResponse);
-
-    localStorage.setItem(`currentToken`, loginResponse.token);
     if (!(loginResponse == null)) {
       this.router.navigate(['reservation']);
     }
