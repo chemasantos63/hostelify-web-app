@@ -6,6 +6,7 @@ import { Room } from './../room/room.component';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { ToastrService } from 'ngx-toastr';
 export interface Reservation {
   id: number;
   fromDate: Date;
@@ -34,7 +35,8 @@ export class ReservationComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private readonly reservationService: ReservationService,
-    private changeDetection: ChangeDetectorRef
+    private changeDetection: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {}
 
   async openDialog(): Promise<void> {
@@ -44,6 +46,7 @@ export class ReservationComponent implements OnInit {
       .toPromise();
 
     await this.refreshDataSource(createDialogResult);
+    this.showSuccessToast(createDialogResult);
   }
 
   private async refreshDataSource(dialogResult: any) {
@@ -75,7 +78,14 @@ export class ReservationComponent implements OnInit {
       .afterClosed()
       .toPromise();
 
-      this.refreshDataSource(updateDialogResult)
+      await this.refreshDataSource(updateDialogResult);
+      this.showSuccessToast(updateDialogResult);
+  }
+
+  private showSuccessToast(updateDialogResult: any) {
+    if (updateDialogResult) {
+      this.toastr.success('Reservacion creada', 'Operación Exitosa');
+    }
   }
 
   async handleDeleteClick(reservation: Reservation): Promise<void> {

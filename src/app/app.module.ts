@@ -26,6 +26,7 @@ import { CreateUpdateRoomerComponent } from './components/roomer/create-update-r
 import { CreateupdatereservationComponent } from './components/reservation/createupdatereservation/createupdatereservation.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
     MatIconModule,
     MatListModule,
     HttpClientModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     AuthService,
