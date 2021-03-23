@@ -15,6 +15,7 @@ export interface Room {
   roomNumber: number;
   type: RoomType;
   location: string;
+  status: string;
 }
 
 export interface RoomType {
@@ -57,7 +58,7 @@ export class RoomComponent implements OnInit {
     }
   }
 
-  displayedColumns: string[] = ['roomNumber', 'type', 'location', 'actions'];
+  displayedColumns: string[] = ['roomNumber', 'type', 'location', 'actions', 'status'];
   dataSource: MatTableDataSource<Room> = new MatTableDataSource();
 
   applyFilter(event: Event) {
