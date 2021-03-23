@@ -7,7 +7,7 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormField } from '@angular/material/form-field';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Customer } from '../customer.component';
@@ -26,7 +26,8 @@ export class CreateUpdateComponent implements OnInit, AfterViewInit {
   constructor(
     private formBuilder: FormBuilder,
     private customerService: CustomerService,
-    @Inject(MAT_DIALOG_DATA) public data: { customer: Customer }
+    @Inject(MAT_DIALOG_DATA) public data: { customer: Customer },
+    private dialogRef: MatDialogRef<CreateUpdateComponent>
   ) {
     this.createUpdateForm = this.formBuilder.group({
       name: data ? data.customer.name : '',
@@ -42,14 +43,22 @@ export class CreateUpdateComponent implements OnInit, AfterViewInit {
     }
   }
   async handleSubmit() {
-    if (this.creatingCustomer) {
-      await this.customerService.createCustomer(this.createUpdateForm.value);
-    } else {
-      await this.customerService.updateCustomerById(
-        this.data.customer.id,
-        this.createUpdateForm.value
-      );
+    try {
+      if (this.creatingCustomer) {
+        await this.customerService.createCustomer(this.createUpdateForm.value);
+      } else {
+        await this.customerService.updateCustomerById(
+          this.data.customer.id,
+          this.createUpdateForm.value
+        );
+      }
+
+      this.closeDialog(true);
+    } catch (e) {
+    this.closeDialog(false);
     }
+    
+    
   }
   ngOnInit(): void {}
 
@@ -58,5 +67,9 @@ export class CreateUpdateComponent implements OnInit, AfterViewInit {
       () => this.formFields.forEach((ff) => ff.updateOutlineGap()),
       100
     );
+  }
+
+  closeDialog(success?: boolean):void {
+    this.dialogRef.close(success);
   }
 }

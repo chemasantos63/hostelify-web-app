@@ -1,5 +1,5 @@
 import { Room, RoomType } from './../room.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RoomService } from './../../../services/room.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -17,7 +17,8 @@ export class CreateUpdateRoomComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private roomService: RoomService,
-    @Inject(MAT_DIALOG_DATA) public data: { room: Room }
+    @Inject(MAT_DIALOG_DATA) public data: { room: Room },
+    private dialogRef:MatDialogRef<CreateUpdateRoomComponent>
   ) {
     this.createUpdateRoomForm = this.formBuilder.group({
       roomNumber: data ? data.room.roomNumber : '',
@@ -30,14 +31,21 @@ export class CreateUpdateRoomComponent implements OnInit {
     }
   }
   async handleSubmit() {
-    if (this.creatingRoom) {
-      await this.roomService.createRoom(this.createUpdateRoomForm.value);
-    } else {
-      await this.roomService.updateRoomById(
-        this.data.room.id,
-        this.createUpdateRoomForm.value
-      );
-    }
+    try {
+      if (this.creatingRoom) {
+        await this.roomService.createRoom(this.createUpdateRoomForm.value);
+      } else {
+        await this.roomService.updateRoomById(
+          this.data.room.id,
+          this.createUpdateRoomForm.value
+        );
+      }
+      this.closeDialog(true);
+    } catch (e) {
+      this.closeDialog(false);
+    }   
+   
+
   }
   async ngOnInit(): Promise<void> {
     await this.loadRoomTypes();
@@ -45,5 +53,9 @@ export class CreateUpdateRoomComponent implements OnInit {
 
   async loadRoomTypes(): Promise<void> {
     this.roomTypes = await this.roomService.fetchRoomTypes();
+  }
+
+  closeDialog(success?: boolean): void{
+    this.dialogRef.close(success);
   }
 }

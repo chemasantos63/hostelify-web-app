@@ -8,6 +8,7 @@ import {
 } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { promise } from 'selenium-webdriver';
+import { ToastrService } from 'ngx-toastr';
 
 export interface Room {
   id: number;
@@ -28,11 +29,32 @@ export interface RoomType {
 export class RoomComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
-    private readonly roomService: RoomService
+    private readonly roomService: RoomService,
+    private toastr: ToastrService
   ) {}
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(CreateUpdateRoomComponent);
+  async openDialog(): Promise<void> {
+    const dialogRef = await this.dialog
+      .open(CreateUpdateRoomComponent)
+      .afterClosed()
+      .toPromise();
+
+    await this.refreshDataSource(dialogRef);
+    this.showSuccessToast(dialogRef);
+  }
+
+  private async refreshDataSource(dialogResult: any) {
+    if (dialogResult) {
+      this.dataSource = new MatTableDataSource(
+        await this.roomService.fetchAllRooms()
+      );
+    }
+  }
+
+  private showSuccessToast(updateDialogResult: any) {
+    if (updateDialogResult) {
+      this.toastr.success('Habitación creada', 'Operacion Exitosa');
+    }
   }
 
   displayedColumns: string[] = ['roomNumber', 'type', 'location', 'actions'];
@@ -49,11 +71,17 @@ export class RoomComponent implements OnInit {
   }
 
   async handleEditClick(room: Room): Promise<void> {
-    const dialogRef = this.dialog.open(CreateUpdateRoomComponent, {
-      data: {
-        room,
-      },
-    });
+    const dialogRef = await this.dialog
+      .open(CreateUpdateRoomComponent, {
+        data: {
+          room,
+        },
+      })
+      .afterClosed()
+      .toPromise();
+
+      await this.refreshDataSource(dialogRef);
+      this.showSuccessToast(dialogRef);
   }
 
   async handleDeleteClick(room: Room): Promise<void> {

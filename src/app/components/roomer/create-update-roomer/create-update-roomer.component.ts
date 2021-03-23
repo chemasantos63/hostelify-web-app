@@ -1,5 +1,5 @@
 import { Roomer } from './../roomer.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RoomerService } from './../../../services/roomer.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
@@ -15,7 +15,8 @@ export class CreateUpdateRoomerComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private roomerService: RoomerService,
-    @Inject(MAT_DIALOG_DATA) public data:{roomer:Roomer}
+    @Inject(MAT_DIALOG_DATA) public data: { roomer: Roomer },
+    private dialogRef: MatDialogRef<CreateUpdateRoomerComponent>
   ) {
     this.createUpdateRoomerForm = this.formBuilder.group({
       names: data ? data.roomer.names : '',
@@ -27,22 +28,31 @@ export class CreateUpdateRoomerComponent implements OnInit {
       occupation: data ? data.roomer.occupation : '',
       phone: data ? data.roomer.phone : '',
     });
-    if (data){
+    if (data) {
       this.creatingRoomer = false;
-    }  
-    
-  } 
-  
+    }
+  }
 
   async handleSubmit() {
-    if (this.creatingRoomer){
-      await this.roomerService.createRoomer(this.createUpdateRoomerForm.value);
-    } else {
-      await this.roomerService.updateRoomerById(
-        this.data.roomer.id,
-        this.createUpdateRoomerForm.value
-      );
+    try {
+      if (this.creatingRoomer) {
+        await this.roomerService.createRoomer(
+          this.createUpdateRoomerForm.value
+        );
+      } else {
+        await this.roomerService.updateRoomerById(
+          this.data.roomer.id,
+          this.createUpdateRoomerForm.value
+        );
+      }
+      this.closeDialog(true);
+    } catch (e) {
+      this.closeDialog(false);
     }
   }
   ngOnInit(): void {}
+
+  closeDialog(success?: boolean): void {
+    this.dialogRef.close(success);
+  }
 }
