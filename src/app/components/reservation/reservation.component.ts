@@ -12,6 +12,7 @@ export interface Reservation {
   fromDate: Date;
   toDate: Date;
   customer: Customer;
+  roomersQty: number;
   rooms: Room[];
 }
 
@@ -27,6 +28,7 @@ export class ReservationComponent implements OnInit {
     'status',
     'client',
     'rooms',
+    'roomersQty',
     'actions',
   ];
 

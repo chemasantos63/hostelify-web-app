@@ -32,6 +32,7 @@ export class CreateupdatereservationComponent implements OnInit {
       fromDate: data ? data.reservation.fromDate : '',
       toDate: data ? data.reservation.toDate : '',
       customerId: data ? data.reservation.customer.id : '',
+      roomersQty: data ? data.reservation.roomersQty: '',
       roomIds: new FormControl(
         data ? data.reservation.rooms.map((r) => r.id) : ''
       ),

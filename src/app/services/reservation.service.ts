@@ -10,6 +10,7 @@ export interface ReservationDto {
   fromDate: Date;
   toDate: Date;
   customerId: Customer;
+  roomersQty: number;
   roomIds: Room[];
 }
 @Injectable({
