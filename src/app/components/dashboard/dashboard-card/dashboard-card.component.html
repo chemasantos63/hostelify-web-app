@@ -1,14 +1,14 @@
 <div class="card mat-elevation-z2">
     <div class="card-body">
         <div class="icon">
-            <img src="../../../../assets/dashboard/building.svg" alt="Imagen de hotel">
+            <img [src]="imgSrc">
         </div>
         <div class="description-quantity-wrapper">
             <h2>
-                <b class="quantity">25</b>
+                <b class="quantity">{{quantity}}</b>
             </h2>
             <span class="description">
-                Hab. disponibles
+                {{description}}
             </span>
         </div>
     </div>
