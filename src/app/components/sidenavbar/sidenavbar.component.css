@@ -17,7 +17,7 @@
 }
 
 .logout-btn-container{
-  height: calc(100% - 264px);
+  height: calc(100% - 320px);
   display: flex;
   align-items: flex-end;
   justify-content: center;

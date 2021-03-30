@@ -6,9 +6,11 @@ import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'home', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'reservation',
