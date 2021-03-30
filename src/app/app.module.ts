@@ -27,6 +27,7 @@ import { CreateupdatereservationComponent } from './components/reservation/creat
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { ToastrModule } from 'ngx-toastr';
     CreateUpdateRoomComponent,
     CreateUpdateRoomerComponent,
     CreateupdatereservationComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
