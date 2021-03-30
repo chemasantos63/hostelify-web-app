@@ -1,12 +1,11 @@
-import { promise } from 'selenium-webdriver';
-import { Customer } from './../customer/customer.component';
-import { CreateupdatereservationComponent } from './createupdatereservation/createupdatereservation.component';
-import { ReservationService } from './../../services/reservation.service';
-import { Room } from './../room/room.component';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
+import { ReservationService } from './../../services/reservation.service';
+import { Customer } from './../customer/customer.component';
+import { Room } from './../room/room.component';
+import { CreateupdatereservationComponent } from './createupdatereservation/createupdatereservation.component';
 export interface Reservation {
   id: number;
   fromDate: Date;
