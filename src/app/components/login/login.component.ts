@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
     });
 
     if (this.authService.currentUserValue) {
-      this.router.navigate(['reservation']);
+      this.router.navigate(['home']);
     }
   }
   async handleSubmit() {
@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     );
 
     if (!(loginResponse == null)) {
-      this.router.navigate(['reservation']);
+      this.router.navigate(['home']);
     }
   }
   ngOnInit(): void {}

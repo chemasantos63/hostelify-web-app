@@ -28,6 +28,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { DashboardCardComponent } from './components/dashboard/dashboard-card/dashboard-card.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     CreateUpdateRoomerComponent,
     CreateupdatereservationComponent,
     DashboardComponent,
+    DashboardCardComponent,
   ],
   imports: [
     BrowserModule,
