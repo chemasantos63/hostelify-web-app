@@ -37,7 +37,6 @@ export class ReservationComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private readonly reservationService: ReservationService,
-    private changeDetection: ChangeDetectorRef,
     private toastr: ToastrService
   ) {}
 
@@ -48,7 +47,7 @@ export class ReservationComponent implements OnInit {
       .toPromise();
 
     await this.refreshDataSource(createDialogResult);
-    this.showSuccessToast(createDialogResult);
+    this.showSuccessToast(createDialogResult, `Reservacion creada`);
   }
 
   private async refreshDataSource(dialogResult: any) {
@@ -80,13 +79,13 @@ export class ReservationComponent implements OnInit {
       .afterClosed()
       .toPromise();
 
-      await this.refreshDataSource(updateDialogResult);
-      this.showSuccessToast(updateDialogResult);
+    await this.refreshDataSource(updateDialogResult);
+    this.showSuccessToast(updateDialogResult, `Reservacion actualizada`);
   }
 
-  private showSuccessToast(updateDialogResult: any) {
+  private showSuccessToast(updateDialogResult: any, message: string): void {
     if (updateDialogResult) {
-      this.toastr.success('Reservacion creada', 'Operación Exitosa');
+      this.toastr.success(message, 'Operación Exitosa');
     }
   }
 
@@ -95,7 +94,8 @@ export class ReservationComponent implements OnInit {
       reservation.id
     );
     if (result) {
-      alert('Se borro la reservacion exitosamente');
+      this.toastr.success(`Reservacion eliminada`, 'Operación Exitosa');
+      await this.refreshDataSource(true);
     }
   }
 
