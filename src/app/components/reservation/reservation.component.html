@@ -60,7 +60,9 @@
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
-  </table>
 
+    
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   <button mat-raised-button (click)="openDialog()">Nuevo</button>
 </form>

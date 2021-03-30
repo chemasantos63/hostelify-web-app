@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { ToastrService } from 'ngx-toastr';
 import { ReservationService } from './../../services/reservation.service';
@@ -33,11 +34,16 @@ export class ReservationComponent implements OnInit {
 
   dataSource: MatTableDataSource<Reservation> = new MatTableDataSource();
 
+  // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   constructor(
     public dialog: MatDialog,
     private readonly reservationService: ReservationService,
     private toastr: ToastrService
   ) {}
+
+
 
   async openDialog(): Promise<void> {
     const createDialogResult = await this.dialog
@@ -55,6 +61,7 @@ export class ReservationComponent implements OnInit {
         await this.reservationService.fetchAllReservations()
       );
     }
+    this.dataSource.paginator = this.paginator;  
   }
 
   applyFilter(event: Event) {
@@ -66,6 +73,8 @@ export class ReservationComponent implements OnInit {
     const reservationDataSource = await this.reservationService.fetchAllReservations();
 
     this.dataSource = new MatTableDataSource(reservationDataSource);
+    this.dataSource.paginator = this.paginator;  
+  
   }
 
   async handleEditClick(reservation: Reservation): Promise<void> {
@@ -80,6 +89,7 @@ export class ReservationComponent implements OnInit {
 
     await this.refreshDataSource(updateDialogResult);
     this.showSuccessToast(updateDialogResult, `Reservacion actualizada`);
+
   }
 
   private showSuccessToast(updateDialogResult: any, message: string): void {
