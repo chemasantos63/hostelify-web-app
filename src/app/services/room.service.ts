@@ -28,13 +28,9 @@ export class RoomService {
   }
 
   async fetchAllRooms(): Promise<Room[]> {
-    const token = localStorage.getItem('currentToken');
-    const headers = new HttpHeaders().set(`Authorization`, `Bearer ${token}`);
 
     return this.http
-      .get<Room[]>(`${environment.BASE_URI}/${ApiPath.rooms}`, {
-        headers,
-      })
+      .get<Room[]>(`${environment.BASE_URI}/${ApiPath.rooms}`)
       .toPromise();
   }
 

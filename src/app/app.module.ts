@@ -29,6 +29,8 @@ import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardCardComponent } from './components/dashboard/dashboard-card/dashboard-card.component';
+import { PermanenceComponent } from './components/permanence/permanence.component';
+import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
 
 
 @NgModule({
@@ -46,6 +48,8 @@ import { DashboardCardComponent } from './components/dashboard/dashboard-card/da
     CreateupdatereservationComponent,
     DashboardComponent,
     DashboardCardComponent,
+    PermanenceComponent,
+    CreateupdatepermanenceComponent,
   ],
   imports: [
     BrowserModule,

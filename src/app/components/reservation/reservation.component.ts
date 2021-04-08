@@ -43,8 +43,6 @@ export class ReservationComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-
-
   async openDialog(): Promise<void> {
     const createDialogResult = await this.dialog
       .open(CreateupdatereservationComponent)
@@ -89,7 +87,6 @@ export class ReservationComponent implements OnInit {
 
     await this.refreshDataSource(updateDialogResult);
     this.showSuccessToast(updateDialogResult, `Reservacion actualizada`);
-
   }
 
   private showSuccessToast(updateDialogResult: any, message: string): void {
