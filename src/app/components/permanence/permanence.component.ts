@@ -1,3 +1,5 @@
+import { Reservation } from './../reservation/reservation.component';
+import { Customer } from './../customer/customer.component';
 import { CreateupdatepermanenceComponent } from './createupdatepermanence/createupdatepermanence.component';
 import { PermanenceService } from './../../services/permanence.service';
 import { Room } from './../room/room.component';
@@ -9,7 +11,8 @@ import { MatPaginator } from '@angular/material/paginator';
 
 export interface Permanence {
   id: number;
-  idReservation: number;
+  customer: Customer;
+  reservation: Reservation;
   rooms: Room[];
   checkIn: Date;
   checkOut: Date;
@@ -89,5 +92,10 @@ export class PermanenceComponent implements OnInit {
     }
   }
 
-  
+  getRoomsNumber(permanence:Permanence): string {
+    return permanence.rooms.reduce(
+      (acc, act) => `${acc}${act.roomNumber},`,
+      ``
+    );
+  }
 }

@@ -1,3 +1,4 @@
+import { Reservation } from './../components/reservation/reservation.component';
 import { Permanence } from './../components/permanence/permanence.component';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -7,11 +8,14 @@ import { environment } from 'src/environments/environment';
 import { ApiPath } from '../shared/endpoints';
 
 export interface PermanenceDto {
-  fromDate: Date;
-  toDate: Date;
+  reservation : Reservation;
+  checkIn: Date;
+  checkOut: Date;
   customer: Customer;
   roomersQty: number;
   rooms: Room[];
+  idCheckInUser: number;
+  idCheckOutUser: number;
 }
 
 @Injectable({
