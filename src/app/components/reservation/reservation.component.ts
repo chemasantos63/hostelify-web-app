@@ -1,3 +1,4 @@
+import { getRoomsNumber } from './../../shared/utils';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
@@ -7,6 +8,7 @@ import { ReservationService } from './../../services/reservation.service';
 import { Customer } from './../customer/customer.component';
 import { Room } from './../room/room.component';
 import { CreateupdatereservationComponent } from './createupdatereservation/createupdatereservation.component';
+
 export interface Reservation {
   id: number;
   fromDate: Date;
@@ -43,8 +45,6 @@ export class ReservationComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
-
-
   async openDialog(): Promise<void> {
     const createDialogResult = await this.dialog
       .open(CreateupdatereservationComponent)
@@ -61,7 +61,7 @@ export class ReservationComponent implements OnInit {
         await this.reservationService.fetchAllReservations()
       );
     }
-    this.dataSource.paginator = this.paginator;  
+    this.dataSource.paginator = this.paginator;
   }
 
   applyFilter(event: Event) {
@@ -73,8 +73,7 @@ export class ReservationComponent implements OnInit {
     const reservationDataSource = await this.reservationService.fetchAllReservations();
 
     this.dataSource = new MatTableDataSource(reservationDataSource);
-    this.dataSource.paginator = this.paginator;  
-  
+    this.dataSource.paginator = this.paginator;
   }
 
   async handleEditClick(reservation: Reservation): Promise<void> {
@@ -89,7 +88,6 @@ export class ReservationComponent implements OnInit {
 
     await this.refreshDataSource(updateDialogResult);
     this.showSuccessToast(updateDialogResult, `Reservacion actualizada`);
-
   }
 
   private showSuccessToast(updateDialogResult: any, message: string): void {
@@ -108,10 +106,7 @@ export class ReservationComponent implements OnInit {
     }
   }
 
-  getRoomsNumber(reservation: Reservation): string {
-    return reservation.rooms.reduce(
-      (acc, act) => `${acc}${act.roomNumber},`,
-      ``
-    );
+  getRoomsNumberImplementation(reservation: Reservation): string {
+    return getRoomsNumber(reservation);
   }
 }

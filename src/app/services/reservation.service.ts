@@ -21,14 +21,22 @@ export class ReservationService {
 
   async fetchReservationById(id: number): Promise<Reservation> {
     return this.http
-      .get<Reservation>(`${environment.BASE_URI}/${ApiPath.GetAllReservations}`)
+      .get<Reservation>(`${environment.BASE_URI}/${ApiPath.reservations}`)
       .toPromise();
   }
 
   async fetchAllReservations(): Promise<Reservation[]> {
     return this.http
       .get<Reservation[]>(
-        `${environment.BASE_URI}/${ApiPath.GetAllReservations}`
+        `${environment.BASE_URI}/${ApiPath.reservations}`
+      )
+      .toPromise();
+  }
+
+  async fetchTodayReservations(): Promise<Reservation[]> {
+    return this.http
+      .get<Reservation[]>(
+        `${environment.BASE_URI}/${ApiPath.reservationsToday}`
       )
       .toPromise();
   }
@@ -36,7 +44,7 @@ export class ReservationService {
   async reserve(reservationDto: ReservationDto): Promise<any> {
     return this.http
       .post<ReservationDto>(
-        `${environment.BASE_URI}/${ApiPath.GetAllReservations}`,
+        `${environment.BASE_URI}/${ApiPath.reservations}`,
         reservationDto
       )
       .toPromise();
@@ -48,7 +56,7 @@ export class ReservationService {
   ): Promise<boolean> {
     return this.http
       .patch<boolean>(
-        `${environment.BASE_URI}/${ApiPath.GetAllReservations}/${id}`,
+        `${environment.BASE_URI}/${ApiPath.reservations}/${id}`,
         reservationDto
       )
       .toPromise();
@@ -57,7 +65,7 @@ export class ReservationService {
   async deleteReservationById(id: number): Promise<boolean> {
     return this.http
       .delete<boolean>(
-        `${environment.BASE_URI}/${ApiPath.GetAllReservations}/${id}`
+        `${environment.BASE_URI}/${ApiPath.reservations}/${id}`
       )
       .toPromise();
   }

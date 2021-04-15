@@ -15,12 +15,17 @@ export interface Room {
   roomNumber: number;
   type: RoomType;
   location: string;
-  status: string;
+  status: RoomStatus;
 }
 
 export interface RoomType {
   id: number;
   type: string;
+}
+
+export interface RoomStatus {
+  id: number;
+  description: string;
 }
 @Component({
   selector: 'app-room',
@@ -58,7 +63,13 @@ export class RoomComponent implements OnInit {
     }
   }
 
-  displayedColumns: string[] = ['roomNumber', 'type', 'location', 'actions', 'status'];
+  displayedColumns: string[] = [
+    'roomNumber',
+    'type',
+    'location',
+    'actions',
+    'status',
+  ];
   dataSource: MatTableDataSource<Room> = new MatTableDataSource();
 
   applyFilter(event: Event) {
@@ -81,8 +92,8 @@ export class RoomComponent implements OnInit {
       .afterClosed()
       .toPromise();
 
-      await this.refreshDataSource(dialogRef);
-      this.showSuccessToast(dialogRef);
+    await this.refreshDataSource(dialogRef);
+    this.showSuccessToast(dialogRef);
   }
 
   async handleDeleteClick(room: Room): Promise<void> {

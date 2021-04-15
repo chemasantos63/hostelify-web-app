@@ -3,6 +3,8 @@ export enum ApiPath {
   GetAllCustomers = `customers`,
   rooms = `rooms`,
   roomTypes = `roomTypes`,
+  roomStatus = `roomStatus`,
   GetAllRoomers = `roomers`,
-  GetAllReservations = `reservations`,
+  reservations = `reservations`,
+  reservationsToday = `reservations/today`,
 }
