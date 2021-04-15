@@ -3,7 +3,7 @@ import { RoomService } from './../../services/room.service';
 import { CreateUpdateRoomerComponent } from './create-update-roomer/create-update-roomer.component';
 import { RoomerService } from './../../services/roomer.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -11,6 +11,7 @@ import {
 } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { promise } from 'selenium-webdriver';
+import { MatPaginator } from '@angular/material/paginator';
 export interface Roomer {
   id: number;
   names: string;
@@ -45,6 +46,9 @@ export class RoomerComponent implements OnInit {
     this.showSuccessToast(dialogRef);
   }
 
+  // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   displayedColumns: string[] = [
     'names',
     'lastNames',
@@ -64,6 +68,7 @@ export class RoomerComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const roomerDataSource = await this.roomerService.fetchAllRoomers;
+    this.dataSource.paginator = this.paginator; 
   }
 
   async handleEditClick(roomer: Roomer): Promise<void> {
@@ -92,5 +97,6 @@ export class RoomerComponent implements OnInit {
         await this.roomerService.fetchAllRoomers()
       );
     }
+    this.dataSource.paginator = this.paginator; 
   }
 }

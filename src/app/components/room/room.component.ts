@@ -1,6 +1,6 @@
 import { RoomService } from './../../services/room.service';
 import { CreateUpdateRoomComponent } from './create-update-room/create-update-room.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -9,6 +9,7 @@ import {
 import { MatTableDataSource } from '@angular/material/table';
 import { promise } from 'selenium-webdriver';
 import { ToastrService } from 'ngx-toastr';
+import { MatPaginator } from '@angular/material/paginator';
 
 export interface Room {
   id: number;
@@ -39,6 +40,10 @@ export class RoomComponent implements OnInit {
     private toastr: ToastrService
   ) {}
 
+ 
+ // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  
   async openDialog(): Promise<void> {
     const dialogRef = await this.dialog
       .open(CreateUpdateRoomComponent)
@@ -55,6 +60,7 @@ export class RoomComponent implements OnInit {
         await this.roomService.fetchAllRooms()
       );
     }
+    this.dataSource.paginator = this.paginator;  
   }
 
   private showSuccessToast(updateDialogResult: any) {
@@ -80,6 +86,7 @@ export class RoomComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const roomsDataSource = await this.roomService.fetchAllRooms();
     this.dataSource = new MatTableDataSource(roomsDataSource);
+    this.dataSource.paginator = this.paginator;  
   }
 
   async handleEditClick(room: Room): Promise<void> {

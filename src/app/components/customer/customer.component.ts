@@ -2,13 +2,14 @@ import { ToastrService } from 'ngx-toastr';
 import { CreateUpdateComponent } from './create-update/create-update.component';
 import { CustomerService } from './../../services/customer.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import {
   MatDialog,
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 export interface Type {
   id: number;
   type: string;
@@ -31,7 +32,10 @@ export interface Customer {
   templateUrl: './customer.component.html',
   styleUrls: ['./customer.component.sass'],
 })
+
 export class CustomerComponent implements OnInit {
+ 
+ 
   displayedColumns: string[] = [
     'name',
     'lastname',
@@ -42,6 +46,9 @@ export class CustomerComponent implements OnInit {
   ];
 
   dataSource: MatTableDataSource<Customer> = new MatTableDataSource();
+
+   // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(
     public dialog: MatDialog,
@@ -72,12 +79,14 @@ export class CustomerComponent implements OnInit {
       await this.customerService.fetchAllCustomers()
     );
     }
+    this.dataSource.paginator = this.paginator; 
   }
 
   async ngOnInit(): Promise<void> {
     const customersDataSource = await this.customerService.fetchAllCustomers();
 
     this.dataSource = new MatTableDataSource(customersDataSource);
+    this.dataSource.paginator = this.paginator; 
   }
 
   async handleEditClick(customer: Customer): Promise<void> {

@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>
+  {{ creatingPermanence ? "Crear" : "Actualizar" }} Permanencia
+</h2>
+<mat-dialog-content> 
+    <form
+    class="createUpdateForm"
+    [formGroup]="createUpdatePermanenceForm"
+    (ngSubmit)="handleSubmit()"
+    #createForm="ngForm"
+  >
+<mat-form-field appearance="outline" class="example-form-field">
+
+</mat-form-field>
+</form>
+</mat-dialog-content>
