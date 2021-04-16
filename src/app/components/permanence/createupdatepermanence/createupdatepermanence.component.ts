@@ -14,7 +14,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./createupdatepermanence.component.sass'],
 })
 export class CreateupdatepermanenceComponent implements OnInit {
-  createUpdatePermaneceForm: FormGroup;
+  createUpdatePermanenceForm: FormGroup;
   creatingPermanence = true;
   rooms: Room[] = [];
   customer: Customer[] = [];
@@ -28,7 +28,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { permanence: Permanence },
     private dialogRef: MatDialogRef<CreateupdatepermanenceComponent>
   ) {
-    this.createUpdatePermaneceForm = this.formBuilder.group({
+    this.createUpdatePermanenceForm = this.formBuilder.group({
       idReservation: data ? data.permanence.reservation : '',
       customer: data ? data.permanence.customer : '',
       checkIn: data ? data.permanence.checkIn : '',
@@ -44,16 +44,16 @@ export class CreateupdatepermanenceComponent implements OnInit {
     }
   }
 
-  async hadleSubmit() {
+  async handleSubmit() {
     try {
       if (this.creatingPermanence) {
         await this.permanenceService.checkIn(
-          this.createUpdatePermaneceForm.value
+          this.createUpdatePermanenceForm.value
         );
       } else {
         await this.permanenceService.updatePermanenceById(
           this.data.permanence.id,
-          this.createUpdatePermaneceForm.value
+          this.createUpdatePermanenceForm.value
         );
       }
 

@@ -4,7 +4,7 @@ import { CreateupdatepermanenceComponent } from './createupdatepermanence/create
 import { PermanenceService } from './../../services/permanence.service';
 import { Room } from './../room/room.component';
 import { MatDialog } from '@angular/material/dialog';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
