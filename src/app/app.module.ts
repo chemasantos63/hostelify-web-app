@@ -31,7 +31,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DashboardCardComponent } from './components/dashboard/dashboard-card/dashboard-card.component';
 import { PermanenceComponent } from './components/permanence/permanence.component';
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
-import { FacturacionComponent } from './components/billing/billing.component';
+import { BillingComponent } from './components/billing/billing.component';
 
 
 @NgModule({
@@ -51,7 +51,7 @@ import { FacturacionComponent } from './components/billing/billing.component';
     DashboardCardComponent,
     PermanenceComponent,
     CreateupdatepermanenceComponent,
-    FacturacionComponent,
+    BillingComponent,
   ],
   imports: [
     BrowserModule,

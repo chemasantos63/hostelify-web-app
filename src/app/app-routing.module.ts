@@ -1,4 +1,4 @@
-import { FacturacionComponent } from './components/billing/billing.component';
+import { BillingComponent} from './components/billing/billing.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { RoomComponent } from './components/room/room.component';
 import { RoomerComponent } from './components/roomer/roomer.component';
@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'roomer', component: RoomerComponent, canActivate: [AuthGuard] },
   { path: 'room', component: RoomComponent, canActivate: [AuthGuard] },
   { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] },
-  { path: 'facturacion', component: FacturacionComponent, canActivate: [AuthGuard],}
+  { path: 'billing', component: BillingComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({

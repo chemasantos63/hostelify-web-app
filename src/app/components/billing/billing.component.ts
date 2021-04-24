@@ -23,9 +23,9 @@ export interface InVoice{
 }
 
 @Component({
-  selector: 'app-facturacion',
-  templateUrl: './facturacion.component.html',
-  styleUrls: ['./facturacion.component.sass']
+  selector: 'app-billing',
+  templateUrl: './billing.component.html',
+  styleUrls: ['./billing.component.sass']
 })
 
 export class BillingComponent implements OnInit {
