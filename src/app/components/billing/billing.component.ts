@@ -1,5 +1,6 @@
+import { BillingService } from './../../services/billing.service';
 import { Customer } from '../customer/customer.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -42,15 +43,22 @@ export class BillingComponent implements OnInit {
   ];
  
   dataSource: MatTableDataSource<InVoice> = new MatTableDataSource();
-  constructor() { }
+    
+  // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  
+  constructor(private readonly billingService: BillingService) { }
 
-  ngOnInit(): void {
-   
+  async ngOnInit(): Promise<void> {
+    const billingDataSource = await this.billingService.fetchAllBills();
+    
+    this.dataSource = new MatTableDataSource(billingDataSource);
+    this.dataSource.paginator = this.paginator; 
   }
 
 
   async handleEditClick(inVoice: InVoice): Promise<void> {
-    
+  
   }
 
   async handleDeleteClick(inVoice: InVoice): Promise<void> {
