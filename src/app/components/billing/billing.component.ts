@@ -16,7 +16,7 @@ export interface InVoice{
   tax18: number;
   tourismTax: number;
   discount: number;
-  discuuntPercent: number;
+  discountPercent: number;
   condition: string;
   paymentTermId: number;
   paymentTypeId: number; 

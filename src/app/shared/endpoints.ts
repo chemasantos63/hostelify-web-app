@@ -8,4 +8,5 @@ export enum ApiPath {
   reservations = `reservations`,
   reservationsToday = `reservations/today`,
   GetAllPermanences = `permanences`,
+  GetAllBills = `bills`
 }
