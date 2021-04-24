@@ -1,4 +1,4 @@
-import { Customer } from './../customer/customer.component';
+import { Customer } from '../customer/customer.component';
 import { Component, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -28,7 +28,7 @@ export interface InVoice{
   styleUrls: ['./facturacion.component.sass']
 })
 
-export class FacturacionComponent implements OnInit {
+export class BillingComponent implements OnInit {
    // @ts-ignore
   
  

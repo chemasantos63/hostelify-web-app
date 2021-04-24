@@ -1,4 +1,4 @@
-import { FacturacionComponent } from './components/facturacion/facturacion.component';
+import { FacturacionComponent } from './components/billing/billing.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { RoomComponent } from './components/room/room.component';
 import { RoomerComponent } from './components/roomer/roomer.component';
