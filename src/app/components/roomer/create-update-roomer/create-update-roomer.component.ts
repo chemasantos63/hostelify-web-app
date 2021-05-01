@@ -3,6 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RoomerService } from './../../../services/roomer.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Inject, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-create-update-roomer',
@@ -12,6 +13,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 export class CreateUpdateRoomerComponent implements OnInit {
   createUpdateRoomerForm: FormGroup;
   creatingRoomer = true;
+ 
   constructor(
     private formBuilder: FormBuilder,
     private roomerService: RoomerService,
@@ -19,12 +21,12 @@ export class CreateUpdateRoomerComponent implements OnInit {
     private dialogRef: MatDialogRef<CreateUpdateRoomerComponent>
   ) {
     this.createUpdateRoomerForm = this.formBuilder.group({
-      names: data ? data.roomer.names : '',
-      lastNames: data ? data.roomer.lastNames : '',
-      documentNumber: data ? data.roomer.documentNumber : '',
-      nacionality: data ? data.roomer.nacionality : '',
-      provenance: data ? data.roomer.provenance : '',
-      destination: data ? data.roomer.destiny : '',
+      name: data ? data.roomer.name : '',
+      lastname: data ? data.roomer.lastname : '',
+      identification: data ? data.roomer.identification : '',
+      nationality: data ? data.roomer.nationality : '',
+      origin: data ? data.roomer.origin : '',
+      destination: data ? data.roomer.destination : '',
       occupation: data ? data.roomer.occupation : '',
       phone: data ? data.roomer.phone : '',
     });

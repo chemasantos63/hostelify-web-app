@@ -47,6 +47,11 @@
         <button mat-icon-button (click)="handleEditClick(row)">
           <mat-icon>create</mat-icon>
         </button>
+        <button mat-icon-button (click)="handleGuestClick(row)">
+          <mat-icon>
+            groups
+          </mat-icon>
+        </button>
         <button mat-icon-button (click)="handleDeleteClick(row)">
           <mat-icon>delete</mat-icon>
         </button>
@@ -61,7 +66,7 @@
       <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
 
-    
+
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
   <button mat-raised-button (click)="openDialog()">Nuevo</button>

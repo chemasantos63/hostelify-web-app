@@ -22,7 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {MatRadioModule} from '@angular/material/radio'; 
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const material: any[] = [
   MatRadioModule,
@@ -47,16 +48,13 @@ const material: any[] = [
   MatSelectModule,
   MatExpansionModule,
   MatTabsModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatCheckboxModule,
 ];
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule, material
-  ],
-  exports: [
-    material
-  ]
+  imports: [CommonModule, material],
+  exports: [material],
 })
-export class MaterialModule { }
+export class MaterialModule {}

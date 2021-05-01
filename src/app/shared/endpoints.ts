@@ -4,7 +4,7 @@ export enum ApiPath {
   rooms = `rooms`,
   roomTypes = `roomTypes`,
   roomStatus = `roomStatus`,
-  GetAllRoomers = `roomers`,
+  roomers = `guest`,
   reservations = `reservations`,
   reservationsToday = `reservations/today`,
   GetAllPermanences = `permanences`,

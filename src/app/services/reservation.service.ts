@@ -9,9 +9,10 @@ import { ApiPath } from '../shared/endpoints';
 export interface ReservationDto {
   fromDate: Date;
   toDate: Date;
-  customerId: Customer;
+  customerId: number;
   roomersQty: number;
-  roomIds: Room[];
+  roomIds: number[];
+  guestIds?: number[];
 }
 @Injectable({
   providedIn: 'root',
@@ -27,9 +28,7 @@ export class ReservationService {
 
   async fetchAllReservations(): Promise<Reservation[]> {
     return this.http
-      .get<Reservation[]>(
-        `${environment.BASE_URI}/${ApiPath.reservations}`
-      )
+      .get<Reservation[]>(`${environment.BASE_URI}/${ApiPath.reservations}`)
       .toPromise();
   }
 
@@ -51,7 +50,7 @@ export class ReservationService {
   }
 
   async updateReservationById(
-    id: number,
+    id: number | undefined,
     reservationDto: ReservationDto
   ): Promise<boolean> {
     return this.http
@@ -64,9 +63,7 @@ export class ReservationService {
 
   async deleteReservationById(id: number): Promise<boolean> {
     return this.http
-      .delete<boolean>(
-        `${environment.BASE_URI}/${ApiPath.reservations}/${id}`
-      )
+      .delete<boolean>(`${environment.BASE_URI}/${ApiPath.reservations}/${id}`)
       .toPromise();
   }
 }

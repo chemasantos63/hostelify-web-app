@@ -8,6 +8,7 @@ import { ReservationService } from './../../services/reservation.service';
 import { Customer } from './../customer/customer.component';
 import { Room } from './../room/room.component';
 import { CreateupdatereservationComponent } from './createupdatereservation/createupdatereservation.component';
+import { Roomer, RoomerComponent } from '../roomer/roomer.component';
 
 export interface Reservation {
   id: number;
@@ -16,6 +17,7 @@ export interface Reservation {
   customer: Customer;
   roomersQty: number;
   rooms: Room[];
+  guest: Roomer[];
 }
 
 @Component({
@@ -108,5 +110,21 @@ export class ReservationComponent implements OnInit {
 
   getRoomsNumberImplementation(reservation: Reservation): string {
     return getRoomsNumber(reservation);
+  }
+
+  async handleGuestClick(reservation: Reservation): Promise<void> {
+    console.log(reservation);
+
+    const result = await this.dialog
+      .open(RoomerComponent, {
+        data: {
+          fromReservation: true,
+          reservation,
+        },
+      })
+      .afterClosed()
+      .toPromise();
+
+    this.refreshDataSource(result);
   }
 }

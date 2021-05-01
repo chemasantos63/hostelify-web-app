@@ -3,32 +3,15 @@
   reservación
 </h2>
 <mat-dialog-content class="mat-typography">
-  <form
-    class="createUpdateForm"
-    [formGroup]="createUpdateReservationForm"
-    (ngSubmit)="handleSubmit()"
-    #createForm="ngForm"
-  >
+  <form class="createUpdateForm" [formGroup]="createUpdateReservationForm" (ngSubmit)="handleSubmit()"
+    #createForm="ngForm">
     <mat-form-field appearance="outline" class="example-form-field">
       <mat-label>Seleccione un rango de fechas</mat-label>
       <mat-date-range-input [rangePicker]="rangePicker">
-        <input
-          formControlName="fromDate"
-          matStartDate
-          placeholder="Fecha Inicio"
-          [min]="today"
-        />
-        <input
-          formControlName="toDate"
-          matEndDate
-          placeholder="Fecha Fin"
-          [min]="today"
-        />
+        <input formControlName="fromDate" matStartDate placeholder="Fecha Inicio" [min]="today" />
+        <input formControlName="toDate" matEndDate placeholder="Fecha Fin" [min]="today" />
       </mat-date-range-input>
-      <mat-datepicker-toggle
-        matPrefix
-        [for]="rangePicker"
-      ></mat-datepicker-toggle>
+      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
       <mat-date-range-picker #rangePicker>
         <mat-date-range-picker-actions>
           <button mat-button matDateRangePickerCancel>Cancelar</button>
@@ -56,9 +39,9 @@
       </mat-select>
       <mat-icon matPrefix>local_hotel</mat-icon>
     </mat-form-field>
-    <mat-form-field appearance="outline"> 
+    <mat-form-field appearance="outline">
       <mat-label>No. Huespedes</mat-label>
-      <input type="number" matInput formControlName="roomersQty" >
+      <input type="number" matInput formControlName="roomersQty">
     </mat-form-field>
   </form>
 </mat-dialog-content>

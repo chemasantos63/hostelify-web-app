@@ -9,13 +9,12 @@ import { Roomer } from '../components/roomer/roomer.component';
 import { ApiPath } from '../shared/endpoints';
 
 export interface RoomerDto {
-  id: number;
-  names: string;
-  lastNames: string;
-  documentNumber: string;
-  nacionality: string;
-  provenance: string;
-  destiny: string;
+  name: string;
+  lastname: string;
+  identification: string;
+  nationality: string;
+  origin: string;
+  destination: string;
   occupation: string;
   phone: string;
 }
@@ -28,14 +27,14 @@ export class RoomerService {
 
   async fetchAllRoomers(): Promise<Roomer[]> {
     return this.http
-      .get<Roomer[]>(`${environment.BASE_URI}/${ApiPath.GetAllRoomers}`)
+      .get<Roomer[]>(`${environment.BASE_URI}/${ApiPath.roomers}`)
       .toPromise();
   }
 
   async createRoomer(roomerDto: RoomerDto): Promise<any> {
     return this.http
       .post<Roomer>(
-        `${environment.BASE_URI}/${ApiPath.GetAllRoomers}`,
+        `${environment.BASE_URI}/${ApiPath.roomers}`,
         roomerDto
       )
       .toPromise();
@@ -44,7 +43,7 @@ export class RoomerService {
   async updateRoomerById(id: number, roomerDto: RoomerDto): Promise<boolean> {
    return this.http
       .patch<boolean>(
-        `${environment.BASE_URI}/${ApiPath.GetAllRoomers}`,
+        `${environment.BASE_URI}/${ApiPath.roomers}`,
         roomerDto
       )
       .toPromise();
@@ -53,7 +52,7 @@ export class RoomerService {
   async deleteRoomerById(id: number): Promise<boolean> {
  return this.http
       .delete<boolean>(
-        `${environment.BASE_URI}/${ApiPath.GetAllRoomers}/${id}`
+        `${environment.BASE_URI}/${ApiPath.roomers}/${id}`
       )
       .toPromise();
   }
