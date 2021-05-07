@@ -1,15 +1,74 @@
 <h2 mat-dialog-title>
   {{ creatingPermanence ? "Crear" : "Actualizar" }} Permanencia
 </h2>
-<mat-dialog-content> 
-    <form
-    class="createUpdateForm"
-    [formGroup]="createUpdatePermanenceForm"
-    (ngSubmit)="handleSubmit()"
-    #createForm="ngForm"
-  >
-<mat-form-field appearance="outline" class="example-form-field">
+<!-- <mat-dialog-content> -->
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Datos de reservacion</mat-card-title>
+          <mat-card-subtitle>Verifique los datos de la reservacion</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6">
+                <label> Cliente:</label>
+              </div>
+              <div class="col-sm-6">
+                <span>{{reservation.customer.name}} {{reservation.customer.lastname}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label> Numero de huespedes:</label>
+              </div>
+              <div class="col-sm-6">
+                <span>{{reservation.roomersQty}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label> Fecha Inicio:</label>
+              </div>
+              <div class="col-sm-6">
+                <span>{{reservation.fromDate}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <label> Fecha Fin:</label>
+              </div>
+              <div class="col-sm-6">
+                <span>{{reservation.toDate}}</span>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button color="accent" mat-raised-button (click)="handleCreatePermanenceClick()">Crear</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+    <div class="col-sm-6">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>Informacion de huespedes</mat-card-title>
+          <mat-card-subtitle>Verifique la informacion de los huespedes</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <app-roomer [fromDashboard]="true" [reservationToCreatePermanence]="reservation" (onSelectRoomer)="handleSelectRoomer($event)"></app-roomer>
+        </mat-card-content>
 
-</mat-form-field>
-</form>
-</mat-dialog-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<!-- <form class="createUpdateForm" [formGroup]="createUpdatePermanenceForm" (ngSubmit)="handleSubmit()"
+    #createForm="ngForm">
+    <mat-form-field appearance="outline" class="example-form-field">
+
+    </mat-form-field>
+  </form> -->
+<!-- </mat-dialog-content> -->

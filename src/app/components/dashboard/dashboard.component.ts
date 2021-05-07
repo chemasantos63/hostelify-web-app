@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthService } from 'src/app/services/auth.service';
@@ -29,7 +30,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private roomService: RoomService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private router: Router
   ) {
     //@ts-ignore
     this.username = this.authService.currentUserValue.username;
@@ -38,7 +40,12 @@ export class DashboardComponent implements OnInit {
     this.statusToIgnore = [`Inactiva`, `Activa`];
     this.isLoading = false;
     this.reservationsDataSource = new MatTableDataSource();
-    this.columnsForReservationTable = [`rooms`, `customer`, `roomersQty`];
+    this.columnsForReservationTable = [
+      `rooms`,
+      `customer`,
+      `roomersQty`,
+      `actions`,
+    ];
   }
 
   async ngOnInit(): Promise<void> {
@@ -82,6 +89,16 @@ export class DashboardComponent implements OnInit {
       rooms: getRoomsNumber(r),
       customer: `${r.customer.name} ${r.customer.lastname}`,
       roomersQty: `${r.roomersQty}`,
+      reservation: r,
     }));
+  }
+
+  async handleCheckIn(rowIndex: number): Promise<void> {
+    localStorage.setItem(
+      'reservationToCreatePermananence',
+      JSON.stringify(this.reservations[rowIndex])
+    );
+    this.router.navigate(['/permanence', this.reservations[rowIndex].id]);
+    console.log(this.reservations[rowIndex]);
   }
 }

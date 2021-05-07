@@ -1,3 +1,4 @@
+import { ReservationService } from './../../../services/reservation.service';
 import { Permanence } from './../permanence.component';
 import { CustomerService } from './../../../services/customer.service';
 import { RoomService } from './../../../services/room.service';
@@ -7,6 +8,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Room } from '../../room/room.component';
 import { Customer } from '../../customer/customer.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
+import { Reservation } from '../../reservation/reservation.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-createupdatepermanence',
@@ -18,7 +22,10 @@ export class CreateupdatepermanenceComponent implements OnInit {
   creatingPermanence = true;
   rooms: Room[] = [];
   customer: Customer[] = [];
+  roomerIds: number[] = [];
   today = new Date();
+  // @ts-ignore
+  reservation: Reservation = {};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,7 +33,10 @@ export class CreateupdatepermanenceComponent implements OnInit {
     private roomService: RoomService,
     private customerService: CustomerService,
     @Inject(MAT_DIALOG_DATA) public data: { permanence: Permanence },
-    private dialogRef: MatDialogRef<CreateupdatepermanenceComponent>
+    private dialogRef: MatDialogRef<CreateupdatepermanenceComponent>,
+    private route: ActivatedRoute,
+    private reservationService: ReservationService,
+    private toastr: ToastrService
   ) {
     this.createUpdatePermanenceForm = this.formBuilder.group({
       idReservation: data ? data.permanence.reservation : '',
@@ -74,8 +84,41 @@ export class CreateupdatepermanenceComponent implements OnInit {
   closeDialog(success?: boolean): void {
     this.dialogRef.close(success);
   }
+
   ngOnInit(): void {
+    this.reservation = JSON.parse(
+      localStorage.getItem('reservationToCreatePermananence')!
+    ) as Reservation;
+
     this.loadRooms();
+
     this.loadCustomers();
+  }
+
+  async handleCreatePermanenceClick(): Promise<void> {
+    const response = await this.permanenceService.checkIn({
+      idReservation: this.reservation.id,
+      guestIds: this.roomerIds,
+    });
+
+    if (response) {
+      this.toastr.success(
+        `Se registro la permanencia exitosamente.`,
+        `Operacion Exitosa`
+      );
+    }
+  }
+
+  handleSelectRoomer(roomerIds: number[]): void {
+    if (roomerIds.length > this.reservation.roomersQty) {
+      this.toastr.warning(
+        `La reservacion indica que solo 2 huespedes, se actualizara la cantidad de huespedes.`,
+        `Atencion`
+      );
+
+      this.reservation.roomersQty = roomerIds.length;
+    }
+
+    this.roomerIds = roomerIds;
   }
 }

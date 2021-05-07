@@ -7,7 +7,19 @@ import { RoomService } from './../../services/room.service';
 import { CreateUpdateRoomerComponent } from './create-update-roomer/create-update-roomer.component';
 import { RoomerService } from './../../services/roomer.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterContentInit,
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Inject,
+  Input,
+  NgZone,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   MatDialog,
   MatDialogRef,
@@ -18,6 +30,7 @@ import { promise } from 'selenium-webdriver';
 import { MatPaginator } from '@angular/material/paginator';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Reservation } from '../reservation/reservation.component';
+
 export interface Roomer {
   id: number;
   name: string;
@@ -56,6 +69,10 @@ export class RoomerComponent implements OnInit {
   fromReservation: boolean;
   reservation: Reservation;
 
+  @Input() fromDashboard: boolean = false;
+  @Input() reservationToCreatePermanence!: Reservation;
+  @Output() onSelectRoomer:EventEmitter<number[]> = new EventEmitter();
+
   constructor(
     public dialog: MatDialog,
     private readonly roomerService: RoomerService,
@@ -63,7 +80,8 @@ export class RoomerComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA)
     public data: { fromReservation: boolean; reservation: Reservation },
     private dialogRef: MatDialogRef<RoomerComponent>,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private ngZone: NgZone
   ) {
     if (data) {
       this.fromReservation = data.fromReservation;
@@ -72,6 +90,30 @@ export class RoomerComponent implements OnInit {
       this.fromReservation = false;
       // @ts-ignore
       this.reservation = undefined;
+    }
+  }
+
+  async ngOnInit(): Promise<void> {
+    const roomerDataSource = await this.roomerService.fetchAllRoomers();
+    this.dataSource = new MatTableDataSource(roomerDataSource);
+    this.dataSource.paginator = this.paginator;
+    if (this.fromReservation) {
+      if (this.reservation.guest.length > 0) {
+        this.selectRoomersFromReservation(this.reservation);
+      }
+    }
+
+    if (this.fromDashboard) {
+      if (this.reservationToCreatePermanence.guest.length > 0) {
+        this.selectRoomersFromReservation(this.reservationToCreatePermanence);
+      } else {
+        this.ngZone.run(() => {
+          this.toastr.warning(
+            `La reservacion aun no tiene huespedes asociados, por favor seleccione o agrege los huespedes`,
+            `Atencion`
+          );
+        });
+      }
     }
   }
 
@@ -90,19 +132,14 @@ export class RoomerComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  async ngOnInit(): Promise<void> {
-    const roomerDataSource = await this.roomerService.fetchAllRoomers();
-    this.dataSource = new MatTableDataSource(roomerDataSource);
-    this.dataSource.paginator = this.paginator;
-    if (this.fromReservation) {
-      this.reservation.guest.forEach((r) =>
-        this.selection.select(
-          this.dataSource.data[
-            this.dataSource.data.findIndex((row) => row.id === r.id)
-          ]
-        )
-      );
-    }
+  private selectRoomersFromReservation(reservation: Reservation) {
+    reservation.guest.forEach((r) =>
+      this.selection.select(
+        this.dataSource.data[
+          this.dataSource.data.findIndex((row) => row.id === r.id)
+        ]
+      )
+    );
   }
 
   async handleEditClick(roomer: Roomer): Promise<void> {
@@ -157,7 +194,7 @@ export class RoomerComponent implements OnInit {
   }
 
   getColumnsToShow(): string[] {
-    return this.fromReservation
+    return this.fromReservation || this.fromDashboard
       ? [
           'select',
           'name',
@@ -213,5 +250,11 @@ export class RoomerComponent implements OnInit {
 
       this.dialogRef.close(true);
     }
+  }
+
+  handleSelectRow(event:any,row:any):void{
+    event ? this.selection.toggle(row) : null;
+
+    this.onSelectRoomer.emit(this.selection.selected.map(r => r.id));
   }
 }

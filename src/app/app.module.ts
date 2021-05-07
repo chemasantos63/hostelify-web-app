@@ -1,4 +1,8 @@
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from '@angular/common/http';
 import { AuthService } from './services/auth.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -33,7 +37,6 @@ import { PermanenceComponent } from './components/permanence/permanence.componen
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
 import { BillingComponent } from './components/billing/billing.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -67,12 +70,12 @@ import { BillingComponent } from './components/billing/billing.component';
     MatIconModule,
     MatListModule,
     HttpClientModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
   ],
   providers: [
     AuthService,
-    { provide: MatDialogRef, useValue: {} },
-    { provide: MAT_DIALOG_DATA, useValue: [] },
+    { provide: MatDialogRef, useValue: undefined },
+    { provide: MAT_DIALOG_DATA, useValue: undefined },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],

@@ -8,14 +8,15 @@ import { environment } from 'src/environments/environment';
 import { ApiPath } from '../shared/endpoints';
 
 export interface PermanenceDto {
-  reservation : Reservation;
-  checkIn: Date;
-  checkOut: Date;
-  customer: Customer;
-  roomersQty: number;
-  rooms: Room[];
-  idCheckInUser: number;
-  idCheckOutUser: number;
+  idReservation : number;
+  guestIds:number[];
+  // checkIn: Date;
+  // checkOut: Date;
+  // customer: Customer;
+  // roomersQty: number;
+  // rooms: Room[];
+  // idCheckInUser: number;
+  // idCheckOutUser: number;
 }
 
 @Injectable({

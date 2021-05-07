@@ -34,6 +34,15 @@
                           <th mat-header-cell *matHeaderCellDef> Huespedes </th>
                           <td mat-cell *matCellDef="let row"> {{row.roomersQty}} </td>
                         </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Ingreso</th>
+                            <td mat-cell *matCellDef="let row;let i = index">
+                              <button mat-icon-button matTooltip="Ingreso" (click)="handleCheckIn(i)">
+                                <mat-icon>login</mat-icon>
+                              </button>
+                            </td>
+                          </ng-container>
                     
                         <tr mat-header-row *matHeaderRowDef="columnsForReservationTable"></tr>
                         <tr mat-row *matRowDef="let row; columns: columnsForReservationTable;"></tr>

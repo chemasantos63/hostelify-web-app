@@ -22,7 +22,7 @@ export class ReservationService {
 
   async fetchReservationById(id: number): Promise<Reservation> {
     return this.http
-      .get<Reservation>(`${environment.BASE_URI}/${ApiPath.reservations}`)
+      .get<Reservation>(`${environment.BASE_URI}/${ApiPath.reservations}/${id}`)
       .toPromise();
   }
 
