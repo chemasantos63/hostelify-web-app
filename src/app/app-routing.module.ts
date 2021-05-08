@@ -32,7 +32,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'billing', component: BillingComponent, canActivate: [AuthGuard] },
-  { path: 'permanence', component: PermanenceComponent, canActivate:[AuthGuard]},
 ];
 
 @NgModule({
