@@ -26,6 +26,17 @@ export interface Permanence {
   styleUrls: ['./permanence.component.sass'],
 })
 export class PermanenceComponent implements OnInit {
+ 
+  displayedColumns: string[] = [
+    'customer',
+    'reservation',
+    'rooms',
+    'checkIn',
+    'checkOut',
+    'userCheckIn',
+    'userCheckOut'
+  ];
+ 
   dataSource: MatTableDataSource<Permanence> = new MatTableDataSource();
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
