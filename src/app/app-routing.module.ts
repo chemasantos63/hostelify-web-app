@@ -1,3 +1,4 @@
+import { PermanenceComponent } from './components/permanence/permanence.component';
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
 import { BillingComponent } from './components/billing/billing.component';
 import { CustomerComponent } from './components/customer/customer.component';
@@ -23,8 +24,11 @@ const routes: Routes = [
   { path: 'room', component: RoomComponent, canActivate: [AuthGuard] },
   { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] },
   {
-    path: 'permanence/:reservationId',
-    component: CreateupdatepermanenceComponent,
+    path: 'permanence',
+    children: [
+      { path: '', component: PermanenceComponent },
+      { path: ':reservationId', component: CreateupdatepermanenceComponent },
+    ],
     canActivate: [AuthGuard],
   },
   { path: 'billing', component: BillingComponent, canActivate: [AuthGuard] },
