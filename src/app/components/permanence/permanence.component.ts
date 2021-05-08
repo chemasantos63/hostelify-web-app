@@ -26,17 +26,16 @@ export interface Permanence {
   styleUrls: ['./permanence.component.sass'],
 })
 export class PermanenceComponent implements OnInit {
- 
   displayedColumns: string[] = [
     'customer',
     'reservation',
     'rooms',
     'checkIn',
-    'checkOut',
     'userCheckIn',
-    'userCheckOut'
+    'checkOut',
+    'userCheckOut',
   ];
- 
+
   dataSource: MatTableDataSource<Permanence> = new MatTableDataSource();
   // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -98,13 +97,13 @@ export class PermanenceComponent implements OnInit {
       permanence.id
     );
     if (result) {
-      this.toastr.success(`Registro Eliminado`,`Operacion Exitosa`);
+      this.toastr.success(`Registro Eliminado`, `Operacion Exitosa`);
       await this.refreshDataSource(true);
     }
   }
 
-  getRoomsNumber(permanence:Permanence): string {
-    return permanence.rooms.reduce(
+  getRoomsNumber(permanence: Permanence): string {
+    return permanence.reservation.rooms.reduce(
       (acc, act) => `${acc}${act.roomNumber},`,
       ``
     );
