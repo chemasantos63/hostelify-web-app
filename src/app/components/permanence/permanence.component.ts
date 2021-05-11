@@ -34,6 +34,7 @@ export class PermanenceComponent implements OnInit {
     'userCheckIn',
     'checkOut',
     'userCheckOut',
+    'actions',
   ];
 
   dataSource: MatTableDataSource<Permanence> = new MatTableDataSource();
@@ -100,6 +101,10 @@ export class PermanenceComponent implements OnInit {
       this.toastr.success(`Registro Eliminado`, `Operacion Exitosa`);
       await this.refreshDataSource(true);
     }
+  }
+
+  async handlePaidClick(permanence:Permanence): Promise<void>{
+
   }
 
   getRoomsNumber(permanence: Permanence): string {
