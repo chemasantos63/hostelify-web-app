@@ -36,6 +36,7 @@ import { DashboardCardComponent } from './components/dashboard/dashboard-card/da
 import { PermanenceComponent } from './components/permanence/permanence.component';
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
 import { BillingComponent } from './components/billing/billing.component';
+import { PaymentsComponent } from './components/billing/payments/payments.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { BillingComponent } from './components/billing/billing.component';
     PermanenceComponent,
     CreateupdatepermanenceComponent,
     BillingComponent,
+    PaymentsComponent,
   ],
   imports: [
     BrowserModule,

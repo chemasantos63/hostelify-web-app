@@ -1,0 +1,27 @@
+<form class="paymentsForm">
+  <mat-form-field  appearance="outline">
+    <mat-label>Forma de Pago</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let methodPaymet of methodPaymets" [value]="methoPayment.id">{{
+        payment.description
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+<mat-form-field  appearance="outline">
+    <mat-label>{{payment.simbol}}</mat-label>
+    <input matInput >
+</mat-form-field>
+<mat-form-field>
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Forma Pago</th>
+            <td mat-cell *matCellDef="let row">{{ row.payment.description }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Monto</th>
+            <td mat-cell *matCellDef="let row">{{ row.payment.amount }}</td>
+          </ng-container>    
+    </table>
+</mat-form-field>
+</form>
