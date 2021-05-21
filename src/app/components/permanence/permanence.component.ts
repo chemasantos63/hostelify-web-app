@@ -1,3 +1,4 @@
+import { PaymentsComponent } from './../billing/payments/payments.component';
 import { Reservation } from './../reservation/reservation.component';
 import { Customer } from './../customer/customer.component';
 import { CreateupdatepermanenceComponent } from './createupdatepermanence/createupdatepermanence.component';
@@ -53,7 +54,8 @@ export class PermanenceComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    const permanenceDataSource = await this.permanenceService.fetchAllPermanence();
+    const permanenceDataSource =
+      await this.permanenceService.fetchAllPermanence();
     this.dataSource = new MatTableDataSource(permanenceDataSource);
     this.dataSource.paginator = this.paginator;
   }
@@ -103,8 +105,11 @@ export class PermanenceComponent implements OnInit {
     }
   }
 
-  async handlePaidClick(permanence:Permanence): Promise<void>{
-
+  async handlePaidClick(permanence: Permanence): Promise<void> {
+    const paidDialogResult = await this.dialog
+      .open(PaymentsComponent)
+      .afterClosed()
+      .toPromise();
   }
 
   getRoomsNumber(permanence: Permanence): string {
