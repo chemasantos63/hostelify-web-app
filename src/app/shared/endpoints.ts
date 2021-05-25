@@ -10,6 +10,10 @@ export enum ApiPath {
   reservationsToday = `reservations/today`,
   GetAllPermanences = `permanences`,
   GetAllBills = `billing`,
+<<<<<<< HEAD
   PaymentMethods = `payment-method`,
   PermanenceTotalToPay = `totalToPay`,
+=======
+  PaymentMethods = `payment-method`
+>>>>>>> 4945b08d72313ea303b1dda594fdbae32279e101
 }
