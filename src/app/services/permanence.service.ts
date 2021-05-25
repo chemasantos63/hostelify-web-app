@@ -6,10 +6,11 @@ import { Customer } from '../components/customer/customer.component';
 import { Room } from '../components/room/room.component';
 import { environment } from 'src/environments/environment';
 import { ApiPath } from '../shared/endpoints';
+import { map } from 'rxjs/operators';
 
 export interface PermanenceDto {
-  idReservation : number;
-  guestIds:number[];
+  idReservation: number;
+  guestIds: number[];
   // checkIn: Date;
   // checkOut: Date;
   // customer: Customer;
@@ -63,6 +64,16 @@ export class PermanenceService {
       .delete<boolean>(
         `${environment.BASE_URI}/${ApiPath.GetAllPermanences}/${id}`
       )
+      .toPromise();
+  }
+
+  async getTotalToPayByPermaneceId(permanencesId: number[]): Promise<number> {
+    return this.http
+      .post<number>(
+        `${environment.BASE_URI}/${ApiPath.GetAllPermanences}/${ApiPath.PermanenceTotalToPay}`,
+        { permanencesId }
+      )
+      .pipe(map((response: any) => response.total))
       .toPromise();
   }
 }

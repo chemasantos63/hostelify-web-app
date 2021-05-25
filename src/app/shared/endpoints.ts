@@ -1,3 +1,4 @@
+import { Permanence } from './../components/permanence/permanence.component';
 export enum ApiPath {
   Login = `auth/signin`,
   GetAllCustomers = `customers`,
@@ -8,6 +9,7 @@ export enum ApiPath {
   reservations = `reservations`,
   reservationsToday = `reservations/today`,
   GetAllPermanences = `permanences`,
-  GetAllBills = `bills`,
-  PaymentMethods = `payment-method`
+  GetAllBills = `billing`,
+  PaymentMethods = `payment-method`,
+  PermanenceTotalToPay = `totalToPay`,
 }

@@ -107,7 +107,7 @@ export class PermanenceComponent implements OnInit {
 
   async handlePaidClick(permanence: Permanence): Promise<void> {
     const paidDialogResult = await this.dialog
-      .open(PaymentsComponent)
+      .open(PaymentsComponent,{data:{permanence}})
       .afterClosed()
       .toPromise();
   }
