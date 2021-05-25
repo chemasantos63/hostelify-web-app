@@ -1,0 +1,35 @@
+<form class="paymentsForm">
+  <mat-form-field  appearance="outline">
+    <mat-label>Forma de Pago</mat-label>
+    <mat-select (selectionChange)="methodChange($event)">
+      <mat-option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"  >{{
+        paymentMethod.description
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+ <mat-form-field  appearance="outline" >
+    <mat-label>{{selectedPaymentMethod?.symbol}}</mat-label>
+    <input matInput #txtAmount>
+</mat-form-field>
+<button mat-raised-button color="accent" (click)="insertRow(+txtAmount.value)">
+  Agregar
+</button>
+
+    <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef>Forma Pago</th>
+            <td mat-cell *matCellDef="let row">{{ row.paymentMethod.description }}</td>
+          </ng-container>
+          
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef>Monto</th>
+            <td mat-cell *matCellDef="let row">{{ row.amount }}</td>
+          </ng-container>   
+          
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+    </table>
+
+
+</form>
