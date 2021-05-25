@@ -2,7 +2,7 @@
   <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="((isHandset$ | async) === false) && isUserLogin">
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
+    <mat-nav-list class="list-items-container">
       <a mat-list-item routerLink="/home"  (click)="drawer.mode === 'side' || drawer.toggle()">Inicio</a>
       <a mat-list-item routerLink="/reservation"  (click)="drawer.mode === 'side' || drawer.toggle()">Reservación</a>
       <a mat-list-item routerLink="/roomer" (click)="drawer.mode === 'side' || drawer.toggle()">Huesped</a>

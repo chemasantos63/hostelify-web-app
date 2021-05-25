@@ -2,8 +2,17 @@
   height: 100%;
 }
 
+.list-items-container{
+  margin-bottom: 300px;
+}
+
 .sidenav {
   width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
 }
 
 .sidenav .mat-toolbar {
@@ -17,7 +26,8 @@
 }
 
 .logout-btn-container{
-  height: calc(100% - 320px);
+  /* height: calc(100% - 320px); */
+  height: auto;
   display: flex;
   align-items: flex-end;
   justify-content: center;

@@ -32,10 +32,10 @@ export class ReservationService {
       .toPromise();
   }
 
-  async fetchTodayReservations(): Promise<Reservation[]> {
+  async fetchTodayReservations(operation: string): Promise<Reservation[]> {
     return this.http
       .get<Reservation[]>(
-        `${environment.BASE_URI}/${ApiPath.reservationsToday}`
+        `${environment.BASE_URI}/${ApiPath.reservationsToday}/${operation}`
       )
       .toPromise();
   }

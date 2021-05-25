@@ -22,9 +22,11 @@ export class DashboardComponent implements OnInit {
 
   roomsByStatus: any[];
   statusToIgnore: string[];
-  reservations: Reservation[];
+  reservationsCheckIn: Reservation[];
+  reservationsCheckOut: Reservation[];
   isLoading: boolean;
-  reservationsDataSource: MatTableDataSource<ReservationDashboard>;
+  reservationsCheckInDataSource: MatTableDataSource<ReservationDashboard>;
+  reservationsCheckOutDataSource: MatTableDataSource<ReservationDashboard>;
   columnsForReservationTable: string[];
 
   constructor(
@@ -35,11 +37,13 @@ export class DashboardComponent implements OnInit {
   ) {
     //@ts-ignore
     this.username = this.authService.currentUserValue.username;
-    this.reservations = [];
+    this.reservationsCheckIn = [];
+    this.reservationsCheckOut = [];
     this.roomsByStatus = [];
     this.statusToIgnore = [`Inactiva`, `Activa`];
     this.isLoading = false;
-    this.reservationsDataSource = new MatTableDataSource();
+    this.reservationsCheckInDataSource = new MatTableDataSource();
+    this.reservationsCheckOutDataSource = new MatTableDataSource();
     this.columnsForReservationTable = [
       `rooms`,
       `customer`,
@@ -51,9 +55,15 @@ export class DashboardComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
 
-    this.reservations = await this.reservationService.fetchTodayReservations();
-    this.reservationsDataSource = new MatTableDataSource(
-      this.parseReservationData(this.reservations)
+    this.reservationsCheckIn =
+      await this.reservationService.fetchTodayReservations(`CheckIn`);
+    this.reservationsCheckOut =
+      await this.reservationService.fetchTodayReservations(`CheckOut`);
+    this.reservationsCheckInDataSource = new MatTableDataSource(
+      this.parseReservationData(this.reservationsCheckIn)
+    );
+    this.reservationsCheckOutDataSource = new MatTableDataSource(
+      this.parseReservationData(this.reservationsCheckOut)
     );
 
     const roomStatus = await this.roomService.fetchRoomStatus();
@@ -85,7 +95,7 @@ export class DashboardComponent implements OnInit {
   private parseReservationData(
     reservations: Reservation[]
   ): ReservationDashboard[] {
-    return this.reservations.map((r) => ({
+    return reservations.map((r) => ({
       rooms: getRoomsNumber(r),
       customer: `${r.customer.name} ${r.customer.lastname}`,
       roomersQty: `${r.roomersQty}`,
@@ -96,9 +106,16 @@ export class DashboardComponent implements OnInit {
   async handleCheckIn(rowIndex: number): Promise<void> {
     localStorage.setItem(
       'reservationToCreatePermananence',
-      JSON.stringify(this.reservations[rowIndex])
+      JSON.stringify(this.reservationsCheckIn[rowIndex])
     );
-    this.router.navigate(['/permanence', this.reservations[rowIndex].id]);
-    console.log(this.reservations[rowIndex]);
+    this.router.navigate([
+      '/permanence',
+      this.reservationsCheckIn[rowIndex].id,
+    ]);
+    console.log(this.reservationsCheckIn[rowIndex]);
+  }
+
+  async handleCheckOut(rowIndex: number): Promise<void> {
+    console.log(this.reservationsCheckOut[rowIndex]);
   }
 }
