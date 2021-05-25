@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { InVoice } from '../components/billing/billing.component';
+import { Invoice } from '../components/billing/billing.component';
 import { Customer } from '../components/customer/customer.component';
 import { ApiPath } from '../shared/endpoints';
 
@@ -28,21 +28,21 @@ export interface InVoiceDto {
 export class BillingService {
   constructor(private readonly http: HttpClient) {}
 
-  async fechtBillById(id: number): Promise<InVoice> {
+  async fechtBillById(id: number): Promise<Invoice> {
     return this.http
-      .get<InVoice>(`${environment.BASE_URI}/${ApiPath.GetAllBills}/${id}`)
+      .get<Invoice>(`${environment.BASE_URI}/${ApiPath.GetAllBills}/${id}`)
       .toPromise();
   }
 
-  async fetchAllBills(): Promise<InVoice[]> {
+  async fetchAllBills(): Promise<Invoice[]> {
     return this.http
-      .get<InVoice[]>(`${environment.BASE_URI}/${ApiPath.GetAllBills}`)
+      .get<Invoice[]>(`${environment.BASE_URI}/${ApiPath.GetAllBills}`)
       .toPromise();
   }
 
-  async createBill(inVoiceDto: InVoiceDto): Promise<InVoice> {
+  async createBill(inVoiceDto: InVoiceDto): Promise<Invoice> {
     return this.http
-      .post<InVoice>(
+      .post<Invoice>(
         `${environment.BASE_URI}/${ApiPath.GetAllBills}`,
         inVoiceDto
       )
@@ -62,5 +62,13 @@ export class BillingService {
     return this.http
       .delete<boolean>(`${environment.BASE_URI}/${ApiPath.GetAllBills}/${id}`)
       .toPromise();
+  }
+
+  getInvoicePdf(invoice: Invoice): string {
+    // return await this.http
+    //   .get<void>(`${environment.BASE_URI}/billing/invoicePdf/${invoice.id}`)
+    //   .toPromise();
+
+    return `${environment.BASE_URI}/billing/invoicePdf/${invoice.id}`;
   }
 }
