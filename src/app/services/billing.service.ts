@@ -2,25 +2,31 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Invoice } from '../components/billing/billing.component';
+import { Payments } from '../components/billing/payments/payments.component';
 import { Customer } from '../components/customer/customer.component';
 import { ApiPath } from '../shared/endpoints';
 
-export interface InVoiceDto {
-  inVoiceNumber: number;
-  createdDate: Date;
-  expirationDate: Date;
-  customer: Customer;
-  emitionPointID: number;
-  caiId: number;
-  income: number;
-  tax15: number;
-  tax18: number;
-  tourismTax: number;
-  discount: number;
-  discountPercent: number;
-  condition: string;
-  paymentTermId: number;
-  paymentTypeId: number;
+export class CreateInvoiceDTO {
+  permanencesId: number[];
+  payments: PaymentMethodWithAmount[];
+  constructor(permanencesId: number[], payments: Payments[]) {
+    this.permanencesId = permanencesId;
+    this.payments = payments.map((p) => {
+      return {
+        paymentMethodId: p.paymentMethod.id.toFixed(),
+        amount: p.amount,
+      };
+    });
+  }
+}
+
+export class PaymentMethodWithAmount {
+  paymentMethodId: string;
+  amount: number;
+  constructor(paymentMethodId: string, amount: number) {
+    this.paymentMethodId = paymentMethodId;
+    this.amount = amount;
+  }
 }
 @Injectable({
   providedIn: 'root',
@@ -40,16 +46,19 @@ export class BillingService {
       .toPromise();
   }
 
-  async createBill(inVoiceDto: InVoiceDto): Promise<Invoice> {
+  async createBill(createInvoiceDTO: CreateInvoiceDTO): Promise<Invoice> {
     return this.http
       .post<Invoice>(
         `${environment.BASE_URI}/${ApiPath.GetAllBills}`,
-        inVoiceDto
+        createInvoiceDTO
       )
       .toPromise();
   }
 
-  async updateBillById(id: number, inVoiceDto: InVoiceDto): Promise<boolean> {
+  async updateBillById(
+    id: number,
+    inVoiceDto: CreateInvoiceDTO
+  ): Promise<boolean> {
     return this.http
       .patch<boolean>(
         `${environment.BASE_URI}/${ApiPath.GetAllBills}/${id}`,

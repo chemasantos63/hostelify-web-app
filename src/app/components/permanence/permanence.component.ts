@@ -1,3 +1,7 @@
+import {
+  CreateInvoiceDTO,
+  BillingService,
+} from './../../services/billing.service';
 import { PaymentsComponent } from './../billing/payments/payments.component';
 import { Reservation } from './../reservation/reservation.component';
 import { Customer } from './../customer/customer.component';
@@ -45,7 +49,8 @@ export class PermanenceComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private toastr: ToastrService,
-    private readonly permanenceService: PermanenceService
+    private readonly permanenceService: PermanenceService,
+    private readonly billingService: BillingService
   ) {}
 
   applyFilter(event: Event) {
@@ -106,10 +111,28 @@ export class PermanenceComponent implements OnInit {
   }
 
   async handlePaidClick(permanence: Permanence): Promise<void> {
-    const paidDialogResult = await this.dialog
-      .open(PaymentsComponent,{data:{permanence}})
-      .afterClosed()
-      .toPromise();
+    try {
+      const paidDialogResult = await this.dialog
+        .open(PaymentsComponent, { data: { permanence } })
+        .afterClosed()
+        .toPromise();
+
+      if (paidDialogResult) {
+        const createInvoiceDto: CreateInvoiceDTO = new CreateInvoiceDTO(
+          [permanence.id],
+          paidDialogResult
+        );
+
+        const invoiceCreated = await this.billingService.createBill(
+          createInvoiceDto
+        );
+
+        console.log(invoiceCreated);
+        this.toastr.success(`Factura generada con exito.`, `Operacion Exitosa`);
+      }
+    } catch (e) {
+      this.toastr.error(`${e}`);
+    }
   }
 
   getRoomsNumber(permanence: Permanence): string {

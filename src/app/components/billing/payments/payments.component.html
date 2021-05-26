@@ -1,35 +1,61 @@
-<form class="paymentsForm">
-  <mat-form-field  appearance="outline">
-    <mat-label>Forma de Pago</mat-label>
-    <mat-select (selectionChange)="methodChange($event)">
-      <mat-option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id"  >{{
-        paymentMethod.description
-      }}</mat-option>
-    </mat-select>
-  </mat-form-field>
- <mat-form-field  appearance="outline" >
-    <mat-label>{{selectedPaymentMethod?.symbol}}</mat-label>
-    <input matInput #txtAmount>
-</mat-form-field>
-<button mat-raised-button color="accent" (click)="insertRow(+txtAmount.value)">
-  Agregar
-</button>
+<h2 mat-dialog-title>Agregar Pagos</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="paymentsForm">
 
-    <table mat-table [dataSource]="dataSource">
-        <ng-container matColumnDef="description">
-            <th mat-header-cell *matHeaderCellDef>Forma Pago</th>
-            <td mat-cell *matCellDef="let row">{{ row.paymentMethod.description }}</td>
-          </ng-container>
-          
-          <ng-container matColumnDef="amount">
-            <th mat-header-cell *matHeaderCellDef>Monto</th>
-            <td mat-cell *matCellDef="let row">{{ row.amount }}</td>
-          </ng-container>   
-          
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6">
+          <h3>Total por pagar:</h3>
+        </div>
+        <div class="col-sm-6">
+          <h3>{{totalToPay|currency : 'HNL'}}</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>Forma de Pago</mat-label>
+            <mat-select (selectionChange)="methodChange($event)">
+              <mat-option *ngFor="let paymentMethod of paymentMethods" [value]="paymentMethod.id">{{
+                paymentMethod.description
+                }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+          <mat-form-field appearance="outline">
+            <mat-label>{{selectedPaymentMethod?.symbol}}</mat-label>
+            <input matInput #txtAmount [disabled]="!selectedPaymentMethod">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <button mat-raised-button color="accent" (click)="insertRow(+txtAmount.value)" style="width: 100%;" [disabled]="!selectedPaymentMethod"> 
+            Agregar
+          </button>
+        </div>
+      </div>
+    </div>
 
+    <table mat-table [dataSource]="dataSource" style="width: 100%;">
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Forma Pago</th>
+        <td mat-cell *matCellDef="let row">{{ row.paymentMethod.description }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef>Monto</th>
+        <td mat-cell *matCellDef="let row">{{ row.amount }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
-
-</form>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
+  <button mat-raised-button (click)="handlePayClick()">Pagar</button>
+</mat-dialog-actions>
