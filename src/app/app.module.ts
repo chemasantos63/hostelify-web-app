@@ -37,6 +37,7 @@ import { PermanenceComponent } from './components/permanence/permanence.componen
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
 import { BillingComponent } from './components/billing/billing.component';
 import { PaymentsComponent } from './components/billing/payments/payments.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { PaymentsComponent } from './components/billing/payments/payments.compon
     { provide: MAT_DIALOG_DATA, useValue: undefined },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    DatePipe
   ],
   bootstrap: [AppComponent],
 })

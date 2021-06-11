@@ -8,6 +8,7 @@ import { ReservationService } from './../../../services/reservation.service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Component, Inject, OnInit, QueryList } from '@angular/core';
 import { Room } from '../../room/room.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-createupdatereservation',
@@ -26,13 +27,14 @@ export class CreateupdatereservationComponent implements OnInit {
     private roomService: RoomService,
     private customerService: CustomerService,
     @Inject(MAT_DIALOG_DATA) public data: { reservation: Reservation },
-    private dialogRef: MatDialogRef<CreateupdatereservationComponent>
+    private dialogRef: MatDialogRef<CreateupdatereservationComponent>,
+    private datePipe: DatePipe
   ) {
     this.createUpdateReservationForm = this.formBuilder.group({
       fromDate: data ? data.reservation.fromDate : '',
       toDate: data ? data.reservation.toDate : '',
-      customerId: data ? data.reservation.customer.id : '' ,
-      roomersQty: data ? data.reservation.roomersQty: '',
+      customerId: data ? data.reservation.customer.id : '',
+      roomersQty: data ? data.reservation.roomersQty : '',
       roomIds: new FormControl(
         data ? data.reservation.rooms.map((r) => r.id) : ''
       ),
@@ -57,14 +59,23 @@ export class CreateupdatereservationComponent implements OnInit {
       }
 
       this.closeDialog(true);
-
     } catch (e) {
       this.closeDialog(false);
     }
   }
 
-  async loadRooms(): Promise<void> {
-    this.rooms = await this.roomService.fetchAllRooms();
+  async loadAvailableRooms(): Promise<void> {
+    this.rooms = await this.roomService.fetchAvailableRooms(
+      this.datePipe.transform(
+        this.createUpdateReservationForm.value.toDate,
+        'yyyy-MM-dd'
+      )!,
+      this.datePipe.transform(
+        this.createUpdateReservationForm.value.fromDate,
+        'yyyy-MM-dd'
+      )!
+    );
+    console.log('prueba');
   }
 
   async loadCustomers(): Promise<void> {
@@ -72,7 +83,6 @@ export class CreateupdatereservationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadRooms();
     this.loadCustomers();
   }
 

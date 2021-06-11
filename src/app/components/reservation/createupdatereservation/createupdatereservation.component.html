@@ -15,7 +15,7 @@
       <mat-date-range-picker #rangePicker>
         <mat-date-range-picker-actions>
           <button mat-button matDateRangePickerCancel>Cancelar</button>
-          <button mat-raised-button color="primary" matDateRangePickerApply>
+          <button mat-raised-button color="primary" matDateRangePickerApply (click)="loadAvailableRooms()">
             Aplicar
           </button>
         </mat-date-range-picker-actions>

@@ -3,7 +3,7 @@
     <h4>Bienvenido {{username}}</h4>
     <div class="row" *ngIf="!isLoading">
         <div class="col-sm-2" *ngFor="let status of roomsByStatus">
-            <app-dashboard-card imgSrc="../../../../assets/dashboard/building.svg" [quantity]="status.quantity"
+            <app-dashboard-card imgSrc="../../../../assets/dashboard/{{status.statusDescription}}.svg" [quantity]="status.quantity"
                 [description]="status.statusDescription"></app-dashboard-card>
         </div>
     </div>

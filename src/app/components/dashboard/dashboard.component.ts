@@ -85,6 +85,7 @@ export class DashboardComponent implements OnInit {
           {
             statusDescription: status.description,
             quantity: rooms.filter((r) => r.status.id === status.id).length,
+        
           },
         ];
       }

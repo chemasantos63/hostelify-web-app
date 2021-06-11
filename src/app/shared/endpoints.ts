@@ -12,4 +12,5 @@ export enum ApiPath {
   GetAllBills = `billing`,
   PaymentMethods = `payment-method`,
   PermanenceTotalToPay = `totalToPay`,
+  AvailableRooms= `available`,
 }

@@ -1,5 +1,5 @@
 import { RoomStatus, RoomType } from './../components/room/room.component';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Room } from '../components/room/room.component';
@@ -31,6 +31,17 @@ export class RoomService {
   async createRoom(roomDto: RoomDto): Promise<any> {
     return this.http
       .post<Room>(`${environment.BASE_URI}/${ApiPath.rooms}`, roomDto)
+      .toPromise();
+  }
+
+  async fetchAvailableRooms(toDate: string, fromDate: string): Promise<Room[]> {
+    const params = new HttpParams()
+      .set('toDate', toDate)
+      .set('fromDate', fromDate);
+    return this.http
+      .get<Room[]>(`${environment.BASE_URI}/${ApiPath.rooms}/${ApiPath.AvailableRooms}`, {
+        params,
+      })
       .toPromise();
   }
 
