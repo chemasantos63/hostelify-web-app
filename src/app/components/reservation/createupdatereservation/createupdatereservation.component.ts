@@ -82,8 +82,8 @@ export class CreateupdatereservationComponent implements OnInit {
     this.customers = await this.customerService.fetchAllCustomers();
   }
 
-  ngOnInit(): void {
-    this.loadCustomers();
+  async ngOnInit(): Promise<void> {
+    await this.loadCustomers();
   }
 
   closeDialog(success?: boolean): void {

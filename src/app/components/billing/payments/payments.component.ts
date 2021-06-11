@@ -8,10 +8,9 @@ import {
   PaymentsService,
 } from './../../../services/payments.service';
 import { Component, OnInit } from '@angular/core';
-import { MatSelectChange } from '@angular/material/select';
+import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { Inject } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-
 
 export class Payments {
   paymentMethod: PaymentMethod;
@@ -78,7 +77,7 @@ export class PaymentsComponent implements OnInit {
     }
   }
 
-  handlePayClick(): void {
+  handlePayClick(condition: string): void {
     const totalInPayments = this.dataSource.data.reduce(
       (acc, act) => acc + +act.amount,
       0
@@ -91,7 +90,7 @@ export class PaymentsComponent implements OnInit {
       return;
     }
 
-    this.dialoRef.close(this.dataSource.data);
+    this.dialoRef.close({ data: this.dataSource.data, condition });
   }
 
   private createCashBackPayment(totalInPayments: number) {

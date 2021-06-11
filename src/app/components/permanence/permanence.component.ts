@@ -120,7 +120,8 @@ export class PermanenceComponent implements OnInit {
       if (paidDialogResult) {
         const createInvoiceDto: CreateInvoiceDTO = new CreateInvoiceDTO(
           [permanence.id],
-          paidDialogResult
+          paidDialogResult.data,
+          paidDialogResult.condition
         );
 
         const invoiceCreated = await this.billingService.createBill(
@@ -128,6 +129,10 @@ export class PermanenceComponent implements OnInit {
         );
 
         console.log(invoiceCreated);
+
+        const urlReport = this.billingService.getInvoicePdf(invoiceCreated);
+        window.open(urlReport, '_blank');
+
         this.toastr.success(`Factura generada con exito.`, `Operacion Exitosa`);
       }
     } catch (e) {

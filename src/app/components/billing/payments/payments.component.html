@@ -12,7 +12,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <mat-form-field appearance="outline">
             <mat-label>Forma de Pago</mat-label>
             <mat-select (selectionChange)="methodChange($event)">
@@ -22,16 +22,26 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-4">
           <mat-form-field appearance="outline">
             <mat-label>{{selectedPaymentMethod?.symbol}}</mat-label>
             <input matInput #txtAmount [disabled]="!selectedPaymentMethod">
           </mat-form-field>
         </div>
+        <div class="col-sm-4">
+          <mat-form-field appearance="outline">
+            <mat-label>Condicion</mat-label>
+            <mat-select #cmbCondition>
+              <mat-option value="contado">Contado</mat-option>
+              <mat-option value="credito">Credito</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <button mat-raised-button color="accent" (click)="insertRow(+txtAmount.value)" style="width: 100%;" [disabled]="!selectedPaymentMethod"> 
+          <button mat-raised-button color="accent" (click)="insertRow(+txtAmount.value)" style="width: 100%;"
+            [disabled]="!selectedPaymentMethod">
             Agregar
           </button>
         </div>
@@ -57,5 +67,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-raised-button color="warn" mat-dialog-close>Cerrar</button>
-  <button mat-raised-button (click)="handlePayClick()">Pagar</button>
+  <button mat-raised-button (click)="handlePayClick(cmbCondition.value)">Pagar</button>
 </mat-dialog-actions>

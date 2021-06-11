@@ -85,7 +85,6 @@ export class DashboardComponent implements OnInit {
           {
             statusDescription: status.description,
             quantity: rooms.filter((r) => r.status.id === status.id).length,
-        
           },
         ];
       }
@@ -118,5 +117,13 @@ export class DashboardComponent implements OnInit {
 
   async handleCheckOut(rowIndex: number): Promise<void> {
     console.log(this.reservationsCheckOut[rowIndex]);
+  }
+
+  getSrcImage(statusDescription: string): string {
+    const splittedStatusDescription = statusDescription.split(` `);
+
+    return splittedStatusDescription
+      .reduce((acc, act) => `${acc}${act}`, ``)
+      .trim();
   }
 }

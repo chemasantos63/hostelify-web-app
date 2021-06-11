@@ -1,106 +1,106 @@
 <div class="wrapper">
-    <h2>Tablero</h2>
-    <h4>Bienvenido {{username}}</h4>
-    <div class="row" *ngIf="!isLoading">
-        <div class="col-sm-2" *ngFor="let status of roomsByStatus">
-            <app-dashboard-card imgSrc="../../../../assets/dashboard/{{status.statusDescription}}.svg" [quantity]="status.quantity"
-                [description]="status.statusDescription"></app-dashboard-card>
-        </div>
+  <h2>Tablero</h2>
+  <h4>Bienvenido {{username}}</h4>
+  <div class="row" *ngIf="!isLoading">
+    <div class="col-sm-2" *ngFor="let status of roomsByStatus">
+      <app-dashboard-card imgSrc="../../../../assets/dashboard/{{getSrcImage(status.statusDescription)}}.svg"
+        [quantity]="status.quantity" [description]="status.statusDescription"></app-dashboard-card>
     </div>
-    <div class="row table-wrapper">
-        <div class="col-sm-6">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>
-                        Registros Esperados
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <table mat-table [dataSource]="reservationsCheckInDataSource" class="reservationsTable">
-                        <!-- Rooms Column -->
-                        <ng-container matColumnDef="rooms">
-                          <th mat-header-cell *matHeaderCellDef> Habitaciones </th>
-                          <td mat-cell *matCellDef="let row"> {{row.rooms}} </td>
-                        </ng-container>
-                      
-                        <!-- Customer Column -->
-                        <ng-container matColumnDef="customer">
-                          <th mat-header-cell *matHeaderCellDef> Cliente </th>
-                          <td mat-cell *matCellDef="let row"> {{row.customer}} </td>
-                        </ng-container>
-                      
-                        <!-- Roomers Quantity Column -->
-                        <ng-container matColumnDef="roomersQty">
-                          <th mat-header-cell *matHeaderCellDef> Huespedes </th>
-                          <td mat-cell *matCellDef="let row"> {{row.roomersQty}} </td>
-                        </ng-container>
+  </div>
+  <div class="row table-wrapper">
+    <div class="col-sm-6">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Registros Esperados
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="reservationsCheckInDataSource" class="reservationsTable">
+            <!-- Rooms Column -->
+            <ng-container matColumnDef="rooms">
+              <th mat-header-cell *matHeaderCellDef> Habitaciones </th>
+              <td mat-cell *matCellDef="let row"> {{row.rooms}} </td>
+            </ng-container>
 
-                        <ng-container matColumnDef="actions">
-                            <th mat-header-cell *matHeaderCellDef>Ingreso</th>
-                            <td mat-cell *matCellDef="let row;let i = index">
-                              <button mat-icon-button matTooltip="Ingreso" (click)="handleCheckIn(i)">
-                                <mat-icon>login</mat-icon>
-                              </button>
-                            </td>
-                          </ng-container>
-                    
-                        <tr mat-header-row *matHeaderRowDef="columnsForReservationTable"></tr>
-                        <tr mat-row *matRowDef="let row; columns: columnsForReservationTable;"></tr>
-                      
-                        <!-- Row shown when there is no reservation data. -->
-                        <tr class="mat-row" *matNoDataRow>
-                          <td class="mat-cell" colspan="4">No hay reservaciones para hoy</td>
-                        </tr>
-                      </table>
-                </mat-card-content>
-            </mat-card>
-        </div>
-        <div class="col-sm-6">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>
-                        Salidas Esperadas
-                    </mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <table mat-table [dataSource]="reservationsCheckOutDataSource" class="reservationsTable">
-                      <!-- Rooms Column -->
-                      <ng-container matColumnDef="rooms">
-                        <th mat-header-cell *matHeaderCellDef> Habitaciones </th>
-                        <td mat-cell *matCellDef="let row"> {{row.rooms}} </td>
-                      </ng-container>
-                    
-                      <!-- Customer Column -->
-                      <ng-container matColumnDef="customer">
-                        <th mat-header-cell *matHeaderCellDef> Cliente </th>
-                        <td mat-cell *matCellDef="let row"> {{row.customer}} </td>
-                      </ng-container>
-                    
-                      <!-- Roomers Quantity Column -->
-                      <ng-container matColumnDef="roomersQty">
-                        <th mat-header-cell *matHeaderCellDef> Huespedes </th>
-                        <td mat-cell *matCellDef="let row"> {{row.roomersQty}} </td>
-                      </ng-container>
+            <!-- Customer Column -->
+            <ng-container matColumnDef="customer">
+              <th mat-header-cell *matHeaderCellDef> Cliente </th>
+              <td mat-cell *matCellDef="let row"> {{row.customer}} </td>
+            </ng-container>
 
-                      <ng-container matColumnDef="actions">
-                          <th mat-header-cell *matHeaderCellDef>Salida</th>
-                          <td mat-cell *matCellDef="let row;let i = index">
-                            <button mat-icon-button matTooltip="Salida" (click)="handleCheckOut(i)">
-                              <mat-icon>login</mat-icon>
-                            </button>
-                          </td>
-                        </ng-container>
-                  
-                      <tr mat-header-row *matHeaderRowDef="columnsForReservationTable"></tr>
-                      <tr mat-row *matRowDef="let row; columns: columnsForReservationTable;"></tr>
-                    
-                      <!-- Row shown when there is no reservation data. -->
-                      <tr class="mat-row" *matNoDataRow>
-                        <td class="mat-cell" colspan="4">No hay reservaciones para hoy</td>
-                      </tr>
-                    </table>
-              </mat-card-content>
-            </mat-card>
-        </div>
+            <!-- Roomers Quantity Column -->
+            <ng-container matColumnDef="roomersQty">
+              <th mat-header-cell *matHeaderCellDef> Huespedes </th>
+              <td mat-cell *matCellDef="let row"> {{row.roomersQty}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Ingreso</th>
+              <td mat-cell *matCellDef="let row;let i = index">
+                <button mat-icon-button matTooltip="Ingreso" (click)="handleCheckIn(i)">
+                  <mat-icon>login</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsForReservationTable"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsForReservationTable;"></tr>
+
+            <!-- Row shown when there is no reservation data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No hay reservaciones para hoy</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
     </div>
+    <div class="col-sm-6">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            Salidas Esperadas
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <table mat-table [dataSource]="reservationsCheckOutDataSource" class="reservationsTable">
+            <!-- Rooms Column -->
+            <ng-container matColumnDef="rooms">
+              <th mat-header-cell *matHeaderCellDef> Habitaciones </th>
+              <td mat-cell *matCellDef="let row"> {{row.rooms}} </td>
+            </ng-container>
+
+            <!-- Customer Column -->
+            <ng-container matColumnDef="customer">
+              <th mat-header-cell *matHeaderCellDef> Cliente </th>
+              <td mat-cell *matCellDef="let row"> {{row.customer}} </td>
+            </ng-container>
+
+            <!-- Roomers Quantity Column -->
+            <ng-container matColumnDef="roomersQty">
+              <th mat-header-cell *matHeaderCellDef> Huespedes </th>
+              <td mat-cell *matCellDef="let row"> {{row.roomersQty}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Salida</th>
+              <td mat-cell *matCellDef="let row;let i = index">
+                <button mat-icon-button matTooltip="Salida" (click)="handleCheckOut(i)">
+                  <mat-icon>login</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsForReservationTable"></tr>
+            <tr mat-row *matRowDef="let row; columns: columnsForReservationTable;"></tr>
+
+            <!-- Row shown when there is no reservation data. -->
+            <tr class="mat-row" *matNoDataRow>
+              <td class="mat-cell" colspan="4">No hay reservaciones para hoy</td>
+            </tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
 </div>

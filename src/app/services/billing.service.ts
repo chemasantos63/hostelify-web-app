@@ -9,7 +9,12 @@ import { ApiPath } from '../shared/endpoints';
 export class CreateInvoiceDTO {
   permanencesId: number[];
   payments: PaymentMethodWithAmount[];
-  constructor(permanencesId: number[], payments: Payments[]) {
+  condition: string;
+  constructor(
+    permanencesId: number[],
+    payments: Payments[],
+    condition: string
+  ) {
     this.permanencesId = permanencesId;
     this.payments = payments.map((p) => {
       return {
@@ -17,6 +22,7 @@ export class CreateInvoiceDTO {
         amount: p.amount,
       };
     });
+    this.condition = condition;
   }
 }
 
