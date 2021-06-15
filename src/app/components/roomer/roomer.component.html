@@ -1,3 +1,4 @@
+<!-- para cuando se necesita como pagina que se accede desde el menu -->
 <mat-card class="card-wrapper" *ngIf="!fromReservation && !fromDashboard">
   <mat-card-header>
     <mat-card-title>Administracion de Huespedes</mat-card-title>
@@ -98,7 +99,7 @@
 
 </mat-card>
 
-
+<!-- para cuando se necesita que se muestre como un dialogo -->
 <form class="roomerForm" *ngIf="fromReservation || fromDashboard">
   <mat-form-field>
     <mat-label>Buscar..</mat-label>
@@ -176,7 +177,7 @@
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 
 </form>
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="end" *ngIf="fromReservation || fromDashboard">
   <button mat-raised-button mat-dialog-close *ngIf="fromReservation">Cancelar</button>
   <button mat-raised-button (click)="openDialog()">Nuevo</button>
   <button mat-raised-button (click)="handleAddGuestToReservationClick()" *ngIf="fromReservation">Agregar Huespedes a
