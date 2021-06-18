@@ -89,7 +89,7 @@
       <button mat-raised-button mat-dialog-close *ngIf="fromReservation">
         Cancelar
       </button>
-      <button mat-raised-button (click)="openDialog()">Nuevo</button>
+      <button mat-raised-button (click)="openDialog()" color="accent">Nuevo</button>
       <button mat-raised-button (click)="handleAddGuestToReservationClick()" *ngIf="fromReservation">
         Agregar Huespedes a Reservacion
       </button>
@@ -179,7 +179,7 @@
 </form>
 <mat-dialog-actions align="end" *ngIf="fromReservation || fromDashboard">
   <button mat-raised-button mat-dialog-close *ngIf="fromReservation">Cancelar</button>
-  <button mat-raised-button (click)="openDialog()">Nuevo</button>
+  <button mat-raised-button (click)="openDialog()" color="accent">Nuevo</button>
   <button mat-raised-button (click)="handleAddGuestToReservationClick()" *ngIf="fromReservation">Agregar Huespedes a
     Reservacion</button>
 </mat-dialog-actions>

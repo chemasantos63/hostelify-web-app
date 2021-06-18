@@ -105,6 +105,7 @@ export class RoomComponent implements OnInit {
 
   async handleDeleteClick(room: Room): Promise<void> {
     const result = await this.roomService.deleteRoomById(room.id);
+    this.refreshDataSource(result);
     if (result) {
       alert('Se borro la habitación exitosamente');
     }

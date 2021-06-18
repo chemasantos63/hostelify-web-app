@@ -101,6 +101,7 @@ export class CustomerComponent implements OnInit {
     const result = await this.customerService.deleteCustomerById(customer.id);
     if (result) {
       alert(`Se borro el cliente exitosamente`);
+      this.refreshDataSource(true);
     }
   }
 
