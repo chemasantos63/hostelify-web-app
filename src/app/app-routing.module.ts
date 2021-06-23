@@ -1,3 +1,4 @@
+import { UsersComponent } from './components/users/users.component';
 import { PermanenceComponent } from './components/permanence/permanence.component';
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
 import { BillingComponent } from './components/billing/billing.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'billing', component: BillingComponent, canActivate: [AuthGuard] },
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

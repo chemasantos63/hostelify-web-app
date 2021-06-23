@@ -7,8 +7,11 @@ import { environment } from '../../environments/environment';
 import { ApiPath } from '../shared/endpoints';
 
 export interface User {
-  firtsname: string;
-  lastname: string;
+  id?: number;
+  username: string;
+  email: string;
+  password: string;
+  status: string;
   token: string;
 }
 

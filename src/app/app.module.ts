@@ -38,6 +38,8 @@ import { CreateupdatepermanenceComponent } from './components/permanence/createu
 import { BillingComponent } from './components/billing/billing.component';
 import { PaymentsComponent } from './components/billing/payments/payments.component';
 import { DatePipe } from '@angular/common';
+import { UsersComponent } from './components/users/users.component';
+import { CreateupdateuserComponent } from './components/users/createupdateuser/createupdateuser.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +60,8 @@ import { DatePipe } from '@angular/common';
     CreateupdatepermanenceComponent,
     BillingComponent,
     PaymentsComponent,
+    UsersComponent,
+    CreateupdateuserComponent,
   ],
   imports: [
     BrowserModule,
