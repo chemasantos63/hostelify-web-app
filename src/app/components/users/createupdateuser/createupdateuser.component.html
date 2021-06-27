@@ -1,1 +1,30 @@
-<p>createupdateuser works!</p>
+<h2 mat-dialog-title>{{ creatingUser ? "Crear" : "Actualizar" }} Usuario</h2>
+<mat-dialog-content>
+  <form
+    class="createUpdateUserForm"
+    [formGroup]="createUpdateUserForm"
+    (ngSubmit)="handleSubmit()"
+    #createUserForm="ngForm"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre Usuario</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password"/>
+    </mat-form-field>
+
+    <mat-checkbox formControlName="status">Status</mat-checkbox>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions aling="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="createUserForm.ngSubmit.emit()">
+    {{ creatingUser ? "Crear" : "Actualizar" }}
+  </button>
+</mat-dialog-actions>

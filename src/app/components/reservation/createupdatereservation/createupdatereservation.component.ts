@@ -56,18 +56,20 @@ export class CreateupdatereservationComponent implements OnInit {
 
   async handleSubmit() {
     try {
-      if (this.creatingReservation) {
-        await this.reservationService.reserve(
-          this.createUpdateReservationForm.value
-        );
-      } else {
-        await this.reservationService.updateReservationById(
-          this.data.reservation.id,
-          this.createUpdateReservationForm.value
-        );
-      }
+      if (this.createUpdateReservationForm.valid) {
+        if (this.creatingReservation) {
+          await this.reservationService.reserve(
+            this.createUpdateReservationForm.value
+          );
+        } else {
+          await this.reservationService.updateReservationById(
+            this.data.reservation.id,
+            this.createUpdateReservationForm.value
+          );
+        }
 
-      this.closeDialog(true);
+        this.closeDialog(true);
+      }
     } catch (e) {
       this.closeDialog(false);
     }
