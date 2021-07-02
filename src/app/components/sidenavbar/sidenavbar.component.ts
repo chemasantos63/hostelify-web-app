@@ -5,12 +5,16 @@ import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
+  
+
 @Component({
   selector: 'app-sidenavbar',
   templateUrl: './sidenavbar.component.html',
   styleUrls: ['./sidenavbar.component.css'],
 })
 export class SidenavbarComponent {
+  showAdmin = false;
+ 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -33,6 +37,8 @@ export class SidenavbarComponent {
       }
     });
   }
+
+
 
   handleLogoutClick(): void {
     this.authService.logout();

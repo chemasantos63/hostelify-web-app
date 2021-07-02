@@ -42,6 +42,8 @@ import { UsersComponent } from './components/users/users.component';
 import { CreateupdateuserComponent } from './components/users/createupdateuser/createupdateuser.component';
 import { FiscalInfoComponent } from './components/fiscal-info/fiscal-info.component';
 import { CreateupdatefiscalinfoComponent } from './components/fiscal-info/createupdatefiscalinfo/createupdatefiscalinfo.component';
+import { UserRolesComponent } from './components/user-roles/user-roles.component';
+import { CreateupdaterolesComponent } from './components/user-roles/createupdateroles/createupdateroles.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import { CreateupdatefiscalinfoComponent } from './components/fiscal-info/create
     CreateupdateuserComponent,
     FiscalInfoComponent,
     CreateupdatefiscalinfoComponent,
+    UserRolesComponent,
+    CreateupdaterolesComponent,
   ],
   imports: [
     BrowserModule,

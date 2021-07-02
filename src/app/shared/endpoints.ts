@@ -16,4 +16,5 @@ export enum ApiPath {
   Users = `users`,
   Signup = `auth/signup`,
   GetAllInfo = `fiscal-information`,
+  GetAllRoles= `roles`,
 }
