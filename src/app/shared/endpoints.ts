@@ -15,4 +15,5 @@ export enum ApiPath {
   AvailableRooms= `available`,
   Users = `users`,
   Signup = `auth/signup`,
+  GetAllInfo = `fiscal-information`,
 }

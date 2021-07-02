@@ -40,6 +40,8 @@ import { PaymentsComponent } from './components/billing/payments/payments.compon
 import { DatePipe } from '@angular/common';
 import { UsersComponent } from './components/users/users.component';
 import { CreateupdateuserComponent } from './components/users/createupdateuser/createupdateuser.component';
+import { FiscalInfoComponent } from './components/fiscal-info/fiscal-info.component';
+import { CreateupdatefiscalinfoComponent } from './components/fiscal-info/createupdatefiscalinfo/createupdatefiscalinfo.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { CreateupdateuserComponent } from './components/users/createupdateuser/c
     PaymentsComponent,
     UsersComponent,
     CreateupdateuserComponent,
+    FiscalInfoComponent,
+    CreateupdatefiscalinfoComponent,
   ],
   imports: [
     BrowserModule,

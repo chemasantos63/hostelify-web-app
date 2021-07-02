@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>
+  {{ creatingInfo ? "Crear" : "Actualizar" }} Datos Fiscales
+</h2>
+<mat-dialog-content>
+  <form
+    class="createFiscalForm"
+    [formGroup]="createFiscalForm"
+    (ngSubmit)="handleSubmit()"
+    #createFiscalFormT="ngForm"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Prefijo</mat-label>
+      <input matInput formControlName="prefix" />
+    </mat-form-field>
+
+    <mat-label>Rango Autorizado</mat-label>
+    <mat-form-field appearance="outline">
+      <mat-label>Desde:</mat-label>
+      <input matInput formControlName="begin" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Hasta:</mat-label>
+      <input matInput formControlName="end" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>CAI</mat-label>
+      <input matInput formControlName="cai" />
+    </mat-form-field>
+
+    <mat-slide-toggle formControlName="status">Estado</mat-slide-toggle>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input
+          matStartDate
+          placeholder="Start date"
+          formControlName="dateValidFrom"
+        />
+        <input
+          matEndDate
+          placeholder="End date"
+          formControlName="dateValidTo"
+        />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button (click)="createFiscalFormT.ngSubmit.emit()">
+    {{ creatingInfo ? "Crear" : "Actualizar" }}
+  </button>
+</mat-dialog-actions>
