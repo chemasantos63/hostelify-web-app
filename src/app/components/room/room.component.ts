@@ -96,11 +96,11 @@ export class RoomComponent implements OnInit {
           room,
         },
       })
-      .afterClosed()
-      .toPromise();
+        .afterClosed()
+        .toPromise();
 
-    await this.refreshDataSource(dialogRef);
-    this.showSuccessToast(dialogRef);
+      await this.refreshDataSource(dialogRef);
+      this.showSuccessToast(dialogRef);
   }
 
   async handleDeleteClick(room: Room): Promise<void> {

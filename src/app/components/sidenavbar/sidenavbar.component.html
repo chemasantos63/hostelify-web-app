@@ -13,10 +13,10 @@
 
       <button (click)="showAdmin = !showAdmin" mat-raised-button>Administracion</button>
       <p *ngIf="showAdmin">
-        <a mat-list-item routerLink="/users" (click)="drawer.mode === 'side' || drawer.toggle()"><mat-icon color="accent">stop</mat-icon>Usuarios</a>
-        <a mat-list-item routerLink="/fiscalInfo" (click)="drawer.mode === 'side' || drawer.toggle()"><mat-icon color="accent">stop</mat-icon>Informacion Fiscal</a>
-        <a mat-list-item routerLink="/room" (click)="drawer.mode === 'side' || drawer.toggle()"><mat-icon color="accent">stop</mat-icon>Habitación</a>
-        <a mat-list-item routerLink="/roles" (click)="drawer.mode === 'side' || drawer.toggle()"><mat-icon color="accent">stop</mat-icon>Rol de usuario</a>
+        <a mat-list-item routerLink="/users" (click)="drawer.mode === 'side' || drawer.toggle()"><mat-icon color="accent" aria-hidden="true">stop</mat-icon>Usuarios</a>
+        <a mat-list-item routerLink="/fiscalInfo" (click)="drawer.mode === 'side' || drawer.toggle()"><mat-icon color="accent" aria-hidden="true">stop</mat-icon>Informacion Fiscal</a>
+        <a mat-list-item routerLink="/room" (click)="drawer.mode === 'side' || drawer.toggle()"><mat-icon color="accent" aria-hidden="true">stop</mat-icon>Habitación</a>
+        <a mat-list-item routerLink="/roles" (click)="drawer.mode === 'side' || drawer.toggle()"><mat-icon color="accent" aria-hidden="true">stop</mat-icon>Rol de usuario</a>
       </p>
       
     </mat-nav-list>

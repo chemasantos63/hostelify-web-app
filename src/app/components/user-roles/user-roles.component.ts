@@ -66,12 +66,18 @@ export class UserRolesComponent implements OnInit {
   }
 
   async handleEditClick(role: Role): Promise<void> {
-    const dialogRef = this.dialog.open(CreateupdaterolesComponent, {
-      data: { role },
-    });
+    const dialogRef = await this.dialog
+      .open(CreateupdaterolesComponent, {
+        data: { role },
+      })
+      .afterClosed()
+      .toPromise();
+
+    await this.refreshDataSource(dialogRef);
+    this.showSuccessToast(dialogRef);
   }
 
-  async handleDeteleClick(role: Role): Promise<void>{
+  async handleDeteleClick(role: Role): Promise<void> {
     const result = await this.roleService.deleteRoleById(role.id);
     if (result) {
       alert(`Se borro el cliente exitosamente`);

@@ -62,45 +62,51 @@ export class FiscalInfoComponent implements OnInit {
       .afterClosed()
       .toPromise();
 
-      await this.refreshDataSource(dialogRef);
-      this.showSuccessToast(dialogRef);
+    await this.refreshDataSource(dialogRef);
+    this.showSuccessToast(dialogRef);
   }
 
-  private async refreshDataSource(dialogRef: any){
-    if (dialogRef){
-    this.dataSource = new MatTableDataSource(
-      await this.fiscalInfoService.fetchAllInfo()
-    );
+  private async refreshDataSource(dialogRef: any) {
+    if (dialogRef) {
+      this.dataSource = new MatTableDataSource(
+        await this.fiscalInfoService.fetchAllInfo()
+      );
     }
-    this.dataSource.paginator = this.paginator; 
+    this.dataSource.paginator = this.paginator;
   }
 
- async ngOnInit(): Promise<void> {
-   const fiscalInfoDataSource = await this.fiscalInfoService.fetchAllInfo();
+  async ngOnInit(): Promise<void> {
+    const fiscalInfoDataSource = await this.fiscalInfoService.fetchAllInfo();
 
-   this.dataSource = new MatTableDataSource(fiscalInfoDataSource)
-   this.dataSource.paginator = this.paginator;
- }
-
- async handleEditClick(fiscalInfo: FiscalInfo): Promise<void> {
-   const dialogRef = this.dialog.open(CreateupdatefiscalinfoComponent, {
-     data: {
-       fiscalInfo,
-     },
-   });
- }
-
- async handleDeleteClick (fiscalInfo: FiscalInfo): Promise<void> {
-   const result = await this.fiscalInfoService.deleteInfoById(fiscalInfo.id);
-   if (result) {
-     alert('Se deshabllitaron los datos con exito')
-     this.refreshDataSource(true);
-   }
- }
-
-private showSuccessToast(dialogRef: any){
-  if(dialogRef) {
-    this.toastr.success('Datos Guardados','Operacion Exitosa');
+    this.dataSource = new MatTableDataSource(fiscalInfoDataSource);
+    this.dataSource.paginator = this.paginator;
   }
-}
+
+  async handleEditClick(fiscalInfo: FiscalInfo): Promise<void> {
+    const dialogRef = await this.dialog
+      .open(CreateupdatefiscalinfoComponent, {
+        data: {
+          fiscalInfo,
+        },
+      })
+      .afterClosed()
+      .toPromise();
+
+    await this.refreshDataSource(dialogRef);
+    this.showSuccessToast(dialogRef);
+  }
+
+  async handleDeleteClick(fiscalInfo: FiscalInfo): Promise<void> {
+    const result = await this.fiscalInfoService.deleteInfoById(fiscalInfo.id);
+    if (result) {
+      alert('Se deshabllitaron los datos con exito');
+      this.refreshDataSource(true);
+    }
+  }
+
+  private showSuccessToast(dialogRef: any) {
+    if (dialogRef) {
+      this.toastr.success('Datos Guardados', 'Operacion Exitosa');
+    }
+  }
 }
