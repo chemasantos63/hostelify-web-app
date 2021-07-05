@@ -19,7 +19,7 @@ export interface Role {
   styleUrls: ['./user-roles.component.sass'],
 })
 export class UserRolesComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'description', 'status'];
+  displayedColumns: string[] = ['name', 'description', 'status', 'actions'];
 
   dataSource: MatTableDataSource<Role> = new MatTableDataSource();
 
@@ -83,5 +83,6 @@ export class UserRolesComponent implements OnInit {
     if (dialogRef) {
       this.toastr.success('Cliente Rol', 'Operacion Exitosa');
     }
+    this.refreshDataSource(true);
   }
 }
