@@ -9,7 +9,7 @@ import { Balance } from './balance.service';
 export class CreateBalanceModalService {
   constructor(private dialogService: MatDialog) {}
 
-  async show(lastBalance: Balance): Promise<any> {
+  async show(lastBalance?: Balance): Promise<any> {
     return this.dialogService
       .open(CreateBalanceModalComponent, {
         data: {

@@ -7,8 +7,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BalanceService } from './../../services/balance.service';
 import { CreateBalanceModalService } from './../../services/create-balance-modal.service';
 
-  
-
 @Component({
   selector: 'app-sidenavbar',
   templateUrl: './sidenavbar.component.html',
@@ -16,7 +14,7 @@ import { CreateBalanceModalService } from './../../services/create-balance-modal
 })
 export class SidenavbarComponent {
   showAdmin = false;
- 
+
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -51,19 +49,23 @@ export class SidenavbarComponent {
 
         const lastBalance = sortBalanceByCreatedAtDate[0];
 
-        if (
-          lastBalance.createdAt.setHours(0, 0, 0, 0) !==
-          new Date().setHours(0, 0, 0, 0)
-        ) {
+        if (lastBalance) {
+          if (
+            lastBalance.createdAt.setHours(0, 0, 0, 0) !==
+            new Date().setHours(0, 0, 0, 0)
+          ) {
+            const createBalanceModalResult =
+              await this.createBalanceModalService.show(lastBalance);
+            console.log(createBalanceModalResult);
+          }
+        } else {
           const createBalanceModalResult =
-            await this.createBalanceModalService.show(lastBalance);
+            await this.createBalanceModalService.show();
           console.log(createBalanceModalResult);
         }
       }
     });
   }
-
-
 
   handleLogoutClick(): void {
     this.authService.logout();
