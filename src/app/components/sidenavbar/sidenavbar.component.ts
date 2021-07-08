@@ -7,12 +7,16 @@ import { AuthService } from 'src/app/services/auth.service';
 import { BalanceService } from './../../services/balance.service';
 import { CreateBalanceModalService } from './../../services/create-balance-modal.service';
 
+  
+
 @Component({
   selector: 'app-sidenavbar',
   templateUrl: './sidenavbar.component.html',
   styleUrls: ['./sidenavbar.component.css'],
 })
 export class SidenavbarComponent {
+  showAdmin = false;
+ 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
     .pipe(
@@ -58,6 +62,8 @@ export class SidenavbarComponent {
       }
     });
   }
+
+
 
   handleLogoutClick(): void {
     this.authService.logout();

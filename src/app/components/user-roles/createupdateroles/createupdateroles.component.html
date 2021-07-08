@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{creatingRole ? 'Crear' : 'Actualizar'}} Rol</h2>
+<mat-dialog-content class="mat-typography">
+    <form class="createUpdateRoleForm" [formGroup]="createUpdateRoleForm" (ngSubmit)="handleSubmit()" #createRoleForm="ngForm">
+        <mat-form-field appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Descripción</mat-label>
+            <input matInput formControlName="description"/>
+        </mat-form-field>
+        <mat-slide-toggle formControlName="status">Estado</mat-slide-toggle>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button (click)="createRoleForm.ngSubmit.emit()">{{creatingRole ? 'Crear' : 'Actualizar'}}</button>
+  </mat-dialog-actions>

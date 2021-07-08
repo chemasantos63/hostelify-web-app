@@ -1,4 +1,5 @@
 import { BalanceComponent } from './components/balance/balance.component';
+import { FiscalInfoComponent } from './components/fiscal-info/fiscal-info.component';
 import { UsersComponent } from './components/users/users.component';
 import { PermanenceComponent } from './components/permanence/permanence.component';
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
@@ -12,6 +13,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ReservationComponent } from './components/reservation/reservation.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserRolesComponent } from './components/user-roles/user-roles.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -36,6 +38,8 @@ const routes: Routes = [
   { path: 'billing', component: BillingComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
   { path: 'balance', component: BalanceComponent, canActivate: [AuthGuard] },
+  { path: 'fiscalInfo', component: FiscalInfoComponent, canActivate: [AuthGuard] },
+  { path: 'roles', component: UserRolesComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

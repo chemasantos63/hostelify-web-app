@@ -1,10 +1,11 @@
-import { CreateBalanceModalComponent } from './components/balance/create-balance-modal/create-balance-modal.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import localeHn from '@angular/common/locales/es-HN';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -16,12 +17,15 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BalanceComponent } from './components/balance/balance.component';
+import { CreateBalanceModalComponent } from './components/balance/create-balance-modal/create-balance-modal.component';
 import { BillingComponent } from './components/billing/billing.component';
 import { PaymentsComponent } from './components/billing/payments/payments.component';
 import { CreateUpdateComponent } from './components/customer/create-update/create-update.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { DashboardCardComponent } from './components/dashboard/dashboard-card/dashboard-card.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CreateupdatefiscalinfoComponent } from './components/fiscal-info/createupdatefiscalinfo/createupdatefiscalinfo.component';
+import { FiscalInfoComponent } from './components/fiscal-info/fiscal-info.component';
 import { LoginComponent } from './components/login/login.component';
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
 import { PermanenceComponent } from './components/permanence/permanence.component';
@@ -32,14 +36,14 @@ import { RoomComponent } from './components/room/room.component';
 import { CreateUpdateRoomerComponent } from './components/roomer/create-update-roomer/create-update-roomer.component';
 import { RoomerComponent } from './components/roomer/roomer.component';
 import { SidenavbarComponent } from './components/sidenavbar/sidenavbar.component';
+import { CreateupdaterolesComponent } from './components/user-roles/createupdateroles/createupdateroles.component';
+import { UserRolesComponent } from './components/user-roles/user-roles.component';
 import { CreateupdateuserComponent } from './components/users/createupdateuser/createupdateuser.component';
 import { UsersComponent } from './components/users/users.component';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { AuthService } from './services/auth.service';
 import { MaterialModule } from './shared/material/material/material.module';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import localeHn from '@angular/common/locales/es-HN';
 registerLocaleData(localeHn);
 
 @NgModule({
@@ -65,6 +69,10 @@ registerLocaleData(localeHn);
     CreateupdateuserComponent,
     BalanceComponent,
     CreateBalanceModalComponent,
+    FiscalInfoComponent,
+    CreateupdatefiscalinfoComponent,
+    UserRolesComponent,
+    CreateupdaterolesComponent,
   ],
   imports: [
     BrowserModule,
