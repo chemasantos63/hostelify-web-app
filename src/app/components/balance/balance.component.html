@@ -1,0 +1,195 @@
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Administracion de turnos</mat-card-title>
+                    <mat-card-subtitle>Cierre y apertura de turnos</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <mat-card class="mat-elevation-z2">
+                                    <mat-card-header>
+                                        <mat-card-title>Turno activo</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        Fecha:26/06/2021
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-card class="mat-elevation-z2">
+                                    <mat-card-header>
+                                        <mat-card-title>Total Facturado</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        1,200.00 LPS
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-card class="mat-elevation-z2">
+                                    <mat-card-header>
+                                        <mat-card-title>Total Cobrado</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        1,000.00 LPS
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-sm-12">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Arqueo de caja</mat-card-title>
+                    <mat-card-subtitle>Total Efectivo : {{(this.lpsCashTotal + this.usdCashTotal + this.qtzCashTotal) |
+                        number}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <mat-card class="mat-elevation-z2">
+                                    <mat-card-header>
+                                        <mat-card-title>Lempiras</mat-card-title>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <form [formGroup]="this.lpsCashForm">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Un Lempira</mat-label>
+                                                <input type="number" matInput formControlName="one">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Dos Lempiras</mat-label>
+                                                <input type="number" matInput formControlName="two">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Cinco Lempiras</mat-label>
+                                                <input type="number" matInput formControlName="five">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Diez Lempira</mat-label>
+                                                <input type="number" matInput formControlName="ten">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Viente Lempira</mat-label>
+                                                <input type="number" matInput formControlName="twenty">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Ciencuenta Lempira</mat-label>
+                                                <input type="number" matInput formControlName="fivety">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Cien Lempira</mat-label>
+                                                <input type="number" matInput formControlName="oneHundred">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Quinientos Lempira</mat-label>
+                                                <input type="number" matInput formControlName="fiveHundred">
+                                            </mat-form-field>
+                                        </form>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-card class="mat-elevation-z2">
+                                    <mat-card-header style="justify-content: space-between;">
+                                        <mat-card-title>Dolares</mat-card-title>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tasa de cambio</mat-label>
+                                            <input type="text" matInput [(ngModel)]="usdExchangeRate">
+                                        </mat-form-field>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <form [formGroup]="this.usdCashForm">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Un Dolar</mat-label>
+                                                <input type="text" matInput formControlName="one">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Dos Dolares</mat-label>
+                                                <input type="text" matInput formControlName="two">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Cinco Dolares</mat-label>
+                                                <input type="text" matInput formControlName="five">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Diez Dolares</mat-label>
+                                                <input type="text" matInput formControlName="ten">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Viente Dolares</mat-label>
+                                                <input type="text" matInput formControlName="twenty">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Ciencuenta Dolares</mat-label>
+                                                <input type="text" matInput formControlName="fivety">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Cien Dolares</mat-label>
+                                                <input type="text" matInput formControlName="oneHundred">
+                                            </mat-form-field>
+                                        </form>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="col-sm-4">
+                                <mat-card class="mat-elevation-z2">
+                                    <mat-card-header style="justify-content: space-between;">
+                                        <mat-card-title>Quetzales</mat-card-title>
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tasa de cambio</mat-label>
+                                            <input type="text" matInput [(ngModel)]="qtzExchangeRate">
+                                        </mat-form-field>
+                                    </mat-card-header>
+                                    <mat-card-content>
+                                        <form [formGroup]="this.qtzCashForm">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Un Quetzal</mat-label>
+                                                <input type="text" matInput formControlName="one">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Cinco Quetzales</mat-label>
+                                                <input type="text" matInput formControlName="five">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Diez Quetzales</mat-label>
+                                                <input type="text" matInput formControlName="ten">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Viente Quetzales</mat-label>
+                                                <input type="text" matInput formControlName="twenty">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Ciencuenta Quetzales</mat-label>
+                                                <input type="text" matInput formControlName="fivety">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Cien Quetzales</mat-label>
+                                                <input type="text" matInput formControlName="oneHundred">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Docientos Quetzales</mat-label>
+                                                <input type="text" matInput formControlName="twoHundred">
+                                            </mat-form-field>
+                                        </form>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+    </div>
+</div>

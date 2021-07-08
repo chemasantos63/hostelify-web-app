@@ -14,7 +14,7 @@ import {
 import { Component, Inject, OnInit, QueryList } from '@angular/core';
 import { Room } from '../../room/room.component';
 import { DatePipe } from '@angular/common';
-import { regexJustForNumbersWithoutDecimal } from 'src/app/shared/utils';
+import { regexJustForNumbersWithoutDecimal } from '../../../shared/utils';
 
 @Component({
   selector: 'app-createupdatereservation',
@@ -40,10 +40,10 @@ export class CreateupdatereservationComponent implements OnInit {
       fromDate: data ? data.reservation.fromDate : '',
       toDate: data ? data.reservation.toDate : '',
       customerId: data ? data.reservation.customer.id : '',
-      roomersQty: this.formBuilder.control(
-        data ? data.reservation.roomersQty : '',
-        Validators.pattern(regexJustForNumbersWithoutDecimal)
-      ),
+      roomersQty: new FormControl(data ? data.reservation.roomersQty : '', [
+        Validators.required,
+        Validators.pattern(regexJustForNumbersWithoutDecimal),
+      ]),
       roomIds: new FormControl(
         data ? data.reservation.rooms.map((r) => r.id) : ''
       ),

@@ -54,8 +54,8 @@ export class AuthService {
           const user = jwtDecode(token) as User;
           user.token = token;
           localStorage.setItem(`currentUser`, JSON.stringify(user));
-          this.currentUserSubject.next(user);
           this.currentUserTokentSubject.next(token);
+          this.currentUserSubject.next(user);
           return user;
         })
       )
@@ -65,8 +65,8 @@ export class AuthService {
   public logout(): void {
     localStorage.removeItem('currentUser');
     // @ts-ignore
-    this.currentUserSubject.next(null);
-    // @ts-ignore
     this.currentUserTokentSubject.next(null);
+    // @ts-ignore
+    this.currentUserSubject.next(null);
   }
 }

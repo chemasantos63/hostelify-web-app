@@ -1,3 +1,4 @@
+import { BalanceComponent } from './components/balance/balance.component';
 import { UsersComponent } from './components/users/users.component';
 import { PermanenceComponent } from './components/permanence/permanence.component';
 import { CreateupdatepermanenceComponent } from './components/permanence/createupdatepermanence/createupdatepermanence.component';
@@ -34,6 +35,7 @@ const routes: Routes = [
   },
   { path: 'billing', component: BillingComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+  { path: 'balance', component: BalanceComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
