@@ -1,8 +1,16 @@
 <mat-vertical-stepper>
-    <mat-step label="label1">
-        
-    </mat-step>
-    <mat-step label="label2">
-        
-    </mat-step>
+  <mat-step label="label1">
+    <form>
+      <mat-form-field appearance="outLine">
+        <mat-label>Cliente</mat-label>
+        <mat-select>
+          <mat-option required> cliente </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step label="label2"> </mat-step>
 </mat-vertical-stepper>

@@ -10,6 +10,7 @@
       <a mat-list-item routerLink="/customer" (click)="drawer.mode === 'side' || drawer.toggle()">Cliente</a>
       <a mat-list-item routerLink="/billing" (click)="drawer.mode === 'side' || drawer.toggle()">Facturacion</a>
       <a mat-list-item routerLink="/permanence" (click)="drawer.mode === 'side' || drawer.toggle()">Permanencia</a>
+      <a mat-list-item routerLink="/productsBilling" (click)="drawer.mode === 'side' || drawer.toggle()">Facturar Productos</a>
 
       <button (click)="showAdmin = !showAdmin" mat-raised-button>Administracion</button>
       <p *ngIf="showAdmin">
