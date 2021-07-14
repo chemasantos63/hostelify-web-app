@@ -1,17 +1,11 @@
-import { MatStepperModule } from '@angular/material/stepper';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import localeHn from '@angular/common/locales/es-HN';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -45,8 +39,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { AuthService } from './services/auth.service';
 import { MaterialModule } from './shared/material/material/material.module';
-import { ProductsinvoiceComponent } from './components/productsinvoice/productsinvoice.component';
-import { CreateproductinvoiceComponent } from './components/productsinvoice/createproductinvoice/createproductinvoice.component';
+import { ProductInvoiceComponent } from './components/product-invoice/product-invoice.component';
+import { CreateProductInvoiceComponent } from './components/product-invoice/create-product-invoice/create-product-invoice.component';
 registerLocaleData(localeHn);
 
 @NgModule({
@@ -76,8 +70,8 @@ registerLocaleData(localeHn);
     CreateupdatefiscalinfoComponent,
     UserRolesComponent,
     CreateupdaterolesComponent,
-    ProductsinvoiceComponent,
-    CreateproductinvoiceComponent,
+    ProductInvoiceComponent,
+    CreateProductInvoiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,14 +81,8 @@ registerLocaleData(localeHn);
     FormsModule,
     ReactiveFormsModule,
     LayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatListModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    MatStepperModule,
   ],
   providers: [
     AuthService,
