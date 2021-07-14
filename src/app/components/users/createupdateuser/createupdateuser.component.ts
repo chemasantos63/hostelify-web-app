@@ -12,7 +12,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 export class CreateupdateuserComponent implements OnInit {
   createUpdateUserForm: FormGroup;
   creatingUser = true;
-
+  estado?: String;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -33,6 +33,9 @@ export class CreateupdateuserComponent implements OnInit {
 
   async handleSubmit() {
     try {
+      if (this.createUpdateUserForm.controls.status.value) {
+        this.estado = 'ACTIVE';
+      } 
       if (this.creatingUser) {
         await this.userService.createUser(this.createUpdateUserForm.value);
       } else {

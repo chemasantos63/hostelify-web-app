@@ -1,3 +1,4 @@
+import { MatStepperModule } from '@angular/material/stepper';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DatePipe, registerLocaleData } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -44,6 +45,8 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { JwtInterceptor } from './core/interceptors/jwt.interceptor';
 import { AuthService } from './services/auth.service';
 import { MaterialModule } from './shared/material/material/material.module';
+import { ProductsinvoiceComponent } from './components/productsinvoice/productsinvoice.component';
+import { CreateproductinvoiceComponent } from './components/productsinvoice/createproductinvoice/createproductinvoice.component';
 registerLocaleData(localeHn);
 
 @NgModule({
@@ -73,6 +76,8 @@ registerLocaleData(localeHn);
     CreateupdatefiscalinfoComponent,
     UserRolesComponent,
     CreateupdaterolesComponent,
+    ProductsinvoiceComponent,
+    CreateproductinvoiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,6 +94,7 @@ registerLocaleData(localeHn);
     MatListModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    MatStepperModule,
   ],
   providers: [
     AuthService,
