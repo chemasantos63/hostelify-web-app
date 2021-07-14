@@ -1,3 +1,4 @@
+import { Balance, BalanceService } from './../../services/balance.service';
 import {
   FormBuilder,
   FormGroup,
@@ -6,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { regexForNumbersWithDecimal } from 'src/app/shared/utils';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-balance',
@@ -21,6 +23,8 @@ export class BalanceComponent implements OnInit {
   lpsCashForm: FormGroup;
   usdCashForm: FormGroup;
   qtzCashForm: FormGroup;
+  debitForm: FormGroup;
+
   multiplexObj = {
     one: 1,
     two: 2,
@@ -33,7 +37,17 @@ export class BalanceComponent implements OnInit {
     fiveHundred: 500,
   };
 
-  constructor(private fb: FormBuilder) {
+  currentBalance!: Balance;
+
+  columnsForDebitsTable = ['debitType', 'amount', 'actions'];
+
+  dataSource = [];
+
+  constructor(
+    private fb: FormBuilder,
+    private balanceService: BalanceService,
+    private datePipe: DatePipe
+  ) {
     this.lpsCashTotal = 0;
     this.usdCashTotal = 0;
     this.qtzCashTotal = 0;
@@ -43,6 +57,10 @@ export class BalanceComponent implements OnInit {
     this.lpsCashForm = this.buildDenominationForm();
     this.usdCashForm = this.buildDenominationForm();
     this.qtzCashForm = this.buildDenominationForm();
+
+    this.debitForm = this.fb.group({
+      amount: new FormControl(0, [Validators.required]),
+    });
 
     this.lpsCashForm.valueChanges.subscribe((formValue) => {
       this.lpsCashTotal = 0;
@@ -112,5 +130,30 @@ export class BalanceComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  async ngOnInit(): Promise<void> {
+    const userBalances = await this.balanceService.fetchBalancesByUser();
+    const currentDateBalance = userBalances.find(
+      (b) =>
+        this.datePipe.transform(b.createdAt, `dd/MM/yyyy`) ===
+        this.datePipe.transform(new Date(), `dd/MM/yyyy`)
+    );
+
+    if (currentDateBalance) {
+      this.currentBalance = currentDateBalance;
+    }
+  }
+
+  getBillingTotalFromCurrentBalance(): number {
+    return this.currentBalance.invoices.reduce(
+      (acc, act) => acc + +act.total.total,
+      0
+    );
+  }
+
+  getPaymentsTotalFromCurrentBalance(): number {
+    return this.currentBalance.payments.reduce(
+      (acc, act) => acc + +act.amount,
+      0
+    );
+  }
 }
