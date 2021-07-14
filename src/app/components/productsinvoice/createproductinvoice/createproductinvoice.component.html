@@ -1,0 +1,107 @@
+<mat-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="clienteForm">
+      <mat-form-field appearance="outLine">
+        <mat-label>Cliente</mat-label>
+        <mat-select>
+          <mat-option
+            *ngForm="let cliente of clientes"
+            [value]="cliente.id"
+            formControlName="cliente"
+            required
+          >
+            {{ cliente.nombre }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Siguiente</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <mat-card>
+            <mat-card-header>
+              <mat-card-title>Productos</mat-card-title>
+              <mat-card-subtitle
+                >Ingrese los productos a facturar</mat-card-subtitle
+              >
+            </mat-card-header>
+            <mat-card-content>
+              <div class="table-wrapper mat-elevation-z3">
+                <table mat-table [dataSource]="dataSource" class="detailTable">
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr
+                    mat-row
+                    *matRowDef="let row; columns: displayedColumns"
+                  ></tr>
+
+                  <ng-container matColumnDef="descripcion">
+                    <th mat-header-cell *matHeaderCellDef>Descripción</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.producto.description }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="cantidad">
+                    <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.producto.cant }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="subTotal">
+                    <th mat-header-cell *matHeaderCellDef>SubTotal</th>
+                    <td mat-cell *matCellDef="let row">
+                      {{ row.producto.subTotal }}
+                    </td>
+                  </ng-container>
+
+
+                </table>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-sm-4">
+            <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Productos</mat-card-title>
+                  <mat-card-subtitle
+                    >Ingrese los productos a facturar</mat-card-subtitle
+                  >
+                </mat-card-header>
+                <mat-card-content>
+                  <div class="table-wrapper mat-elevation-z3">
+                    <table mat-table [dataSource]="productsdataSource" class="productsTable">
+                      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                      <tr
+                        mat-row
+                        *matRowDef="let row; columns: displayedColumns"
+                      ></tr>
+    
+                      <ng-container matColumnDef="descripcion">
+                        <th mat-header-cell *matHeaderCellDef>Descripción</th>
+                        <td mat-cell *matCellDef="let row">
+                          {{ row.producto.description }}
+                        </td>
+                      </ng-container>
+    
+                      <ng-container matColumnDef="price">
+                        <th mat-header-cell *matHeaderCellDef>Precio</th>
+                        <td mat-cell *matCellDef="let row">
+                          {{ row.producto.price }}
+                        </td>
+                      </ng-container>                      
+                    </table>
+                  </div>
+                </mat-card-content>
+              </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-step>
+</mat-stepper>
