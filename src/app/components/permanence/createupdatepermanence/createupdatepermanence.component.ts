@@ -11,6 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Reservation } from '../../reservation/reservation.component';
 import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-createupdatepermanence',
@@ -24,6 +25,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
   customer: Customer[] = [];
   roomerIds: number[] = [];
   today = new Date();
+  customers: Customer[] = [];
   // @ts-ignore
   reservation: Reservation = {};
 
@@ -36,7 +38,8 @@ export class CreateupdatepermanenceComponent implements OnInit {
     private dialogRef: MatDialogRef<CreateupdatepermanenceComponent>,
     private route: ActivatedRoute,
     private reservationService: ReservationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private datePipe: DatePipe,
   ) {
     this.createUpdatePermanenceForm = this.formBuilder.group({
       idReservation: data ? data.permanence.reservation : '',
@@ -77,8 +80,22 @@ export class CreateupdatepermanenceComponent implements OnInit {
     this.rooms = await this.roomService.fetchAllRooms();
   }
 
+  async loadAvailableRooms(): Promise<void> {
+    this.rooms = await this.roomService.fetchAvailableRooms(
+      this.datePipe.transform(
+        this.createUpdatePermanenceForm.value.toDate,
+        'yyyy-MM-dd'
+      )!,
+      this.datePipe.transform(
+        this.createUpdatePermanenceForm.value.fromDate,
+        'yyyy-MM-dd'
+      )!
+    );
+    console.log('prueba');
+  }
+  
   async loadCustomers(): Promise<void> {
-    this.customer = await this.customerService.fetchAllCustomers();
+    this.customers = await this.customerService.fetchAllCustomers();
   }
 
   closeDialog(success?: boolean): void {
