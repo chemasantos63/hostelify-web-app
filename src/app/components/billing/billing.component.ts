@@ -34,6 +34,18 @@ export interface Payment {
   amount: string;
   createdAt: Date;
   updatedAt: Date;
+  paymentMethod: PaymentMethod;
+}
+
+export interface PaymentMethod {
+  id: number;
+  description: string;
+  exchangeRate: string;
+  symbol: string;
+  status: string;
+  isCash: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface FiscalInformation {
