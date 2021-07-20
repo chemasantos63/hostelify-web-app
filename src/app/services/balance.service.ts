@@ -23,6 +23,12 @@ export interface CreateBalanceDTO {
   initialBalance: number;
 }
 
+export interface UpdateBalanceDTO {
+  cashTotal: number;
+  debitTotal: number;
+  ignoreNotSameCashAmount: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -48,6 +54,15 @@ export class BalanceService {
   createBalance(body: CreateBalanceDTO): Promise<Balance> {
     return this.http
       .post<Balance>(`${environment.BASE_URI}/${ApiPath.balance}`, { body })
+      .toPromise();
+  }
+
+  updateBalance(balanceId: number, body: UpdateBalanceDTO): Promise<Balance> {
+    return this.http
+      .put<Balance>(
+        `${environment.BASE_URI}/${ApiPath.balance}/${balanceId}`,
+        body
+      )
       .toPromise();
   }
 }

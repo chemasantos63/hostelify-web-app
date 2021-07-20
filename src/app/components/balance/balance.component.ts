@@ -1,4 +1,11 @@
-import { Balance, BalanceService } from './../../services/balance.service';
+import { ToastrService } from 'ngx-toastr';
+import { DialogService } from './../../services/dialog.service';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  Balance,
+  BalanceService,
+  UpdateBalanceDTO,
+} from './../../services/balance.service';
 import {
   FormBuilder,
   FormGroup,
@@ -46,7 +53,9 @@ export class BalanceComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private balanceService: BalanceService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private dialogService: DialogService,
+    private toastrService: ToastrService
   ) {
     this.lpsCashTotal = 0;
     this.usdCashTotal = 0;
@@ -144,16 +153,70 @@ export class BalanceComponent implements OnInit {
   }
 
   getBillingTotalFromCurrentBalance(): number {
-    return this.currentBalance.invoices.reduce(
+    return this.currentBalance?.invoices.reduce(
       (acc, act) => acc + +act.total.total,
       0
     );
   }
 
   getPaymentsTotalFromCurrentBalance(): number {
-    return this.currentBalance.payments.reduce(
+    return this.currentBalance?.payments.reduce(
       (acc, act) => acc + +act.amount,
       0
     );
+  }
+
+  async handleCloseBalanceClick(): Promise<void> {
+    let balance;
+
+    const updateBalanceDTO: UpdateBalanceDTO = {
+      debitTotal: this.debitForm.value.amount,
+      cashTotal: this.lpsCashTotal + this.usdCashTotal + this.qtzCashTotal,
+      ignoreNotSameCashAmount: false,
+    };
+
+    const userResponse = await this.dialogService
+      .showConfirmDialog(
+        `Confirmar accion`,
+        `Los datos ingresados no se podran reversar. ¿Esta seguro de cerrar el turno?`
+      )
+      .toPromise();
+
+    if (userResponse) {
+      const cashPayments = this.currentBalance.payments.filter(
+        (p) => p.paymentMethod.isCash === true
+      );
+
+      const amountInCashPayments = cashPayments.reduce(
+        (acc, act) => acc + +act.amount,
+        0
+      );
+
+      if (updateBalanceDTO.cashTotal !== amountInCashPayments) {
+        const userResponseWarning = await this.dialogService
+          .showConfirmDialog(
+            `Aprobar descuadre en cierre`,
+            `El monto cobrado de efectivo no cuadra con el monto reportado en cierre, ¿Esta seguro de cerrar turno?`
+          )
+          .toPromise();
+
+        if (userResponseWarning) {
+          updateBalanceDTO.ignoreNotSameCashAmount = true;
+          balance = await this.balanceService.updateBalance(
+            this.currentBalance.id,
+            updateBalanceDTO
+          );
+        }
+      } else {
+        balance = await this.balanceService.updateBalance(
+          this.currentBalance.id,
+          updateBalanceDTO
+        );
+      }
+
+      if (balance) {
+        this.toastrService.success(`Turno cerrado exitosamente`, `Cierre`);
+      }
+    }
   }
 }

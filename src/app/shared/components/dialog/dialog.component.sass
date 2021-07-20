@@ -1,0 +1,58 @@
+@import '../../../../styles'
+.dialog-wrapper
+    display: flex
+    flex-direction: column
+    width: 473px
+    .header
+        display: flex
+        flex-direction: row
+        justify-content: space-between
+        align-items: center
+        background-color: #607d8b
+        color: #ffffff
+        height: 48px
+        .dialog-title
+            margin-left: 1rem
+            text-transform: capitalize
+        .dialog-close
+            display: flex
+            align-items: center
+            margin-right: 1rem
+            -webkit-transition: -webkit-transform .3s ease-in-out
+            transition: transform .6s ease-in-out
+        .dialog-close:hover
+            -webkit-transform: rotate(180deg)
+            transform: rotate(180deg)
+    .content
+        margin-top: 35px
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        .dialog-img
+            height: 74.8px
+            width: 74.8px
+            margin-bottom: 0.5rem
+            .icon
+                fill: #607d8b
+        .dialog-text
+            text-align: justify
+            padding: 0 1rem 0 1rem
+    .actions
+        width: 100%
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+        margin: 1rem 0 1rem 0
+        button
+            outline: none
+            width: 70%
+            margin-top: 0.5rem
+            border-radius: 20px
+            -webkit-transition: -webkit-all .3s ease-in-out
+            transition: all .3s ease-in-out
+            height: 31.8px
+        button:hover
+            -webkit-transform: scale(1.05)
+            transform: scale(1.05)

@@ -41,6 +41,7 @@ import { AuthService } from './services/auth.service';
 import { MaterialModule } from './shared/material/material/material.module';
 import { ProductInvoiceComponent } from './components/product-invoice/product-invoice.component';
 import { CreateProductInvoiceComponent } from './components/product-invoice/create-product-invoice/create-product-invoice.component';
+import { DialogComponent } from './shared/components/dialog/dialog.component';
 registerLocaleData(localeHn);
 
 @NgModule({
@@ -72,6 +73,7 @@ registerLocaleData(localeHn);
     CreateupdaterolesComponent,
     ProductInvoiceComponent,
     CreateProductInvoiceComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
