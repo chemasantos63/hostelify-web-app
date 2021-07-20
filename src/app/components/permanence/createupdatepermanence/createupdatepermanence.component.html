@@ -8,46 +8,133 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title>Datos de reservacion</mat-card-title>
-          <mat-card-subtitle>Verifique los datos de la reservacion</mat-card-subtitle>
+          <mat-card-subtitle
+            >Verifique los datos de la reservacion</mat-card-subtitle
+          >
         </mat-card-header>
         <mat-card-content>
           <div class="container">
-            <div class="row">
+            <div class="row" *ngIf="data === undefined">
               <div class="col-sm-6">
                 <label> Cliente:</label>
               </div>
               <div class="col-sm-6">
-                <span>{{reservation.customer.name}} {{reservation.customer.lastname}}</span>
+                <span
+                  >{{ reservation.customer.name }}
+                  {{ reservation.customer.lastname }}</span
+                >
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data === undefined">
               <div class="col-sm-6">
                 <label> Numero de huespedes:</label>
               </div>
               <div class="col-sm-6">
-                <span>{{reservation.roomersQty}}</span>
+                <span>{{ reservation.roomersQty }}</span>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data === undefined">
               <div class="col-sm-6">
                 <label> Fecha Inicio:</label>
               </div>
               <div class="col-sm-6">
-                <span>{{reservation.fromDate}}</span>
+                <span>{{ reservation.fromDate }}</span>
               </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="data === undefined">
               <div class="col-sm-6">
                 <label> Fecha Fin:</label>
               </div>
               <div class="col-sm-6">
-                <span>{{reservation.toDate}}</span>
+                <span>{{ reservation.toDate }}</span>
+              </div>
+            </div>
+            <div class="row" *ngIf="data !== undefined">
+              <div class="col-sm-3">
+                <mat-label>Cliente:</mat-label>
+              </div>
+              <div class="col-sm-9">
+                <mat-form-field appearance="outline">
+                  <mat-select formControlName="customerId">
+                    <mat-option
+                      *ngFor="let customer of customers"
+                      [value]="customer.id"
+                    >
+                      {{ customer.name }} - {{ customer.lastname }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngIf="data !== undefined">
+              <div class="col-sm-3">
+                <mat-label>Fechas:</mat-label>
+              </div>
+              <div class="col-sm-9">
+                <mat-form-field appearance="outline" class="example-form-field">
+                  <mat-label>Seleccione un rango de fechas</mat-label>
+                  <mat-date-range-input [rangePicker]="rangePicker">
+                    <input
+                      formControlName="fromDate"
+                      matStartDate
+                      placeholder="Fecha Inicio"
+                      [min]="today"
+                    />
+                    <input
+                      formControlName="toDate"
+                      matEndDate
+                      placeholder="Fecha Fin"
+                      [min]="today"
+                    />
+                  </mat-date-range-input>
+                  <mat-datepicker-toggle
+                    matPrefix
+                    [for]="rangePicker"
+                  ></mat-datepicker-toggle>
+                  <mat-date-range-picker #rangePicker>
+                    <mat-date-range-picker-actions>
+                      <button mat-button matDateRangePickerCancel>
+                        Cancelar
+                      </button>
+                      <button
+                        mat-raised-button
+                        color="primary"
+                        matDateRangePickerApply
+                        (click)="loadAvailableRooms()"
+                      >
+                        Aplicar
+                      </button>
+                    </mat-date-range-picker-actions>
+                  </mat-date-range-picker>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row" *ngIf="data !== undefined">
+              <div class="col-sm-3">
+                <mat-label>Habitaciones:</mat-label>
+              </div>
+              <div class="col-sm-9">
+                <mat-form-field appearance="outline">
+                  <mat-label>Habitacion</mat-label>
+                  <mat-select formControlName="roomIds" multiple>
+                    <mat-option *ngFor="let room of rooms" [value]="room.id">
+                      No: {{ room.roomNumber }} - {{ room.type.type }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-icon matPrefix>local_hotel</mat-icon>
+                </mat-form-field>
               </div>
             </div>
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <button color="accent" mat-raised-button (click)="handleCreatePermanenceClick()">Crear</button>
+          <button
+            color="accent"
+            mat-raised-button
+            (click)="handleCreatePermanenceClick()"
+          >
+            Crear
+          </button>
         </mat-card-actions>
       </mat-card>
     </div>
@@ -55,12 +142,17 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title>Informacion de huespedes</mat-card-title>
-          <mat-card-subtitle>Verifique la informacion de los huespedes</mat-card-subtitle>
+          <mat-card-subtitle
+            >Verifique la informacion de los huespedes</mat-card-subtitle
+          >
         </mat-card-header>
         <mat-card-content>
-          <app-roomer [fromDashboard]="true" [reservationToCreatePermanence]="reservation" (onSelectRoomer)="handleSelectRoomer($event)"></app-roomer>
+          <app-roomer
+            [fromDashboard]="true"
+            [reservationToCreatePermanence]="reservation"
+            (onSelectRoomer)="handleSelectRoomer($event)"
+          ></app-roomer>
         </mat-card-content>
-
       </mat-card>
     </div>
   </div>

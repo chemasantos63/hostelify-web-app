@@ -3,8 +3,8 @@
     <form>
       <mat-form-field appearance="outline">
         <mat-label>Cliente</mat-label>
-        <mat-select>
-          <mat-option required> cliente </mat-option>
+        <mat-select required>
+          <mat-option> cliente </mat-option>
         </mat-select>
       </mat-form-field>
       <div>
@@ -12,5 +12,101 @@
       </div>
     </form>
   </mat-step>
-  <mat-step label="label2"> </mat-step>
+  <mat-step label="label2">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-8">
+          <mat-card class="mt-2">
+            <mat-card-header>
+              <mat-card-title>Detalle</mat-card-title>
+              <mat-card-subtitle
+                >Ingrese los productos a facturar</mat-card-subtitle
+              >
+            </mat-card-header>
+            <mat-card-content> </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-sm-4">
+          <mat-card class="mt-2">
+            <mat-card-header>
+              <mat-card-title>Productos</mat-card-title>
+              <mat-card-subtitle
+                >Seleccione el producto que desea facturar</mat-card-subtitle
+              >
+            </mat-card-header>
+            <mat-card-content> </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button mat-button matStepperNext>Siguiente</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4">
+          <mat-card class="mt-2"  style="height: 230px;">
+            <mat-card-header>
+              <mat-card-title>Cliente</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="d-flex flex-row">
+                <label>Nombre:</label>
+                <span>Jose Maria Santos</span>
+              </div>
+              <div class="d-flex flex-row">
+                <label>RTN:</label>
+                <span>1111-2222-33333333</span>
+              </div>
+              <div class="d-flex flex-row">
+                <label>Fecha:</label>
+                <span>13/07/2021</span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-sm-4">
+          <mat-card class="mt-2" style="height: 230px;">
+            <mat-card-header>
+              <mat-card-title>Resumen</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="d-flex flex-row">
+                <label>SubTotal:</label>
+                <span>1000.00</span>
+              </div>
+              <div class="d-flex flex-row">
+                <label>Importe Gravado:</label>
+                <span>1000.00</span>
+              </div>
+              <div class="d-flex flex-row">
+                <label>Importe Exento:</label>
+                <span>0.00</span>
+              </div>
+              <div class="d-flex flex-row">
+                <label>ISV15%:</label>
+                <span>150.00</span>
+              </div>
+              <div class="d-flex flex-row">
+                <label>Total:</label>
+                <span>1150.00</span>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <div class="col-sm-4">
+          <mat-card class="mt-2" style="height: 230px;">
+            <mat-card-header>
+              <mat-card-title>Metodo de pago</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <label>Metodo de pago</label>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </mat-step>
 </mat-vertical-stepper>
