@@ -20,6 +20,7 @@ import { DatePipe } from '@angular/common';
 })
 export class CreateupdatepermanenceComponent implements OnInit {
   createUpdatePermanenceForm: FormGroup;
+  createReservationForm: FormGroup;
   creatingPermanence = true;
   rooms: Room[] = [];
   customer: Customer[] = [];
@@ -39,7 +40,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
     private route: ActivatedRoute,
     private reservationService: ReservationService,
     private toastr: ToastrService,
-    private datePipe: DatePipe,
+    private datePipe: DatePipe
   ) {
     this.createUpdatePermanenceForm = this.formBuilder.group({
       idReservation: data ? data.permanence.reservation : '',
@@ -50,8 +51,15 @@ export class CreateupdatepermanenceComponent implements OnInit {
       idCheckOutUser: data ? data.permanence.idCheckOutUser : '',
       rooms: new FormControl(
         data ? data.permanence.rooms.map((r) => r.id) : ''
-      ),
+      ),     
     });
+    this.createReservationForm = this.formBuilder.group({
+      fromDate: '',
+      toDate:  '',
+      customerId: '',
+      roomersQty: '',      
+      roomIds: [],
+    })
     if (data) {
       this.creatingPermanence = false;
     }
@@ -91,9 +99,8 @@ export class CreateupdatepermanenceComponent implements OnInit {
         'yyyy-MM-dd'
       )!
     );
-    console.log('prueba');
   }
-  
+
   async loadCustomers(): Promise<void> {
     this.customers = await this.customerService.fetchAllCustomers();
   }
@@ -113,16 +120,37 @@ export class CreateupdatepermanenceComponent implements OnInit {
   }
 
   async handleCreatePermanenceClick(): Promise<void> {
-    const response = await this.permanenceService.checkIn({
-      idReservation: this.reservation.id,
-      guestIds: this.roomerIds,
-    });
+    if (this.data) {
+      const idReserv = await this.reservationService.reserve({
+        fromDate: this.createReservationForm.value.fromDate,
+        toDate: this.createReservationForm.value.toDate,
+        customerId: this.createReservationForm.value.customerId,
+        roomersQty: this.createReservationForm.value.roomersQty,
+        roomIds: this.createReservationForm.value.roomsIds,
+      });
+      const response = await this.permanenceService.checkIn({
+        idReservation: idReserv,
+        guestIds: this.roomerIds,
+      });
 
-    if (response) {
-      this.toastr.success(
-        `Se registro la permanencia exitosamente.`,
-        `Operacion Exitosa`
-      );
+      if (response) {
+        this.toastr.success(
+          `Se registro la permanencia exitosamente.`,
+          `Operacion Exitosa`
+        );
+      }
+    } else {
+      const response = await this.permanenceService.checkIn({
+        idReservation: this.reservation.id,
+        guestIds: this.roomerIds,
+      });
+
+      if (response) {
+        this.toastr.success(
+          `Se registro la permanencia exitosamente.`,
+          `Operacion Exitosa`
+        );
+      }
     }
   }
 
