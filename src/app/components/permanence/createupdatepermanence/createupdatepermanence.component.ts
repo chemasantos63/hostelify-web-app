@@ -51,15 +51,17 @@ export class CreateupdatepermanenceComponent implements OnInit {
       idCheckOutUser: data ? data.permanence.idCheckOutUser : '',
       rooms: new FormControl(
         data ? data.permanence.rooms.map((r) => r.id) : ''
-      ),     
+      ),
     });
+
     this.createReservationForm = this.formBuilder.group({
       fromDate: '',
-      toDate:  '',
+      toDate: '',
       customerId: '',
-      roomersQty: '',      
+      roomersQty: '',
       roomIds: [],
-    })
+    });
+
     if (data) {
       this.creatingPermanence = false;
     }
