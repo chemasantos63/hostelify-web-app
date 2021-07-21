@@ -93,11 +93,11 @@ export class CreateupdatepermanenceComponent implements OnInit {
   async loadAvailableRooms(): Promise<void> {
     this.rooms = await this.roomService.fetchAvailableRooms(
       this.datePipe.transform(
-        this.createUpdatePermanenceForm.value.toDate,
+        this.createReservationForm.value.toDate,
         'yyyy-MM-dd'
       )!,
       this.datePipe.transform(
-        this.createUpdatePermanenceForm.value.fromDate,
+        this.createReservationForm.value.fromDate,
         'yyyy-MM-dd'
       )!
     );
