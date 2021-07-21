@@ -92,7 +92,9 @@ export class PermanenceComponent implements OnInit {
 
   async openDialog(): Promise<void> {
     const createDialogResult = await this.dialog
-      .open(CreateupdatepermanenceComponent)
+      .open(CreateupdatepermanenceComponent, {
+        data: { createPermanenceWithOutReservation: true },
+      })
       .afterClosed()
       .toPromise();
 
