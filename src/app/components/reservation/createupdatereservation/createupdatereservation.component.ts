@@ -38,7 +38,7 @@ export class CreateupdatereservationComponent implements OnInit {
   ) {
     this.createUpdateReservationForm = this.formBuilder.group({
       fromDate: data ? data.reservation.fromDate : '',
-      toDate: data ? data.reservation.toDate : '',
+      toDate: data ? data.reservation.toDate : undefined,
       customerId: data ? data.reservation.customer.id : '',
       roomersQty: new FormControl(data ? data.reservation.roomersQty : '', [
         Validators.required,

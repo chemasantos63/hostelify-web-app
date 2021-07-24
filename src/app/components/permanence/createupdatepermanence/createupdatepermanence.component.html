@@ -54,7 +54,10 @@
                 <div class="col-sm-9">
                   <mat-form-field appearance="outline">
                     <mat-select formControlName="customerId">
-                      <mat-option *ngFor="let customer of customers" [value]="customer.id">
+                      <mat-option
+                        *ngFor="let customer of customers"
+                        [value]="customer.id"
+                      >
                         {{ customer.name }} - {{ customer.lastname }}
                       </mat-option>
                     </mat-select>
@@ -67,24 +70,35 @@
                   <mat-label>Fechas:</mat-label>
                 </div>
                 <div class="col-sm-9">
-                  <mat-form-field appearance="outline" class="example-form-field">
-                    <mat-label>Seleccione un rango de fechas</mat-label>
-                    <mat-date-range-input [rangePicker]="rangePicker">
-                      <input formControlName="fromDate" matStartDate placeholder="Fecha Inicio" [min]="today" />
-                      <input formControlName="toDate" matEndDate placeholder="Fecha Fin" [min]="today" />
-                    </mat-date-range-input>
-                    <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #rangePicker>
-                      <mat-date-range-picker-actions>
-                        <button mat-button matDateRangePickerCancel>
-                          Cancelar
-                        </button>
-                        <button mat-raised-button color="primary" matDateRangePickerApply
-                          (click)="loadAvailableRooms()">
-                          Aplicar
-                        </button>
-                      </mat-date-range-picker-actions>
-                    </mat-date-range-picker>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Fecha de Ingreso</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="fromPicker"
+                      formControlName="fromDate"
+                      (dateInput)="loadAvailableRooms()"
+                      [min]="today"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="fromPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #fromPicker></mat-datepicker>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Fecha de Salida</mat-label>
+                    <input
+                      matInput
+                      [matDatepicker]="toPicker"
+                      formControlName="toDate"
+                      (dateInput)="loadAvailableRooms()"
+                    />
+                    <mat-datepicker-toggle
+                      matSuffix
+                      [for]="toPicker"
+                    ></mat-datepicker-toggle>
+                    <mat-datepicker #toPicker></mat-datepicker>
                   </mat-form-field>
                 </div>
               </div>
