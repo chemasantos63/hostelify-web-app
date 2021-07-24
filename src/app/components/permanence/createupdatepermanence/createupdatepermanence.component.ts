@@ -35,7 +35,11 @@ export class CreateupdatepermanenceComponent implements OnInit {
     private permanenceService: PermanenceService,
     private roomService: RoomService,
     private customerService: CustomerService,
-    @Inject(MAT_DIALOG_DATA) public data: { permanence: Permanence },
+    @Inject(MAT_DIALOG_DATA)
+    public data: {
+      permanence?: Permanence;
+      createPermanenceWithOutReservation: boolean;
+    },
     private dialogRef: MatDialogRef<CreateupdatepermanenceComponent>,
     private route: ActivatedRoute,
     private reservationService: ReservationService,
@@ -43,23 +47,25 @@ export class CreateupdatepermanenceComponent implements OnInit {
     private datePipe: DatePipe
   ) {
     this.createUpdatePermanenceForm = this.formBuilder.group({
-      idReservation: data ? data.permanence.reservation : '',
-      customer: data ? data.permanence.customer : '',
-      checkIn: data ? data.permanence.checkIn : '',
-      checkOut: data ? data.permanence.checkOut : '',
-      idCheckInUser: data ? data.permanence.idCheckInUser : '',
-      idCheckOutUser: data ? data.permanence.idCheckOutUser : '',
+      idReservation: data ? data.permanence?.reservation : '',
+      customer: data ? data.permanence?.customer : '',
+      checkIn: data ? data.permanence?.checkIn : '',
+      checkOut: data ? data.permanence?.checkOut : '',
+      idCheckInUser: data ? data.permanence?.idCheckInUser : '',
+      idCheckOutUser: data ? data.permanence?.idCheckOutUser : '',
       rooms: new FormControl(
-        data ? data.permanence.rooms.map((r) => r.id) : ''
-      ),     
+        data ? data.permanence?.rooms.map((r) => r.id) : ''
+      ),
     });
+
     this.createReservationForm = this.formBuilder.group({
       fromDate: '',
       toDate:  undefined,
       customerId: '',
-      roomersQty: '',      
+      roomersQty: '',
       roomIds: [],
-    })
+    });
+
     if (data) {
       this.creatingPermanence = false;
     }
@@ -73,7 +79,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
         );
       } else {
         await this.permanenceService.updatePermanenceById(
-          this.data.permanence.id,
+          this.data.permanence?.id || 0,
           this.createUpdatePermanenceForm.value
         );
       }
@@ -120,16 +126,16 @@ export class CreateupdatepermanenceComponent implements OnInit {
   }
 
   async handleCreatePermanenceClick(): Promise<void> {
-    if (this.data) {
-      const idReserv = await this.reservationService.reserve({
+    if (this.data.createPermanenceWithOutReservation) {
+      const reservation = await this.reservationService.reserve({
         fromDate: this.createReservationForm.value.fromDate,
         toDate: this.createReservationForm.value.toDate,
         customerId: this.createReservationForm.value.customerId,
         roomersQty: this.createReservationForm.value.roomersQty,
-        roomIds: this.createReservationForm.value.roomsIds,
+        roomIds: this.createReservationForm.value.roomIds,
       });
       const response = await this.permanenceService.checkIn({
-        idReservation: idReserv,
+        idReservation: reservation.id,
         guestIds: this.roomerIds,
       });
 

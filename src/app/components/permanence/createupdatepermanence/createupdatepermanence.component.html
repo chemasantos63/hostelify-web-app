@@ -8,9 +8,7 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title>Datos de reservacion</mat-card-title>
-          <mat-card-subtitle
-            >Verifique los datos de la reservacion</mat-card-subtitle
-          >
+          <mat-card-subtitle>Verifique los datos de la reservacion</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
           <div class="container">
@@ -19,10 +17,8 @@
                 <label> Cliente:</label>
               </div>
               <div class="col-sm-6">
-                <span
-                  >{{ reservation.customer.name }}
-                  {{ reservation.customer.lastname }}</span
-                >
+                <span>{{ reservation.customer.name }}
+                  {{ reservation.customer.lastname }}</span>
               </div>
             </div>
             <div class="row" *ngIf="data === undefined">
@@ -129,12 +125,7 @@
                 <div class="col-sm-9">
                   <mat-form-field appearance="outline">
                     <mat-label>No. Huespedes</mat-label>
-                    <input
-                      type="number"
-                      matInput
-                      formControlName="roomersQty"
-                      inputmode="numeric"
-                    />
+                    <input type="number" matInput formControlName="roomersQty" inputmode="numeric" />
                   </mat-form-field>
                 </div>
               </div>
@@ -142,11 +133,7 @@
           </div>
         </mat-card-content>
         <mat-card-actions>
-          <button
-            color="accent"
-            mat-raised-button
-            (click)="handleCreatePermanenceClick()"
-          >
+          <button color="accent" mat-raised-button (click)="handleCreatePermanenceClick()">
             Crear
           </button>
         </mat-card-actions>
@@ -156,16 +143,11 @@
       <mat-card>
         <mat-card-header>
           <mat-card-title>Informacion de huespedes</mat-card-title>
-          <mat-card-subtitle
-            >Verifique la informacion de los huespedes</mat-card-subtitle
-          >
+          <mat-card-subtitle>Verifique la informacion de los huespedes</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
-          <app-roomer
-            [fromDashboard]="true"
-            [reservationToCreatePermanence]="reservation"
-            (onSelectRoomer)="handleSelectRoomer($event)"
-          ></app-roomer>
+          <app-roomer [fromDashboard]="true" [reservationToCreatePermanence]="reservation"
+            (onSelectRoomer)="handleSelectRoomer($event)"></app-roomer>
         </mat-card-content>
       </mat-card>
     </div>
