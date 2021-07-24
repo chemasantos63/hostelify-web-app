@@ -46,6 +46,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
     private toastr: ToastrService,
     private datePipe: DatePipe
   ) {
+
     this.createUpdatePermanenceForm = this.formBuilder.group({
       idReservation: data ? data.permanence?.reservation : '',
       customer: data ? data.permanence?.customer : '',
@@ -69,6 +70,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
     if (data) {
       this.creatingPermanence = false;
     }
+
   }
 
   async handleSubmit() {
@@ -126,7 +128,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
   }
 
   async handleCreatePermanenceClick(): Promise<void> {
-    if (this.data.createPermanenceWithOutReservation) {
+    if (this.data?.createPermanenceWithOutReservation) {
       const reservation = await this.reservationService.reserve({
         fromDate: this.createReservationForm.value.fromDate,
         toDate: this.createReservationForm.value.toDate,
@@ -134,6 +136,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
         roomersQty: this.createReservationForm.value.roomersQty,
         roomIds: this.createReservationForm.value.roomIds,
       });
+
       const response = await this.permanenceService.checkIn({
         idReservation: reservation.id,
         guestIds: this.roomerIds,
