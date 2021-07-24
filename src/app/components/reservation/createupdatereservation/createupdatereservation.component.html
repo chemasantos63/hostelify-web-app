@@ -3,24 +3,40 @@
   reservación
 </h2>
 <mat-dialog-content class="mat-typography">
-  <form class="createUpdateForm" [formGroup]="createUpdateReservationForm" (ngSubmit)="handleSubmit()"
-    #createForm="ngForm">
-    <mat-form-field appearance="outline" class="example-form-field">
-      <mat-label>Seleccione un rango de fechas</mat-label>
-      <mat-date-range-input [rangePicker]="rangePicker">
-        <input formControlName="fromDate" matStartDate placeholder="Fecha Inicio" [min]="today" />
-        <input formControlName="toDate" matEndDate placeholder="Fecha Fin" [min]="today" />
-      </mat-date-range-input>
-      <mat-datepicker-toggle matPrefix [for]="rangePicker"></mat-datepicker-toggle>
-      <mat-date-range-picker #rangePicker>
-        <mat-date-range-picker-actions>
-          <button mat-button matDateRangePickerCancel>Cancelar</button>
-          <button mat-raised-button color="primary" matDateRangePickerApply (click)="loadAvailableRooms()">
-            Aplicar
-          </button>
-        </mat-date-range-picker-actions>
-      </mat-date-range-picker>
+  <form
+    class="createUpdateForm"
+    [formGroup]="createUpdateReservationForm"
+    (ngSubmit)="handleSubmit()"
+    #createForm="ngForm"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Ingreso</mat-label>
+      <input
+        matInput
+        [matDatepicker]="fromPicker"
+        formControlName="fromDate"
+        (dateInput)="loadAvailableRooms()"
+        [min]="today"
+      />
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="fromPicker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de Salida</mat-label>
+      <input
+        matInput
+        [matDatepicker]="toPicker"
+        formControlName="toDate"
+        (dateInput)="loadAvailableRooms()"
+      />
+      <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+      <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+
     <mat-form-field appearance="outline">
       <mat-label>Cliente</mat-label>
       <mat-select formControlName="customerId">
@@ -41,7 +57,12 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>No. Huespedes</mat-label>
-      <input type="number" matInput formControlName="roomersQty" inputmode="numeric">
+      <input
+        type="number"
+        matInput
+        formControlName="roomersQty"
+        inputmode="numeric"
+      />
     </mat-form-field>
   </form>
 </mat-dialog-content>

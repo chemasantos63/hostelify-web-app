@@ -55,7 +55,7 @@ export class CreateupdatepermanenceComponent implements OnInit {
     });
     this.createReservationForm = this.formBuilder.group({
       fromDate: '',
-      toDate:  '',
+      toDate:  undefined,
       customerId: '',
       roomersQty: '',      
       roomIds: [],

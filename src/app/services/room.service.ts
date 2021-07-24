@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Room } from '../components/room/room.component';
 import { ApiPath } from '../shared/endpoints';
+import { DatePipe } from '@angular/common';
 
 export interface RoomDto {
   rNumber: Number;
@@ -14,7 +15,7 @@ export interface RoomDto {
   providedIn: 'root',
 })
 export class RoomService {
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient, private datePipe: DatePipe) {}
 
   async fetchRoomById(id: number): Promise<Room> {
     return this.http
@@ -35,13 +36,18 @@ export class RoomService {
   }
 
   async fetchAvailableRooms(toDate: string, fromDate: string): Promise<Room[]> {
-    const params = new HttpParams()
-      .set('toDate', toDate)
-      .set('fromDate', fromDate);
+    const longDate = new Date().setFullYear(new Date().getFullYear() + 1);
+    const longDateStr = this.datePipe.transform(longDate,'yyyy-MM-dd');
+    const params = new HttpParams().set('fromDate', fromDate).set('toDate',toDate ? toDate : longDateStr || '');
+
+
     return this.http
-      .get<Room[]>(`${environment.BASE_URI}/${ApiPath.rooms}/${ApiPath.AvailableRooms}`, {
-        params,
-      })
+      .get<Room[]>(
+        `${environment.BASE_URI}/${ApiPath.rooms}/${ApiPath.AvailableRooms}`,
+        {
+          params,
+        }
+      )
       .toPromise();
   }
 
