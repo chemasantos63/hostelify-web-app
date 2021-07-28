@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>
+  {{ creatingProduct ? "Crear" : "Actualizar" }} Producto
+</h2>
+<mat-dialog-content class="mat-typography">
+  <form
+    class="createUpdateProductForm"
+    [formGroup]="createUpdateProductForm"
+    (ngSubmit)="handleSubmit()"
+    #createProductForm="ngForm"
+  >
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="description" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Codigo</mat-label>
+      <input matInput formControlName="code" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Cantidad</mat-label>
+      <input matInput formControlName="stock" />
+    </mat-form-field>
+    <mat-slide-toggle formControlName="status">Estado</mat-slide-toggle>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-button (click)="createProductForm.ngSubmit.emit()">{{creatingProduct ? 'Crear' : 'Actualizar'}}</button>
+  </mat-dialog-actions>

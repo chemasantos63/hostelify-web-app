@@ -1,3 +1,4 @@
+import { ProductsComponent } from './components/products/products.component';
 import { CreateProductInvoiceComponent } from './components/product-invoice/create-product-invoice/create-product-invoice.component';
 import { BalanceComponent } from './components/balance/balance.component';
 import { FiscalInfoComponent } from './components/fiscal-info/fiscal-info.component';
@@ -42,6 +43,7 @@ const routes: Routes = [
   { path: 'fiscalInfo', component: FiscalInfoComponent, canActivate: [AuthGuard] },
   { path: 'roles', component: UserRolesComponent, canActivate: [AuthGuard] },
   { path: 'productsBilling', component: CreateProductInvoiceComponent, canActivate: [AuthGuard] },
+  { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

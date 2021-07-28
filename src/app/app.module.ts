@@ -42,6 +42,8 @@ import { MaterialModule } from './shared/material/material/material.module';
 import { ProductInvoiceComponent } from './components/product-invoice/product-invoice.component';
 import { CreateProductInvoiceComponent } from './components/product-invoice/create-product-invoice/create-product-invoice.component';
 import { DialogComponent } from './shared/components/dialog/dialog.component';
+import { ProductsComponent } from './components/products/products.component';
+import { UpdateCreateProductsComponent } from './components/products/update-create-products/update-create-products.component';
 registerLocaleData(localeHn);
 
 @NgModule({
@@ -73,7 +75,9 @@ registerLocaleData(localeHn);
     CreateupdaterolesComponent,
     ProductInvoiceComponent,
     CreateProductInvoiceComponent,
-    DialogComponent
+    DialogComponent,
+    ProductsComponent,
+    UpdateCreateProductsComponent
   ],
   imports: [
     BrowserModule,
