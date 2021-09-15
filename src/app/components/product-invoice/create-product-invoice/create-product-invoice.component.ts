@@ -9,6 +9,8 @@ import { CustomerService } from './../../../services/customer.service';
 import { Component, OnInit } from '@angular/core';
 import { Customer } from '../../customer/customer.component';
 import { Product } from '../../products/products.component';
+import { ProductsService } from 'src/app/services/products.service';
+import { MatTabBody } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-create-product-invoice',
@@ -22,10 +24,13 @@ export class CreateProductInvoiceComponent implements OnInit {
   // Datasources
   customers = new Array<Customer>();
   productsDataSource = new MatTableDataSource<Product>(new Array<Product>());
-
+  productsToInvioceDataSource = new MatTableDataSource<Product>(
+    new Array<Product>()
+  );
   constructor(
     private customerService: CustomerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private productService: ProductsService
   ) {
     this.customerForm = this.fb.group({
       customerId: new FormControl(undefined, [Validators.required]),
@@ -34,6 +39,7 @@ export class CreateProductInvoiceComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     await this.fetchCustomers();
+    await this.fetchProducts();
   }
 
   async fetchCustomers(): Promise<void> {
@@ -46,5 +52,19 @@ export class CreateProductInvoiceComponent implements OnInit {
     }
 
     return '';
+  }
+
+  async fetchProducts(): Promise<void> {
+    const products = await this.productService.fetchAllProducts();
+
+    this.productsDataSource = new MatTableDataSource(products);
+  }
+
+  handleProductRowClick(product: Product): void {
+    console.log(product);
+
+    this.productsToInvioceDataSource.data.push(product);
+
+    console.log(this.productsToInvioceDataSource);
   }
 }

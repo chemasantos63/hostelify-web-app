@@ -27,20 +27,34 @@
           </mat-card>
         </div>
         <div class="col-sm-4">
-          <mat-card class="mt-2">
+          <mat-card class="mt-2 mat-elevation-z3">
             <mat-card-header>
               <mat-card-title>Productos</mat-card-title>
               <mat-card-subtitle>Seleccione el producto que desea facturar</mat-card-subtitle>
             </mat-card-header>
             <mat-card-content>
-              <table mat-table #table [dataSource]="this.productsDataSource">
-                <ng-container matColumnDef="column">
-                  <th mat-header-cell *matHeaderCellDef> header </th>
-                  <td mat-cell *matCellDef="let row"> {{row.column}} </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="['column']"></tr>
-                <tr mat-row *matRowDef="let row; columns: ['column'];"></tr>
-              </table>
+              <div class="table-responsive">
+                <table mat-table #table [dataSource]="this.productsDataSource" class="table table-hover">
+                  <ng-container matColumnDef="code">
+                    <th mat-header-cell *matHeaderCellDef> Codigo </th>
+                    <td mat-cell *matCellDef="let row"> {{row.code}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="description">
+                    <th mat-header-cell *matHeaderCellDef> Descripcion </th>
+                    <td mat-cell *matCellDef="let row"> {{row.description}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="price">
+                    <th mat-header-cell *matHeaderCellDef> Precio </th>
+                    <td mat-cell *matCellDef="let row"> {{row.price}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="stock">
+                    <th mat-header-cell *matHeaderCellDef> Existencia </th>
+                    <td mat-cell *matCellDef="let row"> {{row.stock}} </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="['code','description','price','stock']"></tr>
+                  <tr mat-row (click)="handleProductRowClick(row)" *matRowDef="let row; columns: ['code','description','price','stock']" ></tr>
+                </table>
+              </div>
             </mat-card-content>
           </mat-card>
         </div>
