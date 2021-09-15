@@ -64,7 +64,7 @@ export class CreateProductInvoiceComponent implements OnInit {
     console.log(product);
 
     this.productsToInvioceDataSource.data.push(product);
-
+    
     console.log(this.productsToInvioceDataSource);
   }
 }
