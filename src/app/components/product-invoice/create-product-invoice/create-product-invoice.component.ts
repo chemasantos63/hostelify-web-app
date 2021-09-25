@@ -63,7 +63,11 @@ export class CreateProductInvoiceComponent implements OnInit {
   handleProductRowClick(product: Product): void {
     console.log(product);
 
-    this.productsToInvioceDataSource.data.push(product);
+    const products = this.productsToInvioceDataSource.data;
+
+    products.push(product);
+
+    this.productsToInvioceDataSource = new MatTableDataSource(products);
     
     console.log(this.productsToInvioceDataSource);
   }
